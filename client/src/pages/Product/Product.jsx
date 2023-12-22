@@ -4,13 +4,12 @@ import Navbar from "../../component/Navbar/Navbar";
 import axios from "axios";
 
 export default function Product() {
+  axios.defaults.withCredentials = true;
   const [data, setData] = useState([]);
 
   useEffect(() => {
     axios
-      .get("https://project-ii-server.vercel.app/api/users", {
-        withCredentials: true,
-      })
+      .get("https://project-ii-server.vercel.app/api/users")
       .then((res) => {
         console.log(res.data);
         setData(res.data);

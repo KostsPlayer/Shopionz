@@ -10,6 +10,7 @@ import {
 import { ToastContainer } from "react-toastify";
 
 export default function Login() {
+  axios.defaults.withCredentials = true;
   const goBack = () => {
     window.history.back();
   };
@@ -57,9 +58,7 @@ export default function Login() {
       .validate(values, { abortEarly: false })
       .then(() => {
         axios
-          .post("https://project-ii-server.vercel.app/api/login", values, {
-            withCredentials: true,
-          })
+          .post("https://project-ii-server.vercel.app/api/login", values)
           .then((res) => {
             console.log(res.data);
             if (res.data.loggedIn === true && res.data.role === 2) {

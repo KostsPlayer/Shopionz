@@ -7,6 +7,7 @@ import {
 import { ToastContainer } from "react-toastify";
 
 export default function InsertProduct({ onOpen, onClose }) {
+  axios.defaults.withCredentials = true;
   if (!onOpen) return null;
   const { toastMessage, message } = allMessage();
 
@@ -14,9 +15,7 @@ export default function InsertProduct({ onOpen, onClose }) {
 
   useEffect(() => {
     axios
-      .get("https://project-ii-server.vercel.app/get-category", {
-        withCredentials: true,
-      })
+      .get("https://project-ii-server.vercel.app/get-category")
       .then((res) => {
         setGetCategory(res.data);
       })
@@ -56,9 +55,7 @@ export default function InsertProduct({ onOpen, onClose }) {
     formData.append("image", values.image[0]);
 
     axios
-      .post("https://project-ii-server.vercel.app/insert-product", formData, {
-        withCredentials: true,
-      })
+      .post("https://project-ii-server.vercel.app/insert-product", formData)
       .then((res) => {
         console.log(res.data);
         toastMessage("success", res.data.message);

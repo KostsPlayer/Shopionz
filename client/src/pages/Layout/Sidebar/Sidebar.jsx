@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
 export default function Sidebar() {
+  axios.defaults.withCredentials = true;
   const [active, setActive] = useState(null);
   const [dataUser, setDataUser] = useState([]);
   const [dataMenu, setDataMenu] = useState([]);
@@ -15,9 +16,7 @@ export default function Sidebar() {
 
   const fetchDataMenu = () => {
     axios
-      .get("https://project-ii-server.vercel.app/api/menu", {
-        withCredentials: true,
-      })
+      .get("https://project-ii-server.vercel.app/api/menu")
       .then((res) => {
         setDataMenu(res.data);
       })
@@ -28,9 +27,7 @@ export default function Sidebar() {
 
   const fetchDataUser = () => {
     axios
-      .get("https://project-ii-server.vercel.app/api/users", {
-        withCredentials: true,
-      })
+      .get("https://project-ii-server.vercel.app/api/users")
       .then((res) => {
         setDataUser({
           name: res.data.name,
@@ -53,9 +50,7 @@ export default function Sidebar() {
 
   const logout = () => {
     axios
-      .post("https://project-ii-server.vercel.app/api/logout", {
-        withCredentials: true,
-      })
+      .post("https://project-ii-server.vercel.app/api/logout")
       .then((res) => {
         redirect("/login");
         localStorage.setItem("logoutMessage", res.data.message);

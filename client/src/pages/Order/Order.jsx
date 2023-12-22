@@ -5,6 +5,7 @@ import Cursor from "../../component/Helper/Cursor";
 import Navbar from "../../component/Navbar/Navbar";
 
 export default function Order() {
+  axios.defaults.withCredentials = true;
   const { id } = useParams();
   const [data, setData] = useState({});
   const [getPayment, setGetPayment] = useState([]);
@@ -22,9 +23,7 @@ export default function Order() {
 
   useEffect(() => {
     axios
-      .get(`https://project-ii-server.vercel.app/api/get-product/${id}`, {
-        withCredentials: true,
-      })
+      .get(`https://project-ii-server.vercel.app/api/get-product/${id}`)
       .then((res) => {
         setData(res.data[0]);
       })
@@ -46,9 +45,7 @@ export default function Order() {
 
   useEffect(() => {
     axios
-      .get("https://project-ii-server.vercel.app/api/get-payment", {
-        withCredentials: true,
-      })
+      .get("https://project-ii-server.vercel.app/api/get-payment")
       .then((res) => {
         setGetPayment(res.data);
       })
@@ -59,9 +56,7 @@ export default function Order() {
 
   useEffect(() => {
     axios
-      .get("https://project-ii-server.vercel.app/api/get-shipping", {
-        withCredentials: true,
-      })
+      .get("https://project-ii-server.vercel.app/api/get-shipping")
       .then((res) => {
         setGetShipping(res.data);
       })
@@ -78,9 +73,7 @@ export default function Order() {
     e.preventDefault();
 
     axios
-      .post("https://project-ii-server.vercel.app/api/insert-order", values, {
-        withCredentials: true,
-      })
+      .post("https://project-ii-server.vercel.app/api/insert-order", values)
       .then((res) => {
         console.log(res.data);
       })

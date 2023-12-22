@@ -3,14 +3,13 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function Topbar() {
+  axios.defaults.withCredentials = true;
   const [dataUser, setDataUser] = useState([]);
   const redirect = useNavigate();
 
   useEffect(() => {
     axios
-      .get("https://project-ii-server.vercel.app/api/users", {
-        withCredentials: true,
-      })
+      .get("https://project-ii-server.vercel.app/api/users")
       .then((res) => {
         setDataUser({ image: res.data.image });
       })

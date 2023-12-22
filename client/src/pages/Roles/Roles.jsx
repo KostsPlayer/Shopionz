@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import axios from "axios";
 
 export default function Roles() {
+  axios.defaults.withCredentials = true;
   const { toastMessage, message } = allMessage();
   const location = useLocation();
   const redirect = useNavigate();
@@ -23,14 +24,10 @@ export default function Roles() {
 
   const handleRoleSelection = (role) => {
     axios
-      .post(
-        "https://project-ii-server.vercel.app/api/assign-role",
-        {
-          userId: userIdFromRegistration,
-          role: role,
-        },
-        { withCredentials: true }
-      )
+      .post("https://project-ii-server.vercel.app/api/assign-role", {
+        userId: userIdFromRegistration,
+        role: role,
+      })
       .then((res) => {
         console.log(res.data);
         localStorage.setItem("roleMessagge", `Welcome to become a ${role}`);
