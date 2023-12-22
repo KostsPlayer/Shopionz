@@ -53,13 +53,6 @@ app.post("/api/logout", (req, res) => {
   res.json({ message: "Logged out successfully!" });
 });
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://shopionz.vercel.app"); 
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization"); 
-  next();
-});
-
 const port = process.env.REACT_APP_PORT || 5001;
 app.listen(port, () => {
   console.log(`running server on port ${port}`);
