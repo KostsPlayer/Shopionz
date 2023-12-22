@@ -53,7 +53,7 @@ app.post("/api/logout", (req, res) => {
   res.json({ message: "Logged out successfully!" });
 });
 
-app.use((req, res, next) => {
+app.use((req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT");
   res.header(
@@ -61,7 +61,6 @@ app.use((req, res, next) => {
     "Content-Type, Authorization, Origin"
   );
   res.header("Access-Control-Allow-Credentials", true);
-  next();
 });
 
 const port = process.env.REACT_APP_PORT || 5001;
