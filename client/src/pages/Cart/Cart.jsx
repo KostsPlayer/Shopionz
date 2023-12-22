@@ -155,7 +155,7 @@ export default function Cart() {
 
               <div className="cart-item-image">
                 <img
-                  src={`/src/assets/product/${data.product.images}`}
+                  src={`/client/src/assets/product/${data.product.images}`}
                   alt={data.product.name}
                 />
               </div>

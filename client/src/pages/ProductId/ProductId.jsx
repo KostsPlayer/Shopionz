@@ -98,7 +98,7 @@ export default function ProductId() {
       <div className="product-id">
         <div className="product-id-image">
           <img
-            src={`/src/assets/product/${data.images}`}
+            src={`/client/src/assets/product/${data.images}`}
             alt={data.name}
             width={200}
             height={200}

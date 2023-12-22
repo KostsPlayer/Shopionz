@@ -24,7 +24,7 @@ export function LayoutImageCatalog() {
   };
 
   const memoizedImages = useMemo(() => {
-    return product.map(({ images }) => `/src/assets/product/${images}`);
+    return product.map(({ images }) => `/client/src/assets/product/${images}`);
   }, [product]);
 
   return product.map(({ id, name, date_available, description }, index) => (

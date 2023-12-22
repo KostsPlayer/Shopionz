@@ -89,7 +89,7 @@ export default function Sidebar() {
         <div className="image">
           <img
             className="image-user"
-            src={`/src/assets/image/${dataUser.image}`}
+            src={`/client/src/assets/image/${dataUser.image}`}
             alt="profile"
           />
         </div>

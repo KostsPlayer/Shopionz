@@ -115,7 +115,7 @@ export default function Navbar() {
             {isValid ? (
               <img
                 className="home-user-image"
-                src={`/src/assets/image/${getData.image}`}
+                src={`/client/src/assets/image/${getData.image}`}
               />
             ) : (
               <span className="material-symbols-outlined">person</span>

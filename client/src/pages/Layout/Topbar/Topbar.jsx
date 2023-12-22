@@ -45,7 +45,7 @@ export default function Topbar() {
         <div className="image">
           <img
             className="image-user"
-            src={`/src/assets/image/${dataUser.image}`}
+            src={`/client/src/assets/image/${dataUser.image}`}
             alt="profile"
           />
         </div>

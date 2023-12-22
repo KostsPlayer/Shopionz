@@ -103,7 +103,7 @@ export default function Store() {
               <div className="gallery-card" key={index}>
                 <img
                   className="gallery-images"
-                  src={`/src/assets/product/${images}`}
+                  src={`/client/src/assets/product/${images}`}
                 />
                 <div className="gallery-details">
                   <p>{name}</p>
