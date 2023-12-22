@@ -8,9 +8,10 @@ const configureMiddleware = (app) => {
   app.use(express.json());
   app.use(
     cors({
-      origin: ["https://shopionz.vercel.app"],
+      origin: "https://shopionz.vercel.app",
       methods: ["GET", "POST", "PUT"],
       credentials: true,
+      optionsSuccessStatus: 200,
     })
   );
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,13 +28,6 @@ const configureMiddleware = (app) => {
       },
     })
   );
-  app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "https://shopionz.vercel.app");
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    res.header("Access-Control-Allow-Credentials", true);
-    next();
-  });
 };
 
 export default configureMiddleware;
