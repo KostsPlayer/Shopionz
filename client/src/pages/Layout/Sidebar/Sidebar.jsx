@@ -15,7 +15,7 @@ export default function Sidebar() {
 
   const fetchDataMenu = () => {
     axios
-      .get("http://localhost:5001/api/menu")
+      .get("https://project-ii-server.vercel.app/api/menu")
       .then((res) => {
         setDataMenu(res.data);
       })
@@ -26,7 +26,7 @@ export default function Sidebar() {
 
   const fetchDataUser = () => {
     axios
-      .get("http://localhost:5001/api/users")
+      .get("https://project-ii-server.vercel.app/api/users")
       .then((res) => {
         setDataUser({
           name: res.data.name,
@@ -49,7 +49,7 @@ export default function Sidebar() {
 
   const logout = () => {
     axios
-      .post("http://localhost:5001/api/logout")
+      .post("https://project-ii-server.vercel.app/api/logout")
       .then((res) => {
         redirect("/login");
         localStorage.setItem("logoutMessage", res.data.message);

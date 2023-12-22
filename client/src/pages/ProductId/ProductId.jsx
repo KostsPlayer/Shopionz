@@ -16,7 +16,7 @@ export default function ProductId() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5001/api/get-product/${id}`)
+      .get(`https://project-ii-server.vercel.app/api/get-product/${id}`)
       .then((res) => {
         setData(res.data[0]);
         // console.log(res.data[0]);
@@ -52,7 +52,7 @@ export default function ProductId() {
     }
 
     axios
-      .get("http://localhost:5001/api/session")
+      .get("https://project-ii-server.vercel.app/api/session")
       .then((res) => {
         if (res.data.isValid === true) {
           setIsValid(true);
@@ -65,7 +65,7 @@ export default function ProductId() {
           };
 
           axios
-            .post("http://localhost:5001/api/insert-cart", valuesCart)
+            .post("https://project-ii-server.vercel.app/api/insert-cart", valuesCart)
             .then((res) => {
               console.log(res.data);
             })

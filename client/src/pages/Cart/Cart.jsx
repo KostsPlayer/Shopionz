@@ -15,7 +15,7 @@ export default function Cart() {
 
   const fetchData = () => {
     axios
-      .get("http://localhost:5001/api/cart")
+      .get("https://project-ii-server.vercel.app/api/cart")
       .then((res) => {
         const initialCheckedItems = res.data.reduce((acc, item) => {
           acc[item.id] = item.status === 1;
@@ -45,7 +45,7 @@ export default function Cart() {
 
   const updateCartAmount = (id, newAmount) => {
     axios
-      .put(`http://localhost:5001/api/update-cart-amount/${id}`, {
+      .put(`https://project-ii-server.vercel.app/api/update-cart-amount/${id}`, {
         amount: newAmount,
       })
       .then((res) => {
@@ -87,12 +87,12 @@ export default function Cart() {
     setCheckedItem(newCheckedItems);
 
     axios
-      .put(`http://localhost:5001/api/update-cart-status/${id}`, {
+      .put(`https://project-ii-server.vercel.app/api/update-cart-status/${id}`, {
         status: newCheckedItems[id] ? 1 : 0,
       })
       .then((res) => {
         axios
-          .get("http://localhost:5001/api/cart")
+          .get("https://project-ii-server.vercel.app/api/cart")
           .then((res) => {
             setGetData(res.data);
             calculateTotalPrice(res.data);
@@ -108,12 +108,12 @@ export default function Cart() {
 
   const handleDelete = (id) => {
     axios
-      .put(`http://localhost:5001/api/delete-cart/${id}`)
+      .put(`https://project-ii-server.vercel.app/api/delete-cart/${id}`)
       .then((res) => {
         toastMessage("success", res.data.message);
 
         axios
-          .get("http://localhost:5001/api/cart")
+          .get("https://project-ii-server.vercel.app/api/cart")
           .then((res) => {
             setGetData(res.data);
           })
