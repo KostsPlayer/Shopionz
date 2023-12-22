@@ -18,7 +18,7 @@ export default function Menu() {
 
   const handleMenu = (menuId) => {
     axios
-      .get(`/api/get-menu/${menuId}`)
+      .get(`https://project-ii-server.vercel.app/get-menu/${menuId}`)
       .then((res) => {
         setGetId(res.data[0].id);
       })
@@ -29,7 +29,7 @@ export default function Menu() {
 
   const handleDelete = (id) => {
     axios
-      .put(`/api/delete-menu/${id}`)
+      .put(`https://project-ii-server.vercel.app/delete-menu/${id}`)
       .then((res) => {
         toastMessage("success", res.data.message);
       })
@@ -40,7 +40,7 @@ export default function Menu() {
 
   const fecthDataMenu = () => {
     axios
-      .get("/api/menu")
+      .get("https://project-ii-server.vercel.app/menu")
       .then((res) => {
         setDataMenu(res.data);
       })

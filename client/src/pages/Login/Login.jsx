@@ -58,7 +58,7 @@ export default function Login() {
       .validate(values, { abortEarly: false })
       .then(() => {
         axios
-          .post("/api/login", values)
+          .post("https://project-ii-server.vercel.app/login", values)
           .then((res) => {
             console.log(res.data);
             if (res.data.loggedIn === true && res.data.role === 2) {

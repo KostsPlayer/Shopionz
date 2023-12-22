@@ -23,7 +23,7 @@ export default function Order() {
 
   useEffect(() => {
     axios
-      .get(`/api/get-product/${id}`)
+      .get(`https://project-ii-server.vercel.app/get-product/${id}`)
       .then((res) => {
         setData(res.data[0]);
       })
@@ -45,7 +45,7 @@ export default function Order() {
 
   useEffect(() => {
     axios
-      .get("/api/get-payment")
+      .get("https://project-ii-server.vercel.app/get-payment")
       .then((res) => {
         setGetPayment(res.data);
       })
@@ -56,7 +56,7 @@ export default function Order() {
 
   useEffect(() => {
     axios
-      .get("/api/get-shipping")
+      .get("https://project-ii-server.vercel.app/get-shipping")
       .then((res) => {
         setGetShipping(res.data);
       })
@@ -73,7 +73,7 @@ export default function Order() {
     e.preventDefault();
 
     axios
-      .post("/api/insert-order", values)
+      .post("https://project-ii-server.vercel.app/insert-order", values)
       .then((res) => {
         console.log(res.data);
       })

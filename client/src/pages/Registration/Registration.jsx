@@ -37,7 +37,7 @@ export default function Registration() {
       .validate(values, { abortEarly: false })
       .then(() => {
         axios
-          .post("/api/registration", values)
+          .post("https://project-ii-server.vercel.app/registration", values)
           .then((res) => {
             localStorage.setItem(
               "registrationMessage",

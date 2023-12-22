@@ -9,7 +9,7 @@ export default function Topbar() {
 
   useEffect(() => {
     axios
-      .get("/api/users")
+      .get("https://project-ii-server.vercel.app/users")
       .then((res) => {
         setDataUser({ image: res.data.image });
       })

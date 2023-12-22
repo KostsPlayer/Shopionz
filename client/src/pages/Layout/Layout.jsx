@@ -13,7 +13,7 @@ export default function Layout({ children }) {
 
   useEffect(() => {
     axios
-      .get("/api/session")
+      .get("https://project-ii-server.vercel.app/session")
       .then((res) => {
         if (res.data.isValid === true) {
           setIsValid(true);

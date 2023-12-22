@@ -15,7 +15,7 @@ export default function InsertProduct({ onOpen, onClose }) {
 
   useEffect(() => {
     axios
-      .get("/api/get-category")
+      .get("https://project-ii-server.vercel.app/get-category")
       .then((res) => {
         setGetCategory(res.data);
       })
@@ -55,7 +55,7 @@ export default function InsertProduct({ onOpen, onClose }) {
     formData.append("image", values.image[0]);
 
     axios
-      .post("/api/insert-product", formData)
+      .post("https://project-ii-server.vercel.app/insert-product", formData)
       .then((res) => {
         console.log(res.data);
         toastMessage("success", res.data.message);
