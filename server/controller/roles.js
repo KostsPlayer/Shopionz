@@ -6,7 +6,7 @@ const app = express();
 configureMiddleware(app);
 const router = express.Router();
 
-router.post("/api/assign-role", async (req, res) => {
+router.post("/assign-role", async (req, res) => {
   try {
     const { userId, role } = req.body;
 

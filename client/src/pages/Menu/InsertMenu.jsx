@@ -33,7 +33,7 @@ export default function InsertMenu({ onOpen, onClose, title }) {
       .validate(values, { abortEarly: false })
       .then(() => {
         axios
-          .post("https://project-ii-server.vercel.app/api/insert-menu", values)
+          .post("/api/insert-menu", values)
           .then((res) => {
             toastMessage("success", res.data.message);
             console.log(res.data);

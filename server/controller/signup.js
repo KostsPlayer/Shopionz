@@ -7,7 +7,7 @@ const app = express();
 configureMiddleware(app);
 const router = express.Router();
 
-router.post("/api/registration", async (req, res) => {
+router.post("/registration", async (req, res) => {
   try {
     const { username, email, password } = req.body;
 

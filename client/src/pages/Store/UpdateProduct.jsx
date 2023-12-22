@@ -36,7 +36,7 @@ export default function UpdateProduct({ onOpen, onClose, productId }) {
     formData.append("image", getProduct.image);
 
     axios
-      .put(`https://project-ii-server.vercel.app/api/update-product/${productId}`, formData)
+      .put(`/api/update-product/${productId}`, formData)
       .then((res) => {
         location.reload();
         toastMessage("success", res.data.message);
@@ -48,7 +48,7 @@ export default function UpdateProduct({ onOpen, onClose, productId }) {
 
   useEffect(() => {
     axios
-      .get("https://project-ii-server.vercel.app/api/get-category")
+      .get("/api/get-category")
       .then((res) => {
         setGetCategory(res.data);
       })
@@ -59,7 +59,7 @@ export default function UpdateProduct({ onOpen, onClose, productId }) {
 
   useEffect(() => {
     axios
-      .get(`https://project-ii-server.vercel.app/api/get-product/${productId}`)
+      .get(`/api/get-product/${productId}`)
       .then((res) => {
         setGetProduct(res.data[0]);
       })

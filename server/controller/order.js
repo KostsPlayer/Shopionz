@@ -6,7 +6,7 @@ const app = express();
 configureMiddleware(app);
 const router = express.Router();
 
-router.get("/api/get-payment", async (req, res) => {
+router.get("/get-payment", async (req, res) => {
   try {
     const { data, error } = await supabase.from("payment_method").select("*");
 
@@ -20,7 +20,7 @@ router.get("/api/get-payment", async (req, res) => {
   }
 });
 
-router.get("/api/get-shipping", async (req, res) => {
+router.get("/get-shipping", async (req, res) => {
   try {
     const { data, error } = await supabase.from("shipping_method").select("*");
 
@@ -34,7 +34,7 @@ router.get("/api/get-shipping", async (req, res) => {
   }
 });
 
-router.post("/api/insert-order", async (req, res) => {
+router.post("/insert-order", async (req, res) => {
   try {
     const {
       shippingMethod,

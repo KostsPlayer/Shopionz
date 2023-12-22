@@ -15,7 +15,7 @@ export default function UpdateMenu({ onOpen, onClose, menuId, title }) {
 
   useEffect(() => {
     axios
-      .get(`https://project-ii-server.vercel.app/api/get-menu/${menuId}`)
+      .get(`/api/get-menu/${menuId}`)
       .then((res) => {
         setGetMenu(res.data[0]);
       })
@@ -38,7 +38,7 @@ export default function UpdateMenu({ onOpen, onClose, menuId, title }) {
       .validate(getMenu, { abortEarly: false })
       .then(() => {
         axios
-          .put(`https://project-ii-server.vercel.app/api/update-menu/${menuId}`, getMenu)
+          .put(`/api/update-menu/${menuId}`, getMenu)
           .then((res) => {
             toastMessage("success", res.data.message);
           })

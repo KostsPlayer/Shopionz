@@ -17,7 +17,7 @@ export default function Store() {
 
   const handleProduct = async (productId) => {
     await axios
-      .get(`https://project-ii-server.vercel.app/api/get-product/${productId}`)
+      .get(`/api/get-product/${productId}`)
       .then((res) => {
         setGetId(res.data[0].id);
       })
@@ -28,7 +28,7 @@ export default function Store() {
 
   const handleDelete = async (id) => {
     await axios
-      .put(`https://project-ii-server.vercel.app/api/delete-product/${id}`)
+      .put(`/api/delete-product/${id}`)
       .then((res) => {
         toastMessage("success", res.data.message);
       })
@@ -39,7 +39,7 @@ export default function Store() {
 
   const fecthDataProductSeller = () => {
     axios
-      .get("https://project-ii-server.vercel.app/api/product-seller")
+      .get("/api/product-seller")
       .then((res) => {
         setDataProduct(res.data);
       })

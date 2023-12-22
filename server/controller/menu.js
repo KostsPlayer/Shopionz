@@ -6,7 +6,7 @@ const app = express();
 configureMiddleware(app);
 const router = express.Router();
 
-router.get("/api/menu", async (req, res) => {
+router.get("/menu", async (req, res) => {
   try {
     const { data, error } = await supabase.from("menu").select("*");
 
@@ -20,7 +20,7 @@ router.get("/api/menu", async (req, res) => {
   }
 });
 
-router.get("/api/get-menu/:id", async (req, res) => {
+router.get("/get-menu/:id", async (req, res) => {
   try {
     const menuId = req.params.id;
 
@@ -39,7 +39,7 @@ router.get("/api/get-menu/:id", async (req, res) => {
   }
 });
 
-router.put("/api/update-menu/:id", async (req, res) => {
+router.put("/update-menu/:id", async (req, res) => {
   try {
     const menuId = req.params.id;
     const { name, icon, url, is_active } = req.body;
@@ -60,7 +60,7 @@ router.put("/api/update-menu/:id", async (req, res) => {
   }
 });
 
-router.post("/api/insert-menu", async (req, res) => {
+router.post("/insert-menu", async (req, res) => {
   try {
     const { name, icon, url, is_active } = req.body;
 
@@ -79,7 +79,7 @@ router.post("/api/insert-menu", async (req, res) => {
   }
 });
 
-router.put("/api/delete-menu/:id", async (req, res) => {
+router.put("/delete-menu/:id", async (req, res) => {
   try {
     const menuId = req.params.id;
 

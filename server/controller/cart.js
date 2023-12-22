@@ -6,7 +6,7 @@ const app = express();
 configureMiddleware(app);
 const router = express.Router();
 
-router.get("/api/count-cart", async (req, res) => {
+router.get("/count-cart", async (req, res) => {
   try {
     const email = req.session.user[0].email;
 
@@ -25,7 +25,7 @@ router.get("/api/count-cart", async (req, res) => {
   }
 });
 
-router.get("/api/cart", async (req, res) => {
+router.get("/cart", async (req, res) => {
   try {
     const email = req.session.user[0].email;
 
@@ -44,7 +44,7 @@ router.get("/api/cart", async (req, res) => {
   }
 });
 
-router.post("/api/insert-cart", async (req, res) => {
+router.post("/insert-cart", async (req, res) => {
   try {
     const { product_id, amount } = req.body;
     const email = req.session.user[0].email;
@@ -72,7 +72,7 @@ router.post("/api/insert-cart", async (req, res) => {
   }
 });
 
-router.put("/api/update-cart-amount/:id", async (req, res) => {
+router.put("/update-cart-amount/:id", async (req, res) => {
   try {
     const { amount } = req.body;
     const cartId = req.params.id;
@@ -95,7 +95,7 @@ router.put("/api/update-cart-amount/:id", async (req, res) => {
   }
 });
 
-router.put("/api/update-cart-status/:id", async (req, res) => {
+router.put("/update-cart-status/:id", async (req, res) => {
   try {
     const { status } = req.body;
     const cartId = req.params.id;
@@ -118,7 +118,7 @@ router.put("/api/update-cart-status/:id", async (req, res) => {
   }
 });
 
-router.put("/api/delete-cart/:id", async (req, res) => {
+router.put("/delete-cart/:id", async (req, res) => {
   try {
     const cartId = req.params.id;
 

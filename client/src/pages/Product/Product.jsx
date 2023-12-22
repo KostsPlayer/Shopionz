@@ -9,7 +9,7 @@ export default function Product() {
 
   useEffect(() => {
     axios
-      .get("https://project-ii-server.vercel.app/api/users")
+      .get("/api/users")
       .then((res) => {
         console.log(res.data);
         setData(res.data);
@@ -55,7 +55,7 @@ export default function Product() {
   );
 }
 
-// fetch("https://project-ii-server.vercel.app/api/users")
+// fetch("/api/users")
 //   .then((res) => res.json())
 //   .then((data) => setData(data))
 //   .catch((err) => console.log(err));

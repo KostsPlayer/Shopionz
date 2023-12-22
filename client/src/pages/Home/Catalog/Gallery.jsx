@@ -8,7 +8,7 @@ export function LayoutImageCatalog() {
 
   useEffect(() => {
     axios
-      .get("https://project-ii-server.vercel.app/api/product")
+      .get("/api/product")
       .then((res) => {
         setProduct(res.data);
       })
