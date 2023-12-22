@@ -9,7 +9,7 @@ const configureMiddleware = (app) => {
   app.use(
     cors({
       origin: "https://shopionz.vercel.app",
-      methods: ["GET", "POST", "PUT"],
+      methods: ["GET", "POST", "PUT", "OPTIONS"],
       credentials: true,
     })
   );
