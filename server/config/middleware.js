@@ -8,8 +8,7 @@ const configureMiddleware = (app) => {
   app.use(
     express.json(),
     cors({
-      origin: ["https://project-ii-one.vercel.app"],
-      methods: ["GET", "POST", "PUT"],
+      origin: "https://project-ii-one.vercel.app",
       credentials: true,
     }),
     bodyParser.urlencoded({ extended: true }),
