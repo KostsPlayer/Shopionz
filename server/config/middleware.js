@@ -5,13 +5,15 @@ import cookieParser from "cookie-parser";
 import session from "express-session";
 
 const configureMiddleware = (app) => {
+  const optionCors = {
+    origin: ["https://shopionz.vercel.app"],
+    methods: ["GET", "POST", "PUT"],
+    credentials: true,
+  };
+
   app.use(
     express.json(),
-    cors({
-      origin: ["https://shopionz.vercel.app"],
-      methods: ["GET", "POST", "PUT"],
-      credentials: true,
-    }),
+    cors(optionCors),
     bodyParser.urlencoded({ extended: true }),
     cookieParser(),
     session({
