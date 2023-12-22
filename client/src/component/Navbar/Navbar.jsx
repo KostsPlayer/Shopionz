@@ -13,7 +13,7 @@ export default function Navbar() {
   const [getCount, setGetCount] = useState(0);
   useEffect(() => {
     axios
-      .get("http://localhost:5001/api/cart")
+      .get("https://project-ii-server.vercel.app/api/cart")
       .then((res) => {
         const totalAmount = res.data.reduce((acc, item) => {
           const amount = item.amount;
@@ -29,7 +29,7 @@ export default function Navbar() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5001/api/session")
+      .get("https://project-ii-server.vercel.app/api/session")
       .then((res) => {
         if (res.data.isValid === true) {
           setIsValid(true);
