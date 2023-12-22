@@ -14,9 +14,13 @@ export default function Cart() {
 
   const fetchData = () => {
     axios
-      .get("https://project-ii-server.vercel.app/api/cart", {
-        withCredentials: true,
-      })
+      .get(
+        "https://project-ii-server.vercel.app/api/cart",
+        {
+          withCredentials: true,
+        },
+        { origin: "https://shopionz.vercel.app" }
+      )
       .then((res) => {
         const initialCheckedItems = res.data.reduce((acc, item) => {
           acc[item.id] = item.status === 1;
