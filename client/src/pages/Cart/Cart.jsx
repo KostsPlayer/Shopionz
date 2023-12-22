@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import Navbar from "../../component/Navbar/Navbar";
 
 export default function Cart() {
-  axios.defaults.withCredentials = true;
   const [getData, setGetData] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [checkedItem, setCheckedItem] = useState({});
@@ -15,7 +14,9 @@ export default function Cart() {
 
   const fetchData = () => {
     axios
-      .get("https://project-ii-server.vercel.app/api/cart")
+      .get("https://project-ii-server.vercel.app/api/cart", {
+        withCredentials: true,
+      })
       .then((res) => {
         const initialCheckedItems = res.data.reduce((acc, item) => {
           acc[item.id] = item.status === 1;
@@ -45,9 +46,13 @@ export default function Cart() {
 
   const updateCartAmount = (id, newAmount) => {
     axios
-      .put(`https://project-ii-server.vercel.app/api/update-cart-amount/${id}`, {
-        amount: newAmount,
-      })
+      .put(
+        `https://project-ii-server.vercel.app/api/update-cart-amount/${id}`,
+        {
+          amount: newAmount,
+        },
+        { withCredentials: true }
+      )
       .then((res) => {
         const updatedData = getData.map((item) => {
           if (item.id === id) {
@@ -87,12 +92,18 @@ export default function Cart() {
     setCheckedItem(newCheckedItems);
 
     axios
-      .put(`https://project-ii-server.vercel.app/api/update-cart-status/${id}`, {
-        status: newCheckedItems[id] ? 1 : 0,
-      })
+      .put(
+        `https://project-ii-server.vercel.app/api/update-cart-status/${id}`,
+        {
+          status: newCheckedItems[id] ? 1 : 0,
+        },
+        { withCredentials: true }
+      )
       .then((res) => {
         axios
-          .get("https://project-ii-server.vercel.app/api/cart")
+          .get("https://project-ii-server.vercel.app/api/cart", {
+            withCredentials: true,
+          })
           .then((res) => {
             setGetData(res.data);
             calculateTotalPrice(res.data);
@@ -108,12 +119,16 @@ export default function Cart() {
 
   const handleDelete = (id) => {
     axios
-      .put(`https://project-ii-server.vercel.app/api/delete-cart/${id}`)
+      .put(`https://project-ii-server.vercel.app/api/delete-cart/${id}`, {
+        withCredentials: true,
+      })
       .then((res) => {
         toastMessage("success", res.data.message);
 
         axios
-          .get("https://project-ii-server.vercel.app/api/cart")
+          .get("https://project-ii-server.vercel.app/api/cart", {
+            withCredentials: true,
+          })
           .then((res) => {
             setGetData(res.data);
           })

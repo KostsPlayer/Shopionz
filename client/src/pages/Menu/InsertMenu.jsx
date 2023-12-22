@@ -7,7 +7,6 @@ import {
 import { ToastContainer } from "react-toastify";
 
 export default function InsertMenu({ onOpen, onClose, title }) {
-  axios.defaults.withCredentials = true;
   if (!onOpen) return null;
   const { toastMessage, message } = allMessage();
   const [isActice, setIsActive] = useState(false);
@@ -33,7 +32,11 @@ export default function InsertMenu({ onOpen, onClose, title }) {
       .validate(values, { abortEarly: false })
       .then(() => {
         axios
-          .post("https://project-ii-server.vercel.app/api/insert-menu", values)
+          .post(
+            "https://project-ii-server.vercel.app/api/insert-menu",
+            values,
+            { withCredentials: true }
+          )
           .then((res) => {
             toastMessage("success", res.data.message);
             console.log(res.data);

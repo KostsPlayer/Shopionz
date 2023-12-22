@@ -3,12 +3,11 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 export function LayoutImageCatalog() {
-  axios.defaults.withCredentials = true;
   const [product, setProduct] = useState([]);
 
   useEffect(() => {
     axios
-      .get("https://project-ii-server.vercel.app/api/product")
+      .get("https://project-ii-server.vercel.app/api/product", {withCredentials: true})
       .then((res) => {
         setProduct(res.data);
       })

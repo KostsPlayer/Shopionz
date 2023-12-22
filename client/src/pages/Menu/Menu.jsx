@@ -7,7 +7,6 @@ import { allMessage } from "../../component/Helper/LogicServer";
 import { ToastContainer } from "react-toastify";
 
 export default function Menu() {
-  axios.defaults.withCredentials = true;
   const [openInsertModal, setOpenInsertModal] = useState(false);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [dataMenu, setDataMenu] = useState([]);
@@ -18,7 +17,9 @@ export default function Menu() {
 
   const handleMenu = (menuId) => {
     axios
-      .get(`https://project-ii-server.vercel.app/api/get-menu/${menuId}`)
+      .get(`https://project-ii-server.vercel.app/api/get-menu/${menuId}`, {
+        withCredentials: true,
+      })
       .then((res) => {
         setGetId(res.data[0].id);
       })
@@ -29,7 +30,9 @@ export default function Menu() {
 
   const handleDelete = (id) => {
     axios
-      .put(`https://project-ii-server.vercel.app/api/delete-menu/${id}`)
+      .put(`https://project-ii-server.vercel.app/api/delete-menu/${id}`, {
+        withCredentials: true,
+      })
       .then((res) => {
         toastMessage("success", res.data.message);
       })
@@ -40,7 +43,9 @@ export default function Menu() {
 
   const fecthDataMenu = () => {
     axios
-      .get("https://project-ii-server.vercel.app/api/menu")
+      .get("https://project-ii-server.vercel.app/api/menu", {
+        withCredentials: true,
+      })
       .then((res) => {
         setDataMenu(res.data);
       })

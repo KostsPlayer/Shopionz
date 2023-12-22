@@ -7,7 +7,6 @@ import {
 import { ToastContainer } from "react-toastify";
 
 export default function UpdateMenu({ onOpen, onClose, menuId, title }) {
-  axios.defaults.withCredentials = true;
   if (!onOpen) return null;
   const { toastMessage, message } = allMessage();
   const [isActice, setIsActive] = useState(false);
@@ -15,7 +14,9 @@ export default function UpdateMenu({ onOpen, onClose, menuId, title }) {
 
   useEffect(() => {
     axios
-      .get(`https://project-ii-server.vercel.app/api/get-menu/${menuId}`)
+      .get(`https://project-ii-server.vercel.app/api/get-menu/${menuId}`, {
+        withCredentials: true,
+      })
       .then((res) => {
         setGetMenu(res.data[0]);
       })
@@ -38,7 +39,11 @@ export default function UpdateMenu({ onOpen, onClose, menuId, title }) {
       .validate(getMenu, { abortEarly: false })
       .then(() => {
         axios
-          .put(`https://project-ii-server.vercel.app/api/update-menu/${menuId}`, getMenu)
+          .put(
+            `https://project-ii-server.vercel.app/api/update-menu/${menuId}`,
+            getMenu,
+            { withCredentials: true }
+          )
           .then((res) => {
             toastMessage("success", res.data.message);
           })

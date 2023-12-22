@@ -7,7 +7,6 @@ import {
 import { ToastContainer } from "react-toastify";
 
 export default function UpdateProduct({ onOpen, onClose, productId }) {
-  axios.defaults.withCredentials = true;
   if (!onOpen) return null;
 
   const { toastMessage, message } = allMessage();
@@ -38,7 +37,8 @@ export default function UpdateProduct({ onOpen, onClose, productId }) {
     axios
       .put(
         `https://project-ii-server.vercel.app/api/update-product/${productId}`,
-        formData
+        formData,
+        { withCredentials: true }
       )
       .then((res) => {
         location.reload();
@@ -51,7 +51,9 @@ export default function UpdateProduct({ onOpen, onClose, productId }) {
 
   useEffect(() => {
     axios
-      .get("https://project-ii-server.vercel.app/api/get-category")
+      .get("https://project-ii-server.vercel.app/api/get-category", {
+        withCredentials: true,
+      })
       .then((res) => {
         setGetCategory(res.data);
       })
@@ -62,7 +64,10 @@ export default function UpdateProduct({ onOpen, onClose, productId }) {
 
   useEffect(() => {
     axios
-      .get(`https://project-ii-server.vercel.app/api/get-product/${productId}`)
+      .get(
+        `https://project-ii-server.vercel.app/api/get-product/${productId}`,
+        { withCredentials: true }
+      )
       .then((res) => {
         setGetProduct(res.data[0]);
       })

@@ -6,14 +6,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function Layout({ children }) {
-  axios.defaults.withCredentials = true;
   const redirect = useNavigate();
   const [isValid, setIsValid] = useState(true);
 
-
   useEffect(() => {
     axios
-      .get("https://project-ii-server.vercel.app/api/session")
+      .get("https://project-ii-server.vercel.app/api/session", {
+        withCredentials: true,
+      })
       .then((res) => {
         if (res.data.isValid === true) {
           setIsValid(true);

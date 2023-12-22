@@ -11,7 +11,6 @@ const configureMiddleware = (app) => {
       origin: ["https://shopionz.vercel.app"],
       methods: ["GET", "POST", "PUT"],
       credentials: true,
-      preflightContinue: false,
     }),
     bodyParser.urlencoded({ extended: true }),
     cookieParser(),

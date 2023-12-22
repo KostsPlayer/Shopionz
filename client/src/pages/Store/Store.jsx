@@ -8,7 +8,6 @@ import { allMessage } from "../../component/Helper/LogicServer";
 import { ToastContainer } from "react-toastify";
 
 export default function Store() {
-  axios.defaults.withCredentials = true;
   const [openInsertModal, setOpenInsertModal] = useState(false);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [dataProduct, setDataProduct] = useState([]);
@@ -17,7 +16,10 @@ export default function Store() {
 
   const handleProduct = async (productId) => {
     await axios
-      .get(`https://project-ii-server.vercel.app/api/get-product/${productId}`)
+      .get(
+        `https://project-ii-server.vercel.app/api/get-product/${productId}`,
+        { withCredentials: true }
+      )
       .then((res) => {
         setGetId(res.data[0].id);
       })
@@ -28,7 +30,9 @@ export default function Store() {
 
   const handleDelete = async (id) => {
     await axios
-      .put(`https://project-ii-server.vercel.app/api/delete-product/${id}`)
+      .put(`https://project-ii-server.vercel.app/api/delete-product/${id}`, {
+        withCredentials: true,
+      })
       .then((res) => {
         toastMessage("success", res.data.message);
       })
@@ -39,7 +43,9 @@ export default function Store() {
 
   const fecthDataProductSeller = () => {
     axios
-      .get("https://project-ii-server.vercel.app/api/product-seller")
+      .get("https://project-ii-server.vercel.app/api/product-seller", {
+        withCredentials: true,
+      })
       .then((res) => {
         setDataProduct(res.data);
       })

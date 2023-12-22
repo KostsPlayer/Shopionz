@@ -6,7 +6,6 @@ import Cursor from "../../component/Helper/Cursor";
 import Navbar from "../../component/Navbar/Navbar";
 
 export default function ProductId() {
-  axios.defaults.withCredentials = true;
   const { id } = useParams();
   const [data, setData] = useState({});
   const [isValid, setIsValid] = useState(true);
@@ -16,7 +15,9 @@ export default function ProductId() {
 
   useEffect(() => {
     axios
-      .get(`https://project-ii-server.vercel.app/api/get-product/${id}`)
+      .get(`https://project-ii-server.vercel.app/api/get-product/${id}`, {
+        withCredentials: true,
+      })
       .then((res) => {
         setData(res.data[0]);
         // console.log(res.data[0]);
@@ -52,7 +53,9 @@ export default function ProductId() {
     }
 
     axios
-      .get("https://project-ii-server.vercel.app/api/session")
+      .get("https://project-ii-server.vercel.app/api/session", {
+        withCredentials: true,
+      })
       .then((res) => {
         if (res.data.isValid === true) {
           setIsValid(true);
@@ -65,7 +68,11 @@ export default function ProductId() {
           };
 
           axios
-            .post("https://project-ii-server.vercel.app/api/insert-cart", valuesCart)
+            .post(
+              "https://project-ii-server.vercel.app/api/insert-cart",
+              valuesCart,
+              { withCredentials: true }
+            )
             .then((res) => {
               console.log(res.data);
             })
