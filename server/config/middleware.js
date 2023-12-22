@@ -6,14 +6,7 @@ import session from "express-session";
 
 const configureMiddleware = (app) => {
   app.use(express.json());
-  app.use(
-    cors({
-      origin: "https://shopionz.vercel.app",
-      methods: ["GET", "POST", "PUT"],
-      credentials: true,
-      optionsSuccessStatus: 200,
-    })
-  );
+  app.use(cors());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(cookieParser());
   app.use(
