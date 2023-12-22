@@ -1,0 +1,15 @@
+@use "./../../assets/mixin" as m;
+
+.product-id {
+  @include m.flex();
+
+  &-image {
+  }
+
+  &-detail {
+    .product-id-count {
+      @include m.flex($justify: flex-start);
+      gap: 1vw;
+    }
+  }
+}
