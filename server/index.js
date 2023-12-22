@@ -53,12 +53,6 @@ app.post("/api/logout", (req, res) => {
   res.json({ message: "Logged out successfully!" });
 });
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Credentials", true);
-  res.header("Access-Control-Allow-Origin", true);
-  next();
-});
-
 const port = process.env.REACT_APP_PORT || 5001;
 app.listen(port, () => {
   console.log(`running server on port ${port}`);
