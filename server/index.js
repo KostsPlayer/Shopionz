@@ -23,7 +23,7 @@ app.use(cartRouter);
 app.use(orderRouter);
 
 // Contoh penggunaan try-catch di endpoint "/session"
-app.get("/api/session", (req, res) => {
+app.get("/session", (req, res) => {
   const user = req.session.user[0];
 
   if (!user) {
@@ -33,7 +33,7 @@ app.get("/api/session", (req, res) => {
   }
 });
 
-app.get("/api/users", (req, res) => {
+app.get("/users", (req, res) => {
   const user = req.session.user[0];
 
   const image = user.image;
@@ -47,7 +47,7 @@ app.get("/api/users", (req, res) => {
   });
 });
 
-app.post("/api/logout", (req, res) => {
+app.post("/logout", (req, res) => {
   req.session.destroy();
   res.clearCookie("shopionzUser");
   res.json({ message: "Logged out successfully!" });
