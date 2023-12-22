@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
 export default function Sidebar() {
+  axios.defaults.withCredentials = true;
   const [active, setActive] = useState(null);
   const [dataUser, setDataUser] = useState([]);
   const [dataMenu, setDataMenu] = useState([]);

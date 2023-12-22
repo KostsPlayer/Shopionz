@@ -7,6 +7,7 @@ import {
 import { ToastContainer } from "react-toastify";
 
 export default function UpdateMenu({ onOpen, onClose, menuId, title }) {
+  axios.defaults.withCredentials = true;
   if (!onOpen) return null;
   const { toastMessage, message } = allMessage();
   const [isActice, setIsActive] = useState(false);

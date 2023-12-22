@@ -6,10 +6,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function Layout({ children }) {
+  axios.defaults.withCredentials = true;
   const redirect = useNavigate();
   const [isValid, setIsValid] = useState(true);
 
-  axios.defaults.withCredentials = true;
 
   useEffect(() => {
     axios

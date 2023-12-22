@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function Topbar() {
+  axios.defaults.withCredentials = true;
   const [dataUser, setDataUser] = useState([]);
   const redirect = useNavigate();
 

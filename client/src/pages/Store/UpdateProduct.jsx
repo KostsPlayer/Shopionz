@@ -7,6 +7,7 @@ import {
 import { ToastContainer } from "react-toastify";
 
 export default function UpdateProduct({ onOpen, onClose, productId }) {
+  axios.defaults.withCredentials = true;
   if (!onOpen) return null;
 
   const { toastMessage, message } = allMessage();
@@ -35,7 +36,10 @@ export default function UpdateProduct({ onOpen, onClose, productId }) {
     formData.append("image", getProduct.image);
 
     axios
-      .put(`https://project-ii-server.vercel.app/api/update-product/${productId}`, formData)
+      .put(
+        `https://project-ii-server.vercel.app/api/update-product/${productId}`,
+        formData
+      )
       .then((res) => {
         location.reload();
         toastMessage("success", res.data.message);

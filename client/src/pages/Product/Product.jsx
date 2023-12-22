@@ -4,6 +4,7 @@ import Navbar from "../../component/Navbar/Navbar";
 import axios from "axios";
 
 export default function Product() {
+  axios.defaults.withCredentials = true;
   const [data, setData] = useState([]);
 
   useEffect(() => {

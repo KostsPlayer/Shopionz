@@ -7,6 +7,7 @@ import {
 import { ToastContainer } from "react-toastify";
 
 export default function InsertProduct({ onOpen, onClose }) {
+  axios.defaults.withCredentials = true;
   if (!onOpen) return null;
   const { toastMessage, message } = allMessage();
 

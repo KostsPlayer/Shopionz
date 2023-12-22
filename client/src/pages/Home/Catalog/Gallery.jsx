@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 export function LayoutImageCatalog() {
+  axios.defaults.withCredentials = true;
   const [product, setProduct] = useState([]);
 
   useEffect(() => {

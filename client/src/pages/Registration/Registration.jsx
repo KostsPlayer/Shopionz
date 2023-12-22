@@ -11,6 +11,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function Registration() {
+  axios.defaults.withCredentials = true;
   const goBack = () => {
     window.history.back();
   };
