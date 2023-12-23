@@ -35,6 +35,7 @@ export default function Navbar() {
         if (res.data.isValid === true) {
           setIsValid(true);
           setGetData(res.data.user);
+          console.log(res.data);
         } else {
           setIsValid(false);
         }
