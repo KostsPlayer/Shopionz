@@ -21,7 +21,7 @@ const configureMiddleware = (app) => {
       key: "shopionzUser",
       secret: "secret",
       resave: false,
-      saveUninitialized: true,
+      saveUninitialized: false,
       cookie: {
         secure: true,
         maxAge: 2 * 60 * 60 * 1000,
