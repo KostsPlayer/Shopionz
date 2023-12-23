@@ -15,10 +15,11 @@ export default function Navbar() {
     axios
       .get("https://project-ii-server.vercel.app/cart")
       .then((res) => {
-        const totalAmount = res.data.reduce((acc, item) => {
-          const amount = item.amount;
-          return acc + amount;
-        }, 0);
+        let totalAmount = 0;
+
+        res.data.forEach((item) => {
+          totalAmount += item.amount;
+        });
 
         setGetCount(totalAmount);
       })
