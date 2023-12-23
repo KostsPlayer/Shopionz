@@ -17,21 +17,21 @@ router.post("/login", async (req, res) => {
       .or(`name.eq.${usernameEmail}, email.eq.${usernameEmail}`);
 
     if (error) {
-      res.status(500).json(error.message);
+      res.json(error.message);
     }
 
     if (data.length > 0) {
-      bcrypt.compare(password, data[0].password, (error, response) => {
+      bcrypt.compare(password, data.password, (error, response) => {
         if (error) {
-          res.status(500).json(error.message);
+          res.json(error.message);
         }
 
         if (response) {
           req.session.user = data;
           return res.json({
-            message: `Welcome to Shopionz, ${data[0].name}`,
+            message: `Welcome to Shopionz, ${data.name}`,
             loggedIn: true,
-            role: data[0].role_id,
+            role: data.role_id,
           });
         } else {
           return res.json({

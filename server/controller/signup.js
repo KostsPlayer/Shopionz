@@ -23,7 +23,7 @@ router.post("/registration", async (req, res) => {
       return res.json(error.message);
     }
 
-    const userId = data[0].id;
+    const userId = data.id;
     return res.json({ success: true, userId: userId });
   } catch (error) {
     return res.json(error);

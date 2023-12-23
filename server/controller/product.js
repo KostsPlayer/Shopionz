@@ -39,7 +39,7 @@ router.get("/product", async (req, res) => {
 
 router.get("/product-seller", async (req, res) => {
   try {
-    const email = req.session.user[0].email;
+    const email = req.session.user.email;
 
     const { data, error } = await supabase
       .from("product")
@@ -89,7 +89,7 @@ router.post("/insert-product", upload.single("image"), async (req, res) => {
   try {
     const { name, description, price, stock, category } = req.body;
     const image = req.file.originalname;
-    const email = req.session.user[0].email;
+    const email = req.session.user.email;
 
     const { data, error } = await supabase
       .from("product")
