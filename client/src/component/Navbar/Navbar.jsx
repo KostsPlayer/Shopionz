@@ -13,14 +13,9 @@ export default function Navbar() {
   const [getCount, setGetCount] = useState(0);
   useEffect(() => {
     axios
-      .get("https://project-ii-server.vercel.app/cart")
+      .get("https://project-ii-server.vercel.app/count-cart")
       .then((res) => {
-        const totalAmount = res.data.map((acc, item) => {
-          const amount = item.amount;
-          return acc + amount;
-        }, 0);
-
-        setGetCount(totalAmount);
+        setGetCount(res.data);
         console.log(res.data);
       })
       .catch((err) => {
@@ -35,7 +30,6 @@ export default function Navbar() {
         if (res.data.isValid === true) {
           setIsValid(true);
           setGetData(res.data.user);
-          console.log(res.data);
         } else {
           setIsValid(false);
         }
