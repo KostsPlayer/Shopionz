@@ -17,15 +17,19 @@ export default function Cart() {
     axios
       .get("https://project-ii-server.vercel.app/cart")
       .then((res) => {
-        const initialCheckedItems = {};
+        if (Array.isArray(res.data)) {
+          const initialCheckedItems = {};
 
-        res.data.forEach((item) => {
-          initialCheckedItems[item.id] = item.status === 1;
-        });
+          res.data.forEach((item) => {
+            initialCheckedItems[item.id] = item.status === 1;
+          });
 
-        setGetData(res.data);
-        setCheckedItem(initialCheckedItems);
-        calculateTotalPrice(res.data);
+          setGetData(res.data);
+          setCheckedItem(initialCheckedItems);
+          calculateTotalPrice(res.data);
+        } else {
+          console.error("Data is not an array:", res.data);
+        }
       })
       .catch((err) => {
         console.error(err);
@@ -33,16 +37,20 @@ export default function Cart() {
   };
 
   const calculateTotalPrice = (cartData) => {
-    let total = 0;
+    if (Array.isArray(cartData)) {
+      let total = 0;
 
-    cartData.forEach((item) => {
-      if (item.status === 1) {
-        const itemPrice = item.amount * item.product.price;
-        total += itemPrice;
-      }
-    });
+      cartData.forEach((item) => {
+        if (item.status === 1) {
+          const itemPrice = item.amount * item.product.price;
+          total += itemPrice;
+        }
+      });
 
-    setTotalPrice(total);
+      setTotalPrice(total);
+    } else {
+      console.error("Data is not an array:", res.data);
+    }
   };
 
   const updateCartAmount = (id, newAmount) => {

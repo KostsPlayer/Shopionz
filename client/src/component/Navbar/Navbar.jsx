@@ -15,13 +15,17 @@ export default function Navbar() {
     axios
       .get("https://project-ii-server.vercel.app/cart")
       .then((res) => {
-        let totalAmount = 0;
+        if (Array.isArray(res.data)) {
+          let totalAmount = 0;
 
-        res.data.forEach((item) => {
-          totalAmount += item.amount;
-        });
+          res.data.forEach((item) => {
+            totalAmount += item.amount;
+          });
 
-        setGetCount(totalAmount);
+          setGetCount(totalAmount);
+        } else {
+          console.error("Data is not an array:", res.data);
+        }
       })
       .catch((err) => {
         console.error(err);
