@@ -12,7 +12,7 @@ router.get("/count-cart", async (req, res) => {
 
     const { data, error } = await supabase
       .from("shopping_cart")
-      .select("*", { count: "exact" })
+      .select("*", { count: "exact", head: true })
       .eq("user_email", email);
 
     if (error) {
