@@ -21,6 +21,7 @@ export default function Navbar() {
         }, 0);
 
         setGetCount(totalAmount);
+        console.log(res.data);
       })
       .catch((err) => {
         console.error(err);
