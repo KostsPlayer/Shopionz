@@ -33,13 +33,13 @@ router.get("/product", async (req, res) => {
 
     return res.json(data);
   } catch (error) {
-    return res.json(error);
+    return res.json(error)
   }
 });
 
 router.get("/product-seller", async (req, res) => {
   try {
-    const email = req.session.user.email;
+    const email = req.session.user[0].email;
 
     const { data, error } = await supabase
       .from("product")
@@ -52,7 +52,7 @@ router.get("/product-seller", async (req, res) => {
 
     return res.json(data);
   } catch (error) {
-    return res.json(error);
+    return res.json(error)
   }
 });
 
@@ -71,7 +71,7 @@ router.get("/get-product/:id", async (req, res) => {
 
     return res.json(data);
   } catch (error) {
-    return res.json(error);
+    return res.json(error)
   }
 });
 
@@ -89,7 +89,7 @@ router.post("/insert-product", upload.single("image"), async (req, res) => {
   try {
     const { name, description, price, stock, category } = req.body;
     const image = req.file.originalname;
-    const email = req.session.user.email;
+    const email = req.session.user[0].email;
 
     const { data, error } = await supabase
       .from("product")
@@ -112,7 +112,7 @@ router.post("/insert-product", upload.single("image"), async (req, res) => {
 
     return res.json({ data, message: "Insert product successfully!" });
   } catch (error) {
-    return res.json(error);
+    return res.json(error)
   }
 });
 
@@ -143,7 +143,7 @@ router.put("/update-product/:id", upload.single("image"), async (req, res) => {
 
     return res.json({ data, message: "Update product successfully!" });
   } catch (error) {
-    return res.json(error);
+    return res.json(error)
   }
 });
 
@@ -162,7 +162,7 @@ router.put("/delete-product/:id", async (req, res) => {
 
     return res.json({ data, message: "Delete product successfully!" });
   } catch (error) {
-    return res.json(error);
+    return res.json(error)
   }
 });
 
