@@ -27,9 +27,9 @@ app.get("/session", (req, res) => {
   const user = req.session.user[0];
 
   if (!user) {
-    res.json({ isValid: false, user: user });
+    return res.json({ isValid: false, user: user });
   } else {
-    res.json({ isValid: true, user: user });
+    return res.json({ isValid: true, user: user });
   }
 });
 
@@ -40,7 +40,7 @@ app.get("/users", (req, res) => {
   const name = user.name;
   const email = user.email;
 
-  res.json({
+  return res.json({
     image: image,
     name: name,
     email: email,
@@ -50,7 +50,7 @@ app.get("/users", (req, res) => {
 app.post("/logout", (req, res) => {
   req.session.destroy();
   res.clearCookie("shopionzUser");
-  res.json({ message: "Logged out successfully!" });
+  return res.json({ message: "Logged out successfully!" });
 });
 
 const port = process.env.REACT_APP_PORT || 5001;

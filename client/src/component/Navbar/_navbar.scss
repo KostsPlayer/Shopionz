@@ -93,9 +93,11 @@
       }
     }
 
-    .home-user-image {
-      object-fit: cover;
-      @include m.circle($w-h: 3rem);
+    .icon-login {
+      .home-user-image {
+        object-fit: cover;
+        @include m.circle($w-h: 3rem);
+      }
     }
   }
 }

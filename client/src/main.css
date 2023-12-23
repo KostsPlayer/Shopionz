@@ -92,7 +92,7 @@
   color: #fff;
   font-size: 68%;
 }
-.nav-nav .nav-icon .home-user-image {
+.nav-nav .nav-icon .icon-login .home-user-image {
   -o-object-fit: cover;
      object-fit: cover;
   width: 3rem;

@@ -111,6 +111,7 @@ export default function Navbar() {
             onMouseLeave={onLeaveNavbar}
             ref={(e) => e && magnets.current.push(e)}
             to="/login"
+            className="icon-login"
           >
             {isValid ? (
               <img
@@ -118,7 +119,9 @@ export default function Navbar() {
                 src={`/client/src/assets/image/${getData.image}`}
               />
             ) : (
-              <span className="material-symbols-outlined">person</span>
+              <>
+                <span className="material-symbols-outlined">person</span>
+              </>
             )}
           </Link>
         </div>
