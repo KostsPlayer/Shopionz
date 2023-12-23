@@ -15,11 +15,10 @@ export default function Navbar() {
     axios
       .get("https://project-ii-server.vercel.app/cart")
       .then((res) => {
-        let totalAmount = 0;
-
-        res.data.forEach((item) => {
-          totalAmount += item.amount;
-        });
+        const totalAmount = res.data.map((acc, item) => {
+          const amount = item.amount;
+          return acc + amount;
+        }, 0);
 
         setGetCount(totalAmount);
       })
@@ -35,7 +34,6 @@ export default function Navbar() {
         if (res.data.isValid === true) {
           setIsValid(true);
           setGetData(res.data.user);
-          console.log(res.data);
         } else {
           setIsValid(false);
         }

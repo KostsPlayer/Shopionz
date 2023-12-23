@@ -17,11 +17,10 @@ export default function Cart() {
     axios
       .get("https://project-ii-server.vercel.app/cart")
       .then((res) => {
-        const initialCheckedItems = [];
-
-        res.data.forEach((item) => {
-          initialCheckedItems[item.id] = item.status === 1;
-        });
+        const initialCheckedItems = res.data.map((acc, item) => {
+          acc[item.id] = item.status === 1;
+          return acc;
+        }, {});
 
         setGetData(res.data);
         setCheckedItem(initialCheckedItems);
@@ -33,14 +32,13 @@ export default function Cart() {
   };
 
   const calculateTotalPrice = (cartData) => {
-    let total = 0;
-
-    cartData.forEach((item) => {
+    const total = cartData.map((acc, item) => {
       if (item.status === 1) {
         const itemPrice = item.amount * item.product.price;
-        total += itemPrice;
+        return acc + itemPrice;
       }
-    });
+      return acc;
+    }, 0);
 
     setTotalPrice(total);
   };
