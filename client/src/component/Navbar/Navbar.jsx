@@ -16,7 +16,6 @@ export default function Navbar() {
       .get("https://project-ii-server.vercel.app/count-cart")
       .then((res) => {
         setGetCount(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         console.error(err);
