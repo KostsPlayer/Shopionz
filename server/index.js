@@ -24,17 +24,17 @@ app.use(orderRouter);
 
 // Contoh penggunaan try-catch di endpoint "/session"
 app.get("/session", (req, res) => {
-  const user = req.session.user[0];
+  const user = req.session.user;
 
   if (!user) {
     return res.json({ isValid: false, user: user });
   } else {
-    return res.json({ isValid: true, user: user });
+    return res.json({ isValid: true, user: user, data });
   }
 });
 
 app.get("/users", (req, res) => {
-  const user = req.session.user[0];
+  const user = req.session.user;
 
   const image = user.image;
   const name = user.name;
