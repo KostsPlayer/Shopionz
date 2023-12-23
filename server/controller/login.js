@@ -11,40 +11,40 @@ router.post("/login", async (req, res) => {
   const { usernameEmail, password } = req.body;
 
   try {
-    const { data, err } = await supabase
+    const { data, error } = await supabase
       .from("users")
       .select("*")
       .or(`name.eq.${usernameEmail}, email.eq.${usernameEmail}`);
 
-    if (err) {
-      console.error(err);
+    if (error) {
+      res.status(500).json(error.message);
     }
 
     if (data.length > 0) {
       bcrypt.compare(password, data[0].password, (error, response) => {
         if (error) {
-          res.json(error);
+          res.status(500).json(error.message);
         }
 
         if (response) {
           req.session.user = data;
-          res.json({
+          return res.json({
             message: `Welcome to Shopionz, ${data[0].name}`,
             loggedIn: true,
             role: data[0].role_id,
           });
         } else {
-          res.json({
+          return res.json({
             message: "Wrong username/email or password combination!",
             loggedIn: false,
           });
         }
       });
     } else {
-      res.json({ loggedIn: false, message: "User doesn't exist" });
+      return res.json({ loggedIn: false, message: "User doesn't exist" });
     }
   } catch (error) {
-    console.error(error.message);
+    return res.json(error);
   }
 });
 

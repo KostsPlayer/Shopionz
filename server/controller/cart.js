@@ -16,12 +16,12 @@ router.get("/count-cart", async (req, res) => {
       .eq("user_email", email);
 
     if (error) {
-      res.json(error.message);
+      return res.json(error.message);
     }
 
-    res.json(data);
+    return res.json(data);
   } catch (error) {
-    console.error(error.message);
+    return res.json(error);
   }
 });
 
@@ -35,12 +35,12 @@ router.get("/cart", async (req, res) => {
       .eq("user_email", email);
 
     if (error) {
-      res.json(error.message);
+      return res.json(error.message);
     }
 
-    res.json(data);
+    return res.json(data);
   } catch (error) {
-    console.error(error.message);
+    return res.json(error);
   }
 });
 
@@ -63,12 +63,12 @@ router.post("/insert-cart", async (req, res) => {
       .select("*");
 
     if (error) {
-      res.json(error.message);
+      return res.json(error.message);
     }
 
-    res.json(data);
+    return res.json(data);
   } catch (error) {
-    console.error(error.message);
+    return res.json(error);
   }
 });
 
@@ -86,12 +86,12 @@ router.put("/update-cart-amount/:id", async (req, res) => {
       .select("*");
 
     if (error) {
-      res.json(error.message);
+      return res.json(error.message);
     }
 
-    res.json(data);
+    return res.json(data);
   } catch (error) {
-    console.error(error.message);
+    return res.json(error);
   }
 });
 
@@ -109,12 +109,12 @@ router.put("/update-cart-status/:id", async (req, res) => {
       .select("*");
 
     if (error) {
-      res.json(error.message);
+      return res.json(error.message);
     }
 
-    res.json(data);
+    return res.json(data);
   } catch (error) {
-    console.error(error.message);
+    return res.json(error);
   }
 });
 
@@ -128,12 +128,12 @@ router.put("/delete-cart/:id", async (req, res) => {
       .eq("id", cartId);
 
     if (error) {
-      res.json(error.message);
+      return res.json(error.message);
     }
 
-    res.json(data);
+    return res.json(data);
   } catch (error) {
-    console.error(error.message);
+    return res.json(error);
   }
 });
 

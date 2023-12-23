@@ -24,12 +24,12 @@ router.post("/assign-role", async (req, res) => {
       .select("*");
 
     if (error) {
-      res.json(error.message);
+      return res.json(error.message);
     }
 
-    res.json(data);
+    return res.json(data);
   } catch (error) {
-    console.error(error.message);
+    return res.json(error);
   }
 });
 

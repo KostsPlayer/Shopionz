@@ -11,12 +11,12 @@ router.get("/menu", async (req, res) => {
     const { data, error } = await supabase.from("menu").select("*");
 
     if (error) {
-      console.error(error);
+      return res.json(error.message);
     }
 
-    res.json(data);
+    return res.json(data);
   } catch (error) {
-    console.error(error.message);
+    return res.json(error);
   }
 });
 
@@ -30,12 +30,12 @@ router.get("/get-menu/:id", async (req, res) => {
       .eq("id", menuId);
 
     if (error) {
-      console.log(error);
+      return res.json(error.message);
     }
 
-    res.json(data);
+    return res.json(data);
   } catch (error) {
-    console.error(error.message);
+    return res.json(error);
   }
 });
 
@@ -51,12 +51,12 @@ router.put("/update-menu/:id", async (req, res) => {
       .select("*");
 
     if (error) {
-      res.json(error.message);
+      return res.json(error.message);
     }
 
-    res.json({ data, message: "Update menu successfully!" });
+    return res.json({ data, message: "Update menu successfully!" });
   } catch (error) {
-    console.error(error.message);
+    return res.json(error);
   }
 });
 
@@ -70,12 +70,12 @@ router.post("/insert-menu", async (req, res) => {
       .select("*");
 
     if (error) {
-      res.json(error.message);
+      return res.json(error.message);
     }
 
-    res.json({ data, message: "Insert Menu successfully!" });
+    return res.json({ data, message: "Insert Menu successfully!" });
   } catch (error) {
-    console.error(error.message);
+    return res.json(error);
   }
 });
 
@@ -89,12 +89,12 @@ router.put("/delete-menu/:id", async (req, res) => {
       .eq("id", menuId);
 
     if (error) {
-      res.json(error.message);
+      return res.json(error.message);
     }
 
-    res.json({ data, message: "Delete menu successfully" });
+    return res.json({ data, message: "Delete menu successfully" });
   } catch (error) {
-    console.error(error.message);
+    return res.json(error);
   }
 });
 

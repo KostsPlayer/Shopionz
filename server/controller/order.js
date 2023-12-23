@@ -11,12 +11,12 @@ router.get("/get-payment", async (req, res) => {
     const { data, error } = await supabase.from("payment_method").select("*");
 
     if (error) {
-      res.json(error.message);
+      return res.json(error.message);
     }
 
-    res.json(data);
+    return res.json(data);
   } catch (error) {
-    console.error(error.message);
+    return res.json(error);
   }
 });
 
@@ -25,12 +25,12 @@ router.get("/get-shipping", async (req, res) => {
     const { data, error } = await supabase.from("shipping_method").select("*");
 
     if (error) {
-      res.json(error.message);
+      return res.json(error.message);
     }
 
-    res.json(data);
+    return res.json(data);
   } catch (error) {
-    console.error(error.message);
+    return res.json(error);
   }
 });
 
@@ -54,7 +54,7 @@ router.post("/insert-order", async (req, res) => {
       .select("*");
 
     if (errorOrder) {
-      res.json(errorOrder.message);
+      return res.json(errorOrder.message);
     }
 
     const orderId = order[0].id;
@@ -75,12 +75,12 @@ router.post("/insert-order", async (req, res) => {
       .select("*");
 
     if (errorOrderDetail) {
-      res.json(errorOrderDetail.message);
+      return res.json(errorOrderDetail.message);
     }
 
-    res.json(orderDetail);
+    return res.json(orderDetail);
   } catch (error) {
-    console.error(error.message);
+    return res.json(error);
   }
 });
 

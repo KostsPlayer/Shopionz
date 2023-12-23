@@ -12,10 +12,10 @@ router.get("/get-category", async (req, res) => {
     const { data, error } = await supabase.from("category").select("*");
 
     if (error) {
-      res.json(error.message);
+      return res.json(error.message);
     }
 
-    res.json(data);
+    return res.json(data);
   } catch (error) {
     console.log(error.message);
   }
@@ -28,12 +28,12 @@ router.get("/product", async (req, res) => {
       .select(`*, category(*)`);
 
     if (error) {
-      res.json(error.message);
+      return res.json(error.message);
     }
 
-    res.json(data);
+    return res.json(data);
   } catch (error) {
-    console.error(error.message);
+    return res.json(error);
   }
 });
 
@@ -47,12 +47,12 @@ router.get("/product-seller", async (req, res) => {
       .eq("user_email", email);
 
     if (error) {
-      res.json(error.message);
+      return res.json(error.message);
     }
 
-    res.json(data);
+    return res.json(data);
   } catch (error) {
-    console.error(error.message);
+    return res.json(error);
   }
 });
 
@@ -66,12 +66,12 @@ router.get("/get-product/:id", async (req, res) => {
       .eq("id", productId);
 
     if (error) {
-      res.json(error.message);
+      return res.json(error.message);
     }
 
-    res.json(data);
+    return res.json(data);
   } catch (error) {
-    console.error(error.message);
+    return res.json(error);
   }
 });
 
@@ -107,12 +107,12 @@ router.post("/insert-product", upload.single("image"), async (req, res) => {
       .select("*");
 
     if (error) {
-      res.json(error.message);
+      return res.json(error.message);
     }
 
-    res.json({ data, message: "Insert product successfully!" });
+    return res.json({ data, message: "Insert product successfully!" });
   } catch (error) {
-    console.error(error.message);
+    return res.json(error);
   }
 });
 
@@ -138,12 +138,12 @@ router.put("/update-product/:id", upload.single("image"), async (req, res) => {
       .select("*");
 
     if (error) {
-      res.json(error.message);
+      return res.json(error.message);
     }
 
-    res.json({ data, message: "Update product successfully!" });
+    return res.json({ data, message: "Update product successfully!" });
   } catch (error) {
-    console.error(error.message);
+    return res.json(error);
   }
 });
 
@@ -157,12 +157,12 @@ router.put("/delete-product/:id", async (req, res) => {
       .eq("id", productId);
 
     if (error) {
-      res.json(error.message);
+      return res.json(error.message);
     }
 
-    res.json({ data, message: "Delete product successfully!" });
+    return res.json({ data, message: "Delete product successfully!" });
   } catch (error) {
-    console.error(error.message);
+    return res.json(error);
   }
 });
 
