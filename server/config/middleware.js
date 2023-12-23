@@ -5,7 +5,6 @@ import cookieParser from "cookie-parser";
 import session from "express-session";
 
 const configureMiddleware = (app) => {
-  
   app.use(express.json());
   app.use(
     cors({
@@ -24,7 +23,7 @@ const configureMiddleware = (app) => {
       resave: false,
       saveUninitialized: false,
       cookie: {
-        sameSite: "strict",
+        secure: true,
         maxAge: 2 * 60 * 60 * 1000,
       },
     })
