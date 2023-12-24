@@ -3,10 +3,9 @@ import supabase from "../config/supabase.js";
 import configureMiddleware from "../config/middleware.js";
 
 const app = express();
-configureMiddleware(app);
 const router = express.Router();
 
-router.post("/assign-role", async (req, res) => {
+router.post("/assign-role", configureMiddleware(app), async (req, res) => {
   try {
     const { userId, role } = req.body;
 
