@@ -38,6 +38,18 @@ export default function Navbar() {
       });
   }, []);
 
+  const logout = () => {
+    axios
+      .post("https://project-ii-server.vercel.app/logout")
+      .then((res) => {
+        redirect("/login");
+        localStorage.setItem("logoutMessage", res.data.message);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       <nav className="nav-nav" ref={navbar}>
@@ -119,6 +131,9 @@ export default function Navbar() {
               </>
             )}
           </Link>
+          <span className="material-symbols-outlined" onClick={logout}>
+            logout
+          </span>
         </div>
       </nav>
     </>

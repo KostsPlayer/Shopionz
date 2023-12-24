@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get("/count-cart", async (req, res) => {
   try {
-    const email = req.session.user[0].email;
+    const email = sessionStorage.getItem("dataUser", data[0].email);
 
     const { count, error } = await supabase
       .from("shopping_cart")
@@ -27,7 +27,7 @@ router.get("/count-cart", async (req, res) => {
 
 router.get("/cart", async (req, res) => {
   try {
-    const email = req.session.user[0].email;
+    const email = sessionStorage.getItem("dataUser", data[0].email);
 
     const { data, error } = await supabase
       .from("shopping_cart")
@@ -47,7 +47,7 @@ router.get("/cart", async (req, res) => {
 router.post("/insert-cart", async (req, res) => {
   try {
     const { product_id, amount } = req.body;
-    const email = req.session.user[0].email;
+    const email = sessionStorage.getItem("dataUser", data[0].email);
     const active = 1;
 
     const { data, error } = await supabase

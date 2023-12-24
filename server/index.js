@@ -23,21 +23,21 @@ app.use(cartRouter);
 app.use(orderRouter);
 
 app.get("/session", (req, res) => {
-  req.session.user = user[0];
+  const user = sessionStorage.getItem("dataUser", data[0]);
 
-  if (!user[0]) {
-    return res.json({ isValid: false, user: user[0] });
+  if (!user) {
+    return res.json({ isValid: false, user: user });
   } else {
-    return res.json({ isValid: true, user: user[0], data });
+    return res.json({ isValid: true, user: user, data });
   }
 });
 
 app.get("/users", (req, res) => {
-  req.session.user = user[0];
+  const user = sessionStorage.getItem("dataUser", data[0]);
 
-  const image = user[0].image;
-  const name = user[0].name;
-  const email = user[0].email;
+  const image = user.image;
+  const name = user.name;
+  const email = user.email;
 
   return res.json({
     image: image,
@@ -47,8 +47,7 @@ app.get("/users", (req, res) => {
 });
 
 app.post("/logout", (req, res) => {
-  req.session.destroy();
-  res.clearCookie("shopionzUser");
+  sessionStorage.removeItem("dataUser");
   return res.json({ message: "Logged out successfully!" });
 });
 
