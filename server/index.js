@@ -29,7 +29,7 @@ app.get("/session", (req, res) => {
   if (!user) {
     return res.json({ isValid: false, user: user });
   } else {
-    return res.json({ isValid: true, user: user, data });
+    return res.json({ isValid: true, user: user });
   }
 });
 
