@@ -21,7 +21,7 @@ router.post("/login", async (req, res) => {
     }
 
     if (data.length > 0) {
-      bcrypt.compare(password, data.password, (error, response) => {
+      bcrypt.compare(password, data[0].password, (error, response) => {
         if (error) {
           res.json(error.message);
         }
@@ -29,9 +29,9 @@ router.post("/login", async (req, res) => {
         if (response) {
           req.session.user[0] = data;
           return res.json({
-            message: `Welcome to Shopionz, ${data.name}`,
+            message: `Welcome to Shopionz, ${data[0].name}`,
             loggedIn: true,
-            role: data.role_id,
+            role: data[0].role_id,
           });
         } else {
           return res.json({
