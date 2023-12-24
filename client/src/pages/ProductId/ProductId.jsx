@@ -65,7 +65,10 @@ export default function ProductId() {
           };
 
           axios
-            .post("https://project-ii-server.vercel.app/insert-cart", valuesCart)
+            .post(
+              "https://project-ii-server.vercel.app/insert-cart",
+              valuesCart
+            )
             .then((res) => {
               console.log(res.data);
             })
@@ -98,7 +101,7 @@ export default function ProductId() {
       <div className="product-id">
         <div className="product-id-image">
           <img
-            src={`/client/src/assets/product/${data.images}`}
+            src={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${data.images}?t=2023-12-24T02%3A30%3A45.365Z`}
             alt={data.name}
             width={200}
             height={200}

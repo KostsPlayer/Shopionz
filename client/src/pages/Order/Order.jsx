@@ -108,7 +108,7 @@ export default function Order() {
       <div className="order">
         <div className="order-image">
           <img
-            src={`/src/assets/product/${data.images}`}
+            src={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${data.images}?t=2023-12-24T02%3A30%3A45.365Z`}
             alt={data.name}
             width={300}
             height={300}

@@ -155,7 +155,7 @@ export default function Cart() {
 
               <div className="cart-item-image">
                 <img
-                  src={`/client/src/assets/product/${data.product.images}`}
+                  scr={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${data.product.images}?t=2023-12-24T02%3A30%3A45.365Z`}
                   alt={data.product.name}
                 />
               </div>
