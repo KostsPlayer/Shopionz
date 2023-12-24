@@ -27,7 +27,7 @@ router.post("/login", async (req, res) => {
         }
 
         if (response) {
-          req.session.user = data[0];
+          req.session.user[0] = data;
           return res.json({
             message: `Welcome to Shopionz, ${data.name}`,
             loggedIn: true,
