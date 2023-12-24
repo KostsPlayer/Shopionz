@@ -24,7 +24,10 @@ export function LayoutImageCatalog() {
   };
 
   const memoizedImages = useMemo(() => {
-    return product.map(({ images }) => `https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${images}?t=2023-12-24T02%3A30%3A45.365Z`);
+    return product.map(
+      ({ images }) =>
+        `https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${images}?t=2023-12-24T02%3A30%3A45.365Z`
+    );
   }, [product]);
 
   return product.map(({ id, name, date_available, description }, index) => (
