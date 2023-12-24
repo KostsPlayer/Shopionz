@@ -23,7 +23,7 @@ app.use(cartRouter);
 app.use(orderRouter);
 
 app.get("/session", (req, res) => {
-  const user = sessionStorage.getItem("dataUser", data[0]);
+  const user = localStorage.getItem("dataUser", data[0]);
 
   if (!user) {
     return res.json({ isValid: false, user: user });
@@ -33,7 +33,7 @@ app.get("/session", (req, res) => {
 });
 
 app.get("/users", (req, res) => {
-  const user = sessionStorage.getItem("dataUser", data[0]);
+  const user = localStorage.getItem("dataUser", data[0]);
 
   const image = user.image;
   const name = user.name;
@@ -47,7 +47,7 @@ app.get("/users", (req, res) => {
 });
 
 app.post("/logout", (req, res) => {
-  sessionStorage.removeItem("dataUser");
+  localStorage.removeItem("dataUser");
   return res.json({ message: "Logged out successfully!" });
 });
 
