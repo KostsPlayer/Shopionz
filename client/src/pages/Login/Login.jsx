@@ -75,6 +75,7 @@ export default function Login() {
             }
 
             localStorage.setItem("dataUser", res.data.dataUser.email);
+            console.log(res.data.dataUser.email);
 
             if (res.data.loggedIn === false) {
               toastMessage("error", res.data.message);
