@@ -7,6 +7,7 @@ import menuRouter from "./controller/menu.js";
 import productRouter from "./controller/product.js";
 import cartRouter from "./controller/cart.js";
 import orderRouter from "./controller/order.js";
+import allowCors from "./config/allowCors.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -21,11 +22,11 @@ app.use(menuRouter);
 app.use(productRouter);
 app.use(cartRouter);
 app.use(orderRouter);
+app.use(allowCors);
 
 // Contoh penggunaan try-catch di endpoint "/session"
 app.get("/session", (req, res) => {
   const user = req.session.user[0];
-
 
   if (!user) {
     return res.json({ isValid: false, user: user });
