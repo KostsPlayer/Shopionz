@@ -15,18 +15,6 @@ const configureMiddleware = (app) => {
     })
   );
   app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(cookieParser());
-  app.use(
-    session({
-      key: "shopionzUser",
-      secret: "secret",
-      resave: false,
-      saveUninitialized: false,
-      cookie: {
-        secure: true,
-      },
-    })
-  );
 };
 
 export default configureMiddleware;
