@@ -8,7 +8,7 @@ const configureMiddleware = (app) => {
   app.use(express.json());
   app.use(
     cors({
-      origin: "*",
+      origin: "https://shopionz.vercel.app",
       methods: ["GET", "POST", "PUT", "OPTIONS", "DELETE", "PATCH"],
       credentials: true,
       allowedHeaders: [
