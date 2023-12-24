@@ -3,9 +3,10 @@ import supabase from "../config/supabase.js";
 import configureMiddleware from "../config/middleware.js";
 
 const app = express();
+configureMiddleware(app);
 const router = express.Router();
 
-router.get("/menu", configureMiddleware(app), async (req, res) => {
+router.get("/menu", async (req, res) => {
   try {
     const { data, error } = await supabase.from("menu").select("*");
 
@@ -19,7 +20,7 @@ router.get("/menu", configureMiddleware(app), async (req, res) => {
   }
 });
 
-router.get("/get-menu/:id", configureMiddleware(app), async (req, res) => {
+router.get("/get-menu/:id", async (req, res) => {
   try {
     const menuId = req.params.id;
 
@@ -38,7 +39,7 @@ router.get("/get-menu/:id", configureMiddleware(app), async (req, res) => {
   }
 });
 
-router.put("/update-menu/:id", configureMiddleware(app), async (req, res) => {
+router.put("/update-menu/:id", async (req, res) => {
   try {
     const menuId = req.params.id;
     const { name, icon, url, is_active } = req.body;
@@ -59,7 +60,7 @@ router.put("/update-menu/:id", configureMiddleware(app), async (req, res) => {
   }
 });
 
-router.post("/insert-menu", configureMiddleware(app), async (req, res) => {
+router.post("/insert-menu", async (req, res) => {
   try {
     const { name, icon, url, is_active } = req.body;
 
@@ -78,7 +79,7 @@ router.post("/insert-menu", configureMiddleware(app), async (req, res) => {
   }
 });
 
-router.put("/delete-menu/:id", configureMiddleware(app), async (req, res) => {
+router.put("/delete-menu/:id", async (req, res) => {
   try {
     const menuId = req.params.id;
 

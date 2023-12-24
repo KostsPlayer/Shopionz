@@ -4,6 +4,7 @@ import supabase from "../config/supabase.js";
 import multer from "multer";
 
 const app = express();
+configureMiddleware(app);
 const router = express.Router();
 
 const storage = multer.diskStorage({
@@ -21,7 +22,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-router.get("/get-category", configureMiddleware(app), async (req, res) => {
+router.get("/get-category", async (req, res) => {
   try {
     const { data, error } = await supabase.from("category").select("*");
 
@@ -35,7 +36,7 @@ router.get("/get-category", configureMiddleware(app), async (req, res) => {
   }
 });
 
-router.get("/product", configureMiddleware(app), async (req, res) => {
+router.get("/product", async (req, res) => {
   try {
     const { data, error } = await supabase
       .from("product")
@@ -51,7 +52,7 @@ router.get("/product", configureMiddleware(app), async (req, res) => {
   }
 });
 
-router.get("/product-seller", configureMiddleware(app), async (req, res) => {
+router.get("/product-seller", async (req, res) => {
   try {
     const email = req.session.user[0].email;
 
@@ -70,7 +71,7 @@ router.get("/product-seller", configureMiddleware(app), async (req, res) => {
   }
 });
 
-router.get("/get-product/:id", configureMiddleware(app), async (req, res) => {
+router.get("/get-product/:id", async (req, res) => {
   try {
     const productId = req.params.id;
 
@@ -89,7 +90,7 @@ router.get("/get-product/:id", configureMiddleware(app), async (req, res) => {
   }
 });
 
-router.post("/insert-product", upload.single("image"), configureMiddleware(app), async (req, res) => {
+router.post("/insert-product", upload.single("image"), async (req, res) => {
   try {
     const { name, description, price, stock, category } = req.body;
     const image = req.file.originalname;
@@ -120,7 +121,7 @@ router.post("/insert-product", upload.single("image"), configureMiddleware(app),
   }
 });
 
-router.put("/update-product/:id", upload.single("image"), configureMiddleware(app), async (req, res) => {
+router.put("/update-product/:id", upload.single("image"), async (req, res) => {
   try {
     const productId = req.params.id;
     const { name, description, price, stock, category } = req.body;
@@ -151,7 +152,7 @@ router.put("/update-product/:id", upload.single("image"), configureMiddleware(ap
   }
 });
 
-router.put("/delete-product/:id", configureMiddleware(app), async (req, res) => {
+router.put("/delete-product/:id", async (req, res) => {
   try {
     const productId = req.params.id;
 

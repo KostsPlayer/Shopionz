@@ -3,9 +3,10 @@ import configureMiddleware from "../config/middleware.js";
 import supabase from "../config/supabase.js";
 
 const app = express();
+configureMiddleware(app);
 const router = express.Router();
 
-router.get("/get-payment", configureMiddleware(app), async (req, res) => {
+router.get("/get-payment", async (req, res) => {
   try {
     const { data, error } = await supabase.from("payment_method").select("*");
 
@@ -19,7 +20,7 @@ router.get("/get-payment", configureMiddleware(app), async (req, res) => {
   }
 });
 
-router.get("/get-shipping", configureMiddleware(app), async (req, res) => {
+router.get("/get-shipping", async (req, res) => {
   try {
     const { data, error } = await supabase.from("shipping_method").select("*");
 
@@ -33,7 +34,7 @@ router.get("/get-shipping", configureMiddleware(app), async (req, res) => {
   }
 });
 
-router.post("/insert-order", configureMiddleware(app), async (req, res) => {
+router.post("/insert-order", async (req, res) => {
   try {
     const {
       shippingMethod,

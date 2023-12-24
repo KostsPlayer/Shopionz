@@ -4,9 +4,10 @@ import bcrypt from "bcrypt";
 import configureMiddleware from "../config/middleware.js";
 
 const app = express();
+configureMiddleware(app);
 const router = express.Router();
 
-router.post("/registration", configureMiddleware(app), async (req, res) => {
+router.post("/registration", async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
