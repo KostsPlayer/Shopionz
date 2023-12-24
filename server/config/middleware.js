@@ -8,9 +8,21 @@ const configureMiddleware = (app) => {
   app.use(express.json());
   app.use(
     cors({
-      origin: ["https://shopionz.vercel.app"],
-      methods: ["GET", "POST", "PUT", "OPTIONS"],
+      origin: "*",
+      methods: ["GET", "POST", "PUT", "OPTIONS", "DELETE", "PATCH"],
       credentials: true,
+      allowedHeaders: [
+        "X-CSRF-Token",
+        "X-Requested-With",
+        "Accept",
+        "Accept-Version",
+        "Content-Length",
+        "Content-MD5",
+        "Content-Type",
+        "Date",
+        "X-Api-Version",
+        "Authorization",
+      ],
       optionsSuccessStatus: 200,
     })
   );
@@ -23,6 +35,7 @@ const configureMiddleware = (app) => {
       resave: false,
       saveUninitialized: true,
       cookie: {
+        secure: true,
         maxAge: 2 * 60 * 60 * 1000,
       },
     })
