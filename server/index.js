@@ -23,21 +23,21 @@ app.use(cartRouter);
 app.use(orderRouter);
 
 app.get("/session", (req, res) => {
-  const user = req.session.user[0];
+  req.session.user = user[0];
 
-  if (!user) {
-    return res.json({ isValid: false, user: user });
+  if (!user[0]) {
+    return res.json({ isValid: false, user: user[0] });
   } else {
-    return res.json({ isValid: true, user: user, data });
+    return res.json({ isValid: true, user: user[0], data });
   }
 });
 
 app.get("/users", (req, res) => {
-  const user = req.session.user[0];
+  req.session.user = user[0];
 
-  const image = user.image;
-  const name = user.name;
-  const email = user.email;
+  const image = user[0].image;
+  const name = user[0].name;
+  const email = user[0].email;
 
   return res.json({
     image: image,

@@ -23,25 +23,29 @@ export default function Login() {
 
   useEffect(() => {
     const roleMessagge = localStorage.getItem("roleMessagge");
-    const logoutMessage = localStorage.getItem("logoutMessage");
-    const dashboardAccess = localStorage.getItem("dashboardAccess");
 
     if (roleMessagge) {
       toastMessage("success", roleMessagge);
       localStorage.removeItem("roleMessagge");
     }
+  }, [location.state]);
+
+  useEffect(() => {
+    const dashboardAccess = localStorage.getItem("dashboardAccess");
 
     if (dashboardAccess) {
       toastMessage("error", dashboardAccess, "top-center");
       localStorage.removeItem("dashboardAccess");
     }
+  }, []);
 
+  useEffect(() => {
+    const logoutMessage = localStorage.getItem("logoutMessage");
     if (logoutMessage) {
       toastMessage("success", logoutMessage);
       localStorage.removeItem("logoutMessage");
     }
-  }, [location.state]);
-  
+  }, []);
 
   const [values, setValues] = useState({
     usernameEmail: "",
