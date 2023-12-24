@@ -18,7 +18,7 @@ const configureMiddleware = (app) => {
   app.use(cookieParser());
   app.use(
     session({
-      key: "shopionzUser",
+      name: "shopionzUser",
       secret: "secret",
       resave: false,
       saveUninitialized: true,
