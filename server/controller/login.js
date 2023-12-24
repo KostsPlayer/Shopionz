@@ -27,12 +27,11 @@ router.post("/login", async (req, res) => {
         }
 
         if (response) {
-          const dataUser = localStorage.setItem("dataUser", data[0]);
           return res.json({
             message: `Welcome to Shopionz, ${data[0].name}`,
             loggedIn: true,
             role: data[0].role_id,
-            dataUser: dataUser,
+            dataUser: data[0],
           });
         } else {
           return res.json({

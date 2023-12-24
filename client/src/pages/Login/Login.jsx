@@ -74,6 +74,8 @@ export default function Login() {
               redirect("/");
             }
 
+            localStorage.setItem("dataUser", res.data.dataUser);
+
             if (res.data.loggedIn === false) {
               toastMessage("error", res.data.message);
             }
