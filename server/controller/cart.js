@@ -10,7 +10,7 @@ router.get("/count-cart", async (req, res) => {
   try {
     const email = req.session.user[0].email;
 
-    const { data, error } = await supabase
+    const { count, error } = await supabase
       .from("shopping_cart")
       .select("*", { count: "exact", head: true })
       .eq("user_email", email);
@@ -19,7 +19,7 @@ router.get("/count-cart", async (req, res) => {
       return res.json(error.message);
     }
 
-    return res.json(data);
+    return res.json(count);
   } catch (error) {
     return res.json(error);
   }

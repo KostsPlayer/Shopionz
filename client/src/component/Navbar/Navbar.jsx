@@ -111,7 +111,7 @@ export default function Navbar() {
             {isValid ? (
               <img
                 className="home-user-image"
-                src={`/client/src/assets/image/${getData.image}`}
+                scr={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${getData.image}?t=2023-12-24T02%3A30%3A45.365Z`}
               />
             ) : (
               <>

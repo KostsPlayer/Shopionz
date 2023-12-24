@@ -7,6 +7,21 @@ const app = express();
 configureMiddleware(app);
 const router = express.Router();
 
+const storage = multer.diskStorage({
+  destination: async (req, file, cb) => {
+    const { data, error } = await supabase.storage
+      .from("Images")
+      .upload(file.originalname, file.buffer);
+
+    if (error) {
+      return cb(error.message);
+    }
+
+    cb(null, data.path);
+  },
+});
+const upload = multer({ storage });
+
 router.get("/get-category", async (req, res) => {
   try {
     const { data, error } = await supabase.from("category").select("*");
@@ -33,7 +48,7 @@ router.get("/product", async (req, res) => {
 
     return res.json(data);
   } catch (error) {
-    return res.json(error)
+    return res.json(error);
   }
 });
 
@@ -52,7 +67,7 @@ router.get("/product-seller", async (req, res) => {
 
     return res.json(data);
   } catch (error) {
-    return res.json(error)
+    return res.json(error);
   }
 });
 
@@ -71,20 +86,10 @@ router.get("/get-product/:id", async (req, res) => {
 
     return res.json(data);
   } catch (error) {
-    return res.json(error)
+    return res.json(error);
   }
 });
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./src/assets/product");
-  },
-  filename: function (req, file, cb) {
-    cb(null, `${file.originalname}`);
-  },
-});
-
-const upload = multer({ storage });
 router.post("/insert-product", upload.single("image"), async (req, res) => {
   try {
     const { name, description, price, stock, category } = req.body;
@@ -112,7 +117,7 @@ router.post("/insert-product", upload.single("image"), async (req, res) => {
 
     return res.json({ data, message: "Insert product successfully!" });
   } catch (error) {
-    return res.json(error)
+    return res.json(error);
   }
 });
 
@@ -143,7 +148,7 @@ router.put("/update-product/:id", upload.single("image"), async (req, res) => {
 
     return res.json({ data, message: "Update product successfully!" });
   } catch (error) {
-    return res.json(error)
+    return res.json(error);
   }
 });
 
@@ -162,7 +167,7 @@ router.put("/delete-product/:id", async (req, res) => {
 
     return res.json({ data, message: "Delete product successfully!" });
   } catch (error) {
-    return res.json(error)
+    return res.json(error);
   }
 });
 

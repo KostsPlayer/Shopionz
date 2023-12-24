@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Sidebar() {
@@ -7,6 +7,7 @@ export default function Sidebar() {
   const [active, setActive] = useState(null);
   const [dataUser, setDataUser] = useState([]);
   const [dataMenu, setDataMenu] = useState([]);
+  const [fileUrl, setFileUrl] = useState("");
   const redirect = useNavigate();
 
   const handleItemClick = (index) => {
@@ -89,7 +90,7 @@ export default function Sidebar() {
         <div className="image">
           <img
             className="image-user"
-            src={`/client/src/assets/image/${dataUser.image}`}
+            scr={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${dataUser.image}?t=2023-12-24T02%3A30%3A45.365Z`}
             alt="profile"
           />
         </div>

@@ -17,7 +17,7 @@ export default function Cart() {
     axios
       .get("https://project-ii-server.vercel.app/cart")
       .then((res) => {
-        const initialCheckedItems = getData.map((acc, item) => {
+        const initialCheckedItems = res.data.map((acc, item) => {
           acc[item.id] = item.status === 1;
           return acc;
         }, {});
@@ -31,8 +31,8 @@ export default function Cart() {
       });
   };
 
-  const calculateTotalPrice = () => {
-    const total = getData.map((acc, item) => {
+  const calculateTotalPrice = (cart) => {
+    const total = cart.reduce((acc, item) => {
       if (item.status === 1) {
         const itemPrice = item.amount * item.product.price;
         return acc + itemPrice;
