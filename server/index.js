@@ -23,7 +23,7 @@ app.use(cartRouter);
 app.use(orderRouter);
 
 app.get("/session", (req, res) => {
-  const user = req.session.user;
+  const user = req.session.user[0];
 
   if (!user) {
     return res.json({ isValid: false, user: user });
@@ -33,7 +33,7 @@ app.get("/session", (req, res) => {
 });
 
 app.get("/users", (req, res) => {
-  const user = req.session.user;
+  const user = req.session.user[0];
 
   const image = user.image;
   const name = user.name;
