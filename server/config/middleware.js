@@ -22,6 +22,9 @@ const configureMiddleware = (app) => {
       secret: "secret",
       resave: false,
       saveUninitialized: false,
+      cookie: {
+        secure: true,
+      },
     })
   );
 };

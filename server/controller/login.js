@@ -27,12 +27,13 @@ router.post("/login", async (req, res) => {
         }
 
         if (response) {
-          req.session.user = data;
+          req.session.user = data[0];
+          const dataUser = data[0];
           return res.json({
-            message: `Welcome to Shopionz, ${data[0].name}`,
+            message: `Welcome to Shopionz, ${data.name}`,
             loggedIn: true,
-            role: data[0].role_id,
-            data,
+            role: data.role_id,
+            dataUser,
           });
         } else {
           return res.json({
