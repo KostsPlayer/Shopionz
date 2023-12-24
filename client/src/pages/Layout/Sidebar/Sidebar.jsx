@@ -7,7 +7,6 @@ export default function Sidebar() {
   const [active, setActive] = useState(null);
   const [dataUser, setDataUser] = useState([]);
   const [dataMenu, setDataMenu] = useState([]);
-  const [fileUrl, setFileUrl] = useState("");
   const redirect = useNavigate();
 
   const handleItemClick = (index) => {

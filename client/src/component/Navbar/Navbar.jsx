@@ -20,7 +20,7 @@ export default function Navbar() {
       .catch((err) => {
         console.error(err);
       });
-  }, [getCount, getData]);
+  }, [getData]);
 
   useEffect(() => {
     axios

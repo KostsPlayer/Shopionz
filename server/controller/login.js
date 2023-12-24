@@ -28,12 +28,10 @@ router.post("/login", async (req, res) => {
 
         if (response) {
           req.session.user = data[0];
-          const dataUser = data[0];
           return res.json({
             message: `Welcome to Shopionz, ${data.name}`,
             loggedIn: true,
             role: data.role_id,
-            dataUser,
           });
         } else {
           return res.json({
@@ -43,7 +41,10 @@ router.post("/login", async (req, res) => {
         }
       });
     } else {
-      return res.json({ loggedIn: false, message: "User doesn't exist" });
+      return res.json({
+        loggedIn: false,
+        message: "User doesn't exist",
+      });
     }
   } catch (error) {
     return res.json(error);
