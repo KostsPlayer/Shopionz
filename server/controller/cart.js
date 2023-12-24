@@ -8,7 +8,8 @@ const router = express.Router();
 
 router.get("/count-cart", async (req, res) => {
   try {
-    const email = localStorage.getItem("dataUser", data[0].email);
+    const getLocalStorage = localStorage.getItem("dataUser");
+    const email = getLocalStorage.email;
 
     const { count, error } = await supabase
       .from("shopping_cart")
@@ -27,7 +28,8 @@ router.get("/count-cart", async (req, res) => {
 
 router.get("/cart", async (req, res) => {
   try {
-    const email = localStorage.getItem("dataUser", data[0].email);
+    const getLocalStorage = localStorage.getItem("dataUser");
+    const email = getLocalStorage.email;
 
     const { data, error } = await supabase
       .from("shopping_cart")
@@ -47,8 +49,10 @@ router.get("/cart", async (req, res) => {
 router.post("/insert-cart", async (req, res) => {
   try {
     const { product_id, amount } = req.body;
-    const email = localStorage.getItem("dataUser", data[0].email);
+    const getLocalStorage = localStorage.getItem("dataUser");
+    const email = getLocalStorage.email;
     const active = 1;
+    
 
     const { data, error } = await supabase
       .from("shopping_cart")

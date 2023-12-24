@@ -54,7 +54,8 @@ router.get("/product", async (req, res) => {
 
 router.get("/product-seller", async (req, res) => {
   try {
-    const email = localStorage.getItem("dataUser", data[0].email);
+    const getLocalStorage = localStorage.getItem("dataUser");
+    const email = getLocalStorage.email;
 
     const { data, error } = await supabase
       .from("product")
@@ -94,7 +95,8 @@ router.post("/insert-product", upload.single("image"), async (req, res) => {
   try {
     const { name, description, price, stock, category } = req.body;
     const image = req.file.originalname;
-    const email = localStorage.getItem("dataUser", data[0].email);
+    const getLocalStorage = localStorage.getItem("dataUser");
+    const email = getLocalStorage.email;
 
     const { data, error } = await supabase
       .from("product")

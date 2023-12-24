@@ -23,7 +23,7 @@ app.use(cartRouter);
 app.use(orderRouter);
 
 app.get("/session", (req, res) => {
-  const user = localStorage.getItem("dataUser", data[0]);
+  const user = localStorage.getItem("dataUser");
 
   if (!user) {
     return res.json({ isValid: false, user: user });
@@ -33,7 +33,7 @@ app.get("/session", (req, res) => {
 });
 
 app.get("/users", (req, res) => {
-  const user = localStorage.getItem("dataUser", data[0]);
+  const user = localStorage.getItem("dataUser");
 
   const image = user.image;
   const name = user.name;
