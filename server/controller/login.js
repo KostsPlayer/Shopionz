@@ -27,7 +27,7 @@ router.post("/login", async (req, res) => {
         }
 
         if (response) {
-          req.session.user[0] = data;
+          req.session.user = data[0];
           return res.json({
             message: `Welcome to Shopionz, ${data.name}`,
             loggedIn: true,
@@ -41,10 +41,7 @@ router.post("/login", async (req, res) => {
         }
       });
     } else {
-      return res.json({
-        loggedIn: false,
-        message: "User doesn't exist",
-      });
+      return res.json({ loggedIn: false, message: "User doesn't exist" });
     }
   } catch (error) {
     return res.json(error);
