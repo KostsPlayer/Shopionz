@@ -22,7 +22,6 @@ app.use(productRouter);
 app.use(cartRouter);
 app.use(orderRouter);
 
-// Contoh penggunaan try-catch di endpoint "/session"
 app.get("/session", (req, res) => {
   const user = req.session.user[0];
 

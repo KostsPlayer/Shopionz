@@ -10,6 +10,8 @@ const configureMiddleware = (app) => {
     cors({
       origin: "https://shopionz.vercel.app",
       methods: ["GET", "POST", "PUT", "OPTIONS"],
+      credentials: true,
+      optionsSuccessStatus: 200,
     })
   );
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,9 +21,9 @@ const configureMiddleware = (app) => {
       key: "shopionzUser",
       secret: "secret",
       resave: false,
-      saveUninitialized: false,
+      saveUninitialized: true,
       cookie: {
-        secure: true,
+        maxAge: 2 * 60 * 60 * 1000,
       },
     })
   );
