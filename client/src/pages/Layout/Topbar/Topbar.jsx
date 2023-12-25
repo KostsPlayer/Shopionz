@@ -12,9 +12,11 @@ export default function Topbar() {
     const imageUrl = supabase.storage
       .from("Images")
       .getPublicUrl(getLocalStorage.dataUser.image);
-      
+
     setDataImage(imageUrl);
-  }, [dataImage]);
+
+    console.log(imageUrl);
+  }, []);
 
   return (
     <>

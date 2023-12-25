@@ -41,7 +41,9 @@ export default function Sidebar() {
       email: getLocalStorage.dataUser.email,
       images: imageUrl,
     });
-  }, [dataUser]);
+
+    console.log(imageUrl);
+  }, []);
 
   const logout = () => {
     localStorage.setItem("logoutMessage", "Logged out successfully!");
