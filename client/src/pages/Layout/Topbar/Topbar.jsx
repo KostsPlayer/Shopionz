@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import supabase from "../../../../../server/config/supabase";
+import { supabase } from "../../../component/Helper/LogicServer";
 import axios from "axios";
 
 export default function Topbar() {

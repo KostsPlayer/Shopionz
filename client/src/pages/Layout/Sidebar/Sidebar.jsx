@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import supabase from "../../../../../server/config/supabase";
+import { supabase } from "../../../component/Helper/LogicServer";
 
 export default function Sidebar() {
   axios.defaults.withCredentials = true;
