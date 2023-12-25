@@ -8,11 +8,10 @@ export default function Topbar() {
   useEffect(() => {
     const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
 
-    setDataImage(
-      `https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${getLocalStorage.dataUser.image}?t=2023-12-24T02%3A30%3A45.365Z`
-    );
+    const imageUrl = `https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${getLocalStorage.dataUser.image}?t=2023-12-24T02%3A30%3A45.365Z`;
+    setDataImage(imageUrl);
 
-    console.log(dataImage);
+    console.log(imageUrl);
   }, []);
 
   return (
