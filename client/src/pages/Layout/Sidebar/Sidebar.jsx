@@ -25,39 +25,25 @@ export default function Sidebar() {
       });
   };
 
-  const fetchDataUser = () => {
-    axios
-      .get("https://project-ii-server.vercel.app/users")
-      .then((res) => {
-        setDataUser({
-          name: res.data.name,
-          email: res.data.email,
-          image: res.data.image,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   useEffect(() => {
     fetchDataMenu();
   }, []);
 
   useEffect(() => {
-    fetchDataUser();
+    const getLocalStorage = localStorage.getItem("dataUser");
+
+    setDataUser({
+      name: getLocalStorage.name,
+      email: getLocalStorage.email,
+      image: getLocalStorage.image,
+    });
   }, []);
 
   const logout = () => {
-    axios
-      .post("https://project-ii-server.vercel.app/logout")
-      .then((res) => {
-        redirect("/login");
-        localStorage.setItem("logoutMessage", res.data.message);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    localStorage.setItem("logoutMessage", res.data.message);
+    localStorage.removeItem("dataUser");
+    localStorage.removeItem("session");
+    redirect("/login");
   };
 
   return (

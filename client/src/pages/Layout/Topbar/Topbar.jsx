@@ -8,14 +8,11 @@ export default function Topbar() {
   const redirect = useNavigate();
 
   useEffect(() => {
-    axios
-      .get("https://project-ii-server.vercel.app/users")
-      .then((res) => {
-        setDataUser({ image: res.data.image });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const getLocalStorage = localStorage.getItem("dataUser");
+
+    setDataUser({
+      image: getLocalStorage.image,
+    });
   }, []);
 
   return (

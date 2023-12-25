@@ -32,11 +32,13 @@ router.post("/login", async (req, res) => {
             loggedIn: true,
             role: data[0].role_id,
             dataUser: data[0],
+            isValid: true,
           });
         } else {
           return res.json({
             message: "Wrong username/email or password combination!",
             loggedIn: false,
+            isValid: false,
           });
         }
       });

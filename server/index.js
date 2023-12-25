@@ -32,20 +32,6 @@ app.get("/session", (req, res) => {
   }
 });
 
-app.get("/users", (req, res) => {
-  const user = localStorage.getItem("dataUser");
-
-  const image = user.image;
-  const name = user.name;
-  const email = user.email;
-
-  return res.json({
-    image: image,
-    name: name,
-    email: email,
-  });
-});
-
 app.post("/logout", (req, res) => {
   localStorage.removeItem("dataUser");
   return res.json({ message: "Logged out successfully!" });

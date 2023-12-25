@@ -47,38 +47,18 @@ export default function ProductId() {
   const handleAddToCart = (e) => {
     e.preventDefault();
 
-    if (isValid === false) {
-      redirect("/login");
-    }
+    const valuesCart = {
+      product_id: data.id,
+      amount: quantity,
+    };
 
     axios
-      .get("https://project-ii-server.vercel.app/session")
+      .post("https://project-ii-server.vercel.app/insert-cart", valuesCart)
       .then((res) => {
-        if (res.data.isValid === true) {
-          setIsValid(true);
-        }
-
-        if (isValid === true) {
-          const valuesCart = {
-            product_id: data.id,
-            amount: quantity,
-          };
-
-          axios
-            .post(
-              "https://project-ii-server.vercel.app/insert-cart",
-              valuesCart
-            )
-            .then((res) => {
-              console.log(res.data);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
+        console.log(res.data);
       })
       .catch((err) => {
-        console.error(err);
+        console.log(err);
       });
   };
 

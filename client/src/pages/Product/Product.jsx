@@ -8,15 +8,9 @@ export default function Product() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("https://project-ii-server.vercel.app/users")
-      .then((res) => {
-        console.log(res.data);
-        setData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const getLocalStorage = localStorage.getItem("dataUser");
+
+    setData(getLocalStorage);
   }, []);
 
   return (

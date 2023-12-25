@@ -10,27 +10,17 @@ export default function Layout({ children }) {
   const redirect = useNavigate();
   const [isValid, setIsValid] = useState(true);
 
-
   useEffect(() => {
-    axios
-      .get("https://project-ii-server.vercel.app/session")
-      .then((res) => {
-        if (res.data.isValid === true) {
-          setIsValid(true);
-        } else {
-          localStorage.setItem(
-            "dashboardAccess",
-            "You do not have access to the dashboard page!!"
-          );
-          setIsValid(false);
-          redirect("/login");
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        setIsValid(false);
-        redirect("/login");
-      });
+    if (localStorage.getItem("session")) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+      localStorage.setItem(
+        "dashboardAccess",
+        "You do not have access to the dashboard page!!"
+      );
+      redirect("/login");
+    }
   }, []);
 
   return (

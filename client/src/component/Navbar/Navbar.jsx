@@ -39,15 +39,10 @@ export default function Navbar() {
   }, []);
 
   const logout = () => {
-    axios
-      .post("https://project-ii-server.vercel.app/logout")
-      .then((res) => {
-        redirect("/login");
-        localStorage.setItem("logoutMessage", res.data.message);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    localStorage.setItem("logoutMessage", res.data.message);
+    localStorage.removeItem("dataUser");
+    localStorage.removeItem("session");
+    redirect("/login");
   };
 
   return (
