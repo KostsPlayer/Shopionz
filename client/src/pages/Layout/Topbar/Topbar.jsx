@@ -6,10 +6,10 @@ export default function Topbar() {
   const [dataUser, setDataUser] = useState([]);
 
   useEffect(() => {
-    const getLocalStorage = localStorage.getItem("dataUser");
+    const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
 
     setDataUser({
-      image: JSON.parse(getLocalStorage.image),
+      image: getLocalStorage.dataUser.image,
     });
   }, []);
 

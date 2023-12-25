@@ -30,12 +30,12 @@ export default function Sidebar() {
   }, []);
 
   useEffect(() => {
-    const getLocalStorage = localStorage.getItem("dataUser");
+    const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
 
     setDataUser({
-      name: JSON.parse(getLocalStorage.name),
-      email: JSON.parse(getLocalStorage.email),
-      image: JSON.parse(getLocalStorage.image),
+      name: getLocalStorage.dataUser.name,
+      email: getLocalStorage.dataUser.email,
+      image: getLocalStorage.dataUser.image,
     });
   }, []);
 
