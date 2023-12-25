@@ -3,9 +3,6 @@ import * as yup from "yup";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { createClient } from "@supabase/supabase-js";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 export const validationSignUp = yup.object().shape({
   username: yup.string().required("Name input must be filled"),
@@ -56,6 +53,7 @@ export const allMessage = () => {
   return { toastMessage, message };
 };
 
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_ANON_KEY;
+const supabaseUrl = "https://crijtkbvmmpjdbxqqkpi.supabase.co";
+const supabaseKey =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNyaWp0a2J2bW1wamRieHFxa3BpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDMwMzkzNDcsImV4cCI6MjAxODYxNTM0N30.iO8nGzYD2kA0saijD8uHCYrTQj-U1Cf3XDaSNx7rzaA";
 export const supabase = createClient(supabaseUrl, supabaseKey);
