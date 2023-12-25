@@ -9,7 +9,7 @@ export default function Topbar() {
     const getLocalStorage = localStorage.getItem("dataUser");
 
     setDataUser({
-      image: getLocalStorage.image,
+      image: JSON.parse(getLocalStorage.image),
     });
   }, []);
 

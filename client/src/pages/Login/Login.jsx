@@ -74,13 +74,12 @@ export default function Login() {
               redirect("/");
             }
 
-            localStorage.setItem("dataUser", res.data.dataUser);
+            localStorage.setItem("dataUser", JSON.stringify(res.data.dataUser));
             localStorage.setItem("session", res.data.isValid);
-            
+
             if (res.data.loggedIn === false) {
               toastMessage("error", res.data.message);
             }
-            
           })
           .catch((err) => {
             console.error("error", err);

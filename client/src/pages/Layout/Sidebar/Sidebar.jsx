@@ -33,14 +33,14 @@ export default function Sidebar() {
     const getLocalStorage = localStorage.getItem("dataUser");
 
     setDataUser({
-      name: getLocalStorage.name,
-      email: getLocalStorage.email,
-      image: getLocalStorage.image,
+      name: JSON.parse(getLocalStorage.name),
+      email: JSON.parse(getLocalStorage.email),
+      image: JSON.parse(getLocalStorage.image),
     });
   }, []);
 
   const logout = () => {
-    localStorage.setItem("logoutMessage", res.data.message);
+    localStorage.setItem("logoutMessage", "Logged out successfully!");
     localStorage.removeItem("dataUser");
     localStorage.removeItem("session");
     redirect("/login");

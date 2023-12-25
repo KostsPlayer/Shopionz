@@ -22,11 +22,6 @@ app.use(productRouter);
 app.use(cartRouter);
 app.use(orderRouter);
 
-app.post("/logout", (req, res) => {
-  localStorage.removeItem("dataUser");
-  return res.json({ message: "Logged out successfully!" });
-});
-
 const port = process.env.REACT_APP_PORT || 5001;
 app.listen(port, () => {
   console.log(`running server on port ${port}`);

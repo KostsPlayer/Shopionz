@@ -28,7 +28,7 @@ export default function Navbar() {
       const getLocalStorage = localStorage.getItem("dataUser");
 
       setGetData({
-        image: getLocalStorage.image,
+        image: JSON.parse(getLocalStorage.image),
       });
     } else {
       setIsValid(false);
@@ -36,7 +36,7 @@ export default function Navbar() {
   }, []);
 
   const logout = () => {
-    localStorage.setItem("logoutMessage", res.data.message);
+    localStorage.setItem("logoutMessage", "Logged out successfully!");
     localStorage.removeItem("dataUser");
     localStorage.removeItem("session");
     redirect("/login");
