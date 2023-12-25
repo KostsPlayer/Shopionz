@@ -22,16 +22,6 @@ app.use(productRouter);
 app.use(cartRouter);
 app.use(orderRouter);
 
-app.get("/session", (req, res) => {
-  const user = localStorage.getItem("dataUser");
-
-  if (!user) {
-    return res.json({ isValid: false, user: user });
-  } else {
-    return res.json({ isValid: true, user: user, data });
-  }
-});
-
 app.post("/logout", (req, res) => {
   localStorage.removeItem("dataUser");
   return res.json({ message: "Logged out successfully!" });

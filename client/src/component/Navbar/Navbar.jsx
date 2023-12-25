@@ -25,16 +25,10 @@ export default function Navbar() {
   useEffect(() => {
     if (localStorage.getItem("session")) {
       setIsValid(true);
+      setGetData(localStorage.getItem("dataUser"));
     } else {
       setIsValid(false);
-      localStorage.setItem(
-        "dashboardAccess",
-        "You do not have access to the dashboard page!!"
-      );
-      redirect("/login");
     }
-
-    setGetData(localStorage.getItem("dataUser"));
   }, []);
 
   const logout = () => {
