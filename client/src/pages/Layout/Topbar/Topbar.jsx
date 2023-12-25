@@ -3,14 +3,14 @@ import axios from "axios";
 
 export default function Topbar() {
   axios.defaults.withCredentials = true;
-  const [dataUser, setDataUser] = useState([]);
+  const [dataImage, setDataImage] = useState("");
 
   useEffect(() => {
     const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
 
-    setDataUser({
-      images: getLocalStorage.dataUser.image,
-    });
+    setDataImage(
+      `https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${getLocalStorage.dataUser.image}?t=2023-12-24T02%3A30%3A45.365Z`
+    );
   }, []);
 
   return (
@@ -38,11 +38,7 @@ export default function Topbar() {
         </span>
         <span className="material-symbols-outlined message">mail</span>
         <div className="image">
-          <img
-            className="image-user"
-            scr={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${dataUser.images}?t=2023-12-25T09%3A29%3A16.467Z`}
-            alt="profile"
-          />
+          <img className="image-user" scr={dataImage} alt="profile" />
         </div>
       </div>
     </>

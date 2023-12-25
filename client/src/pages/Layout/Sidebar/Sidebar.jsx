@@ -6,6 +6,7 @@ export default function Sidebar() {
   axios.defaults.withCredentials = true;
   const [active, setActive] = useState(null);
   const [dataUser, setDataUser] = useState([]);
+  const [dataImage, setDataImage] = useState("");
   const [dataMenu, setDataMenu] = useState([]);
   const redirect = useNavigate();
 
@@ -35,8 +36,11 @@ export default function Sidebar() {
     setDataUser({
       name: getLocalStorage.dataUser.name,
       email: getLocalStorage.dataUser.email,
-      images: getLocalStorage.dataUser.image,
     });
+
+    setDataImage(
+      `https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${getLocalStorage.dataUser.image}?t=2023-12-24T02%3A30%3A45.365Z`
+    );
   }, []);
 
   const logout = () => {
@@ -73,11 +77,7 @@ export default function Sidebar() {
       </div>
       <div className="sidebar-footer">
         <div className="image">
-          <img
-            className="image-user"
-            scr={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${dataUser.images}?t=2023-12-24T02%3A30%3A45.365Z`}
-            alt="profile"
-          />
+          <img className="image-user" scr={dataImage} alt="profile" />
         </div>
         <div className="user">
           <div className="user-name">{dataUser.name}</div>
