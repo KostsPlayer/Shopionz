@@ -9,7 +9,7 @@ export default function Navbar() {
   const { onEnterNavbar, onLeaveNavbar } = NavbarCursor();
 
   const [isValid, setIsValid] = useState(false);
-  const [getData, setGetData] = useState({});
+  const [getData, setGetData] = useState([]);
   const [getCount, setGetCount] = useState(0);
   useEffect(() => {
     axios
@@ -25,9 +25,7 @@ export default function Navbar() {
   useEffect(() => {
     if (localStorage.getItem("session")) {
       setIsValid(true);
-      const getLocalStorage = localStorage.getItem("dataUser");
-
-      setGetData(getLocalStorage.image);
+      setGetData(localStorage.getItem("dataUser"));
     } else {
       setIsValid(false);
     }
@@ -113,7 +111,7 @@ export default function Navbar() {
             {isValid ? (
               <img
                 className="home-user-image"
-                scr={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${getData}?t=2023-12-24T02%3A30%3A45.365Z`}
+                scr={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${getData.image}?t=2023-12-24T02%3A30%3A45.365Z`}
               />
             ) : (
               <>
