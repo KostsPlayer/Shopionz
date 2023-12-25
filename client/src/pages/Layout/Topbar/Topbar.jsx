@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 export default function Topbar() {
   axios.defaults.withCredentials = true;
   const [dataUser, setDataUser] = useState([]);
-  const redirect = useNavigate();
 
   useEffect(() => {
     const getLocalStorage = localStorage.getItem("dataUser");

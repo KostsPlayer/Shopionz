@@ -23,6 +23,21 @@ export default function Navbar() {
   }, [getData]);
 
   useEffect(() => {
+    if (localStorage.getItem("session")) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+      localStorage.setItem(
+        "dashboardAccess",
+        "You do not have access to the dashboard page!!"
+      );
+      redirect("/login");
+    }
+
+    setGetData(localStorage.getItem("dataUser"));
+  }, []);
+  
+  useEffect(() => {
     axios
       .get("https://project-ii-server.vercel.app/session")
       .then((res) => {
