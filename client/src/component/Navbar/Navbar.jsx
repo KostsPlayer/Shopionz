@@ -25,7 +25,11 @@ export default function Navbar() {
   useEffect(() => {
     if (localStorage.getItem("session")) {
       setIsValid(true);
-      setGetData(localStorage.getItem("dataUser"));
+      const getLocalStorage = localStorage.getItem("dataUser");
+
+      setGetData({
+        image: getLocalStorage.image,
+      });
     } else {
       setIsValid(false);
     }
