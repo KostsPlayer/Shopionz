@@ -40,9 +40,7 @@ export default function Sidebar() {
         .from("Images")
         .getPublicUrl(getLocalStorage.dataUser.image),
     });
-
-    console.log(dataUser);
-  }, []);
+  }, [dataUser]);
 
   const logout = () => {
     localStorage.setItem("logoutMessage", "Logged out successfully!");

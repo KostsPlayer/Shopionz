@@ -4,19 +4,17 @@ import axios from "axios";
 
 export default function Topbar() {
   axios.defaults.withCredentials = true;
-  const [dataImage, setDataImage] = useState([]);
+  const [dataImage, setDataImage] = useState("");
 
   useEffect(() => {
     const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
 
-    setDataImage({
-      images: supabase.storage
+    setDataImage(
+      supabase.storage
         .from("Images")
-        .getPublicUrl(getLocalStorage.dataUser.image),
-    });
-
-    console.log(dataImage);
-  }, []);
+        .getPublicUrl(getLocalStorage.dataUser.image)
+    );
+  }, [dataImage]);
 
   return (
     <>
@@ -43,7 +41,7 @@ export default function Topbar() {
         </span>
         <span className="material-symbols-outlined message">mail</span>
         <div className="image">
-          <img className="image-user" scr={dataImage.images} alt="profile" />
+          <img className="image-user" scr={dataImage} alt="profile" />
         </div>
       </div>
     </>
