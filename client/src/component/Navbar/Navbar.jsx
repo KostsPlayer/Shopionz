@@ -25,7 +25,9 @@ export default function Navbar() {
   useEffect(() => {
     if (localStorage.getItem("session")) {
       setIsValid(true);
-      setGetData(localStorage.getItem("dataUser"));
+      const getLocalStorage = localStorage.getItem("dataUser");
+
+      setGetData(getLocalStorage.image);
     } else {
       setIsValid(false);
     }
@@ -111,7 +113,7 @@ export default function Navbar() {
             {isValid ? (
               <img
                 className="home-user-image"
-                scr={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${getData.image}?t=2023-12-24T02%3A30%3A45.365Z`}
+                scr={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${getData}?t=2023-12-24T02%3A30%3A45.365Z`}
               />
             ) : (
               <>
