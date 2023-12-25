@@ -3,7 +3,7 @@ import axios from "axios";
 
 export default function Topbar() {
   axios.defaults.withCredentials = true;
-  const [dataImage, setDataImage] = useState("");
+  const [dataImage, setDataImage] = useState({});
 
   useEffect(() => {
     const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));

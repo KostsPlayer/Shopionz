@@ -6,7 +6,7 @@ export default function Sidebar() {
   axios.defaults.withCredentials = true;
   const [active, setActive] = useState(null);
   const [dataUser, setDataUser] = useState([]);
-  const [dataImage, setDataImage] = useState("");
+  const [dataImage, setDataImage] = useState({});
   const [dataMenu, setDataMenu] = useState([]);
   const redirect = useNavigate();
 
