@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import supabase from "../../../../../server/config/supabase";
 
 export default function Sidebar() {
   axios.defaults.withCredentials = true;
   const [active, setActive] = useState(null);
   const [dataUser, setDataUser] = useState([]);
-  const [dataImage, setDataImage] = useState({});
   const [dataMenu, setDataMenu] = useState([]);
   const redirect = useNavigate();
 
@@ -36,12 +36,12 @@ export default function Sidebar() {
     setDataUser({
       name: getLocalStorage.dataUser.name,
       email: getLocalStorage.dataUser.email,
+      images: supabase.storage
+        .from("Images")
+        .getPublicUrl(getLocalStorage.dataUser.image),
     });
 
-    const imageUrl = `https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${getLocalStorage.dataUser.image}?t=2023-12-24T02%3A30%3A45.365Z`;
-    setDataImage(imageUrl);
-
-    console.log(imageUrl);
+    console.log(dataUser);
   }, []);
 
   const logout = () => {
@@ -78,7 +78,7 @@ export default function Sidebar() {
       </div>
       <div className="sidebar-footer">
         <div className="image">
-          <img className="image-user" scr={dataImage} alt="profile" />
+          <img className="image-user" scr={dataUser.images} alt="profile" />
         </div>
         <div className="user">
           <div className="user-name">{dataUser.name}</div>

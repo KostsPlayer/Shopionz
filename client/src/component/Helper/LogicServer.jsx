@@ -2,6 +2,9 @@ import { useState } from "react";
 import * as yup from "yup";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { createClient } from "@supabase/supabase-js";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const validationSignUp = yup.object().shape({
   username: yup.string().required("Name input must be filled"),
@@ -51,3 +54,7 @@ export const allMessage = () => {
 
   return { toastMessage, message };
 };
+
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_ANON_KEY;
+export const supabase = createClient(supabaseUrl, supabaseKey);

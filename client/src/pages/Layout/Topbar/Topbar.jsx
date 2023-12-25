@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
+import supabase from "../../../../../server/config/supabase";
 import axios from "axios";
 
 export default function Topbar() {
   axios.defaults.withCredentials = true;
-  const [dataImage, setDataImage] = useState({});
+  const [dataImage, setDataImage] = useState([]);
 
   useEffect(() => {
     const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
 
-    const imageUrl = `https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${getLocalStorage.dataUser.image}?t=2023-12-24T02%3A30%3A45.365Z`;
-    setDataImage(imageUrl);
+    setDataImage({
+      images: supabase.storage
+        .from("Images")
+        .getPublicUrl(getLocalStorage.dataUser.image),
+    });
 
-    console.log(imageUrl);
+    console.log(dataImage);
   }, []);
 
   return (
@@ -39,7 +43,7 @@ export default function Topbar() {
         </span>
         <span className="material-symbols-outlined message">mail</span>
         <div className="image">
-          <img className="image-user" scr={dataImage} alt="profile" />
+          <img className="image-user" scr={dataImage.images} alt="profile" />
         </div>
       </div>
     </>
