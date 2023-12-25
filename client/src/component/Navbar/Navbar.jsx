@@ -36,22 +36,6 @@ export default function Navbar() {
 
     setGetData(localStorage.getItem("dataUser"));
   }, []);
-  
-  useEffect(() => {
-    axios
-      .get("https://project-ii-server.vercel.app/session")
-      .then((res) => {
-        if (res.data.isValid === true) {
-          setIsValid(true);
-          setGetData(res.data.user);
-        } else {
-          setIsValid(false);
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
 
   const logout = () => {
     localStorage.setItem("logoutMessage", res.data.message);
