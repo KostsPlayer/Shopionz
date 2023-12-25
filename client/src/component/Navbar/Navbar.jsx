@@ -22,13 +22,15 @@ export default function Navbar() {
       });
   }, [getData]);
 
+  const getSession = localStorage.getItem("session");
+
   useEffect(() => {
-    if (localStorage.getItem("session")) {
+    if (getSession) {
       setIsValid(true);
       const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
 
       setGetData({
-        image: getLocalStorage.dataUser.image,
+        images: getLocalStorage.dataUser.image,
       });
     } else {
       setIsValid(false);
@@ -115,7 +117,7 @@ export default function Navbar() {
             {isValid ? (
               <img
                 className="home-user-image"
-                scr={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${getData.image}?t=2023-12-24T02%3A30%3A45.365Z`}
+                scr={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${getData.images}?t=2023-12-24T02%3A30%3A45.365Z`}
               />
             ) : (
               <>

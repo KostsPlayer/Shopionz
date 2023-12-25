@@ -35,7 +35,7 @@ export default function Sidebar() {
     setDataUser({
       name: getLocalStorage.dataUser.name,
       email: getLocalStorage.dataUser.email,
-      image: getLocalStorage.dataUser.image,
+      images: getLocalStorage.dataUser.image,
     });
   }, []);
 
@@ -75,7 +75,7 @@ export default function Sidebar() {
         <div className="image">
           <img
             className="image-user"
-            scr={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${dataUser.image}?t=2023-12-24T02%3A30%3A45.365Z`}
+            scr={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${dataUser.images}?t=2023-12-24T02%3A30%3A45.365Z`}
             alt="profile"
           />
         </div>

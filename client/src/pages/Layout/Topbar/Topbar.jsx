@@ -9,7 +9,7 @@ export default function Topbar() {
     const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
 
     setDataUser({
-      image: getLocalStorage.dataUser.image,
+      images: getLocalStorage.dataUser.image,
     });
   }, []);
 
@@ -40,7 +40,7 @@ export default function Topbar() {
         <div className="image">
           <img
             className="image-user"
-            scr={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${dataUser.image}?t=2023-12-24T02%3A30%3A45.365Z`}
+            scr={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${dataUser.images}?t=2023-12-25T09%3A29%3A16.467Z`}
             alt="profile"
           />
         </div>
