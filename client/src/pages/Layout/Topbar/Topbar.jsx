@@ -9,11 +9,11 @@ export default function Topbar() {
   useEffect(() => {
     const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
 
-    setDataImage(
-      supabase.storage
-        .from("Images")
-        .getPublicUrl(getLocalStorage.dataUser.image)
-    );
+    const imageUrl = supabase.storage
+      .from("Images")
+      .getPublicUrl(getLocalStorage.dataUser.image);
+      
+    setDataImage(imageUrl);
   }, [dataImage]);
 
   return (

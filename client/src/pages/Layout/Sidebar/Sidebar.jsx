@@ -32,13 +32,14 @@ export default function Sidebar() {
 
   useEffect(() => {
     const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
+    const imageUrl = supabase.storage
+      .from("Images")
+      .getPublicUrl(getLocalStorage.dataUser.image);
 
     setDataUser({
       name: getLocalStorage.dataUser.name,
       email: getLocalStorage.dataUser.email,
-      images: supabase.storage
-        .from("Images")
-        .getPublicUrl(getLocalStorage.dataUser.image),
+      images: imageUrl,
     });
   }, [dataUser]);
 
