@@ -77,6 +77,8 @@ export default function Login() {
             localStorage.setItem("dataUser", JSON.stringify(res.data.dataUser));
             localStorage.setItem("session", res.data.isValid);
 
+            const test = JSON.parse(localStorage.getItem("dataUser"));
+            console.log(test);
             if (res.data.loggedIn === false) {
               toastMessage("error", res.data.message);
             }

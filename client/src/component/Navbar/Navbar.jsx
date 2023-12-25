@@ -27,9 +27,7 @@ export default function Navbar() {
       setIsValid(true);
       const getLocalStorage = localStorage.getItem("dataUser");
 
-      setGetData({
-        image: JSON.parse(getLocalStorage.image),
-      });
+      setGetData(JSON.parse(getLocalStorage));
     } else {
       setIsValid(false);
     }
