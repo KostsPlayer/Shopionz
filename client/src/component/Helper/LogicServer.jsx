@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { createClient } from "@supabase/supabase-js";
 import dotenv from "dotenv";
+
 dotenv.config();
 
 export const validationSignUp = yup.object().shape({
