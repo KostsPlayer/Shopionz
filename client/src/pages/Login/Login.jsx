@@ -74,11 +74,14 @@ export default function Login() {
               redirect("/");
             }
 
-            localStorage.setItem("dataUser", JSON.stringify(res.data.dataUser));
             localStorage.setItem("session", res.data.isValid);
+            localStorage.setItem(
+              "dataUser",
+              JSON.stringify({ dataUser: res.data.dataUser })
+            );
 
             const test = JSON.parse(localStorage.getItem("dataUser"));
-            console.log(test.email);
+            console.log(test.dataUser.email);
             if (res.data.loggedIn === false) {
               toastMessage("error", res.data.message);
             }
