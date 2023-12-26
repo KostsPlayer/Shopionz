@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { supabase } from "../../../component/Helper/LogicServer";
 import axios from "axios";
 
 export default function Topbar() {
   axios.defaults.withCredentials = true;
   const [dataUser, setDataUser] = useState([]);
 
-  const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
-  const imageUrl = supabase.storage
-    .from("Images")
-    .getPublicUrl(getLocalStorage.dataUser.image);
+  const getImageUrl = JSON.parse(localStorage.getItem("imageUrl"));
 
   useEffect(() => {
     setDataUser({
-      images: imageUrl,
+      images: getImageUrl.imageUrl.data,
     });
-    console.log(imageUrl);
+    
+    console.log(getImageUrl.imageUrl.data);
   }, []);
 
   return (

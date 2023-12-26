@@ -26,9 +26,9 @@ router.post("/login", async (req, res) => {
           res.json(error.message);
         }
 
-        const imageUrl = supabase.storage
-          .from("Images")
-          .getPublicUrl(data[0].image);
+        const url = supabase.storage.from("Images").getPublicUrl(data[0].image);
+
+        const imageUrl = url.data;
 
         if (response) {
           return res.json({

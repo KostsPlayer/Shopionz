@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { supabase } from "../../../component/Helper/LogicServer";
 
 export default function Sidebar() {
   axios.defaults.withCredentials = true;
@@ -31,24 +30,23 @@ export default function Sidebar() {
   }, []);
 
   const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
-  const imageUrl = supabase.storage
-    .from("Images")
-    .getPublicUrl(getLocalStorage.dataUser.image);
+  const getImageUrl = JSON.parse(localStorage.getItem("imageUrl"));
 
   useEffect(() => {
     setDataUser({
       name: getLocalStorage.dataUser.name,
       email: getLocalStorage.dataUser.email,
-      images: imageUrl,
+      images: getImageUrl.imageUrl.data,
     });
 
-    console.log(imageUrl);
+    console.log(getImageUrl.imageUrl.data);
   }, []);
 
   const logout = () => {
     localStorage.setItem("logoutMessage", "Logged out successfully!");
     localStorage.removeItem("dataUser");
     localStorage.removeItem("session");
+    localStorage.removeItem("imageUrl");
     redirect("/login");
   };
 

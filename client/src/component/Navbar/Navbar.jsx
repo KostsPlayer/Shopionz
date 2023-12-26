@@ -23,23 +23,25 @@ export default function Navbar() {
   }, [getData]);
 
   const getSession = localStorage.getItem("session");
+  const getImageUrl = JSON.parse(localStorage.getItem("imageUrl"));
 
   useEffect(() => {
     if (getSession) {
       setIsValid(true);
-      const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
 
       setGetData({
-        images: getLocalStorage.dataUser.image,
+        images: getImageUrl.imageUrl.data,
       });
+      
     } else {
       setIsValid(false);
     }
-  }, []);
+  }, [isValid]);
 
   const logout = () => {
     localStorage.setItem("logoutMessage", "Logged out successfully!");
     localStorage.removeItem("dataUser");
+    localStorage.removeItem("imageUrl");
     localStorage.removeItem("session");
     redirect("/login");
   };
