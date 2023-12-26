@@ -42,6 +42,7 @@ export default function Store() {
       .get("https://project-ii-server.vercel.app/product-seller")
       .then((res) => {
         setDataProduct(res.data);
+        console.log(res.data);
       })
       .catch((err) => {
         console.error(err);
@@ -49,6 +50,7 @@ export default function Store() {
   };
   useEffect(() => {
     fecthDataProductSeller();
+    console.log(dataProduct);
   }, [dataProduct]);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -56,7 +58,7 @@ export default function Store() {
 
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  const currentRecords = dataProduct.slice(firstIndex, lastIndex);
+  const currentRecords = dataProduct.map(firstIndex, lastIndex);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
@@ -192,4 +194,3 @@ export default function Store() {
     </>
   );
 }
-
