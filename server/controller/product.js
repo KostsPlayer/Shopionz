@@ -112,7 +112,7 @@ router.post("/insert-product/:email", async (req, res) => {
       res.json(imageError.name);
     }
 
-    const { data, error } = await supabase
+    const { data: productData, error: productError } = await supabase
       .from("product")
       .insert({
         user_email: email,
@@ -125,14 +125,17 @@ router.post("/insert-product/:email", async (req, res) => {
       })
       .select("*");
 
-    if (error) {
-      res.json(error.message);
-      res.json(error.code);
-      res.json(error.details);
-      res.json(error.hint);
+    if (productError) {
+      res.json(productError.message);
+      res.json(productError.code);
+      res.json(productError.details);
+      res.json(productError.hint);
     }
 
-    return res.json({ data: data[0], message: "Insert product successfully!" });
+    return res.json({
+      data: productData[0],
+      message: "Insert product successfully!",
+    });
   } catch (error) {
     return res.json(error);
   }
