@@ -54,8 +54,15 @@ export default function InsertProduct({ onOpen, onClose }) {
     formData.append("category", values.category);
     formData.append("image", values.image[0]);
 
+    const getEmail = JSON.parse(localStorage.getItem("dataUser"));
+
+    const email = getEmail.dataUser.email;
+
     axios
-      .post("https://project-ii-server.vercel.app/insert-product", formData)
+      .post(
+        `https://project-ii-server.vercel.app/insert-product/${email}`,
+        formData
+      )
       .then((res) => {
         console.log(res.data);
         toastMessage("success", res.data.message);

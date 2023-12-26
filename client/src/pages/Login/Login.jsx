@@ -84,9 +84,6 @@ export default function Login() {
               JSON.stringify({ imageUrl: res.data.imageUrl })
             );
 
-            const test = JSON.parse(localStorage.getItem("dataUser"));
-            console.log(test.dataUser.image);
-
             if (res.data.loggedIn === false) {
               toastMessage("error", res.data.message);
             }

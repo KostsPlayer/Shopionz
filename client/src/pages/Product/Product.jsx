@@ -8,7 +8,7 @@ export default function Product() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    const getLocalStorage = localStorage.getItem("dataUser");
+    const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
 
     setData(getLocalStorage);
   }, []);

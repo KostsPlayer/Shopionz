@@ -55,7 +55,7 @@ export default function Store() {
 
   useEffect(() => {
     fecthDataProductSeller();
-  }, [dataProduct]);
+  }, []);
 
   // const [currentPage, setCurrentPage] = useState(1);
   // const recordsPerPage = 8;

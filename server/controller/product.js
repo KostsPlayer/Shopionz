@@ -90,37 +90,40 @@ router.get("/get-product/:id", async (req, res) => {
   }
 });
 
-router.post("/insert-product", upload.single("image"), async (req, res) => {
-  try {
-    const { name, description, price, stock, category } = req.body;
-    const image = req.file.originalname;
-    const getLocalStorage = localStorage.getItem("dataUser");
-    const email = getLocalStorage.email;
+router.post(
+  "/insert-product/:email",
+  upload.single("image"),
+  async (req, res) => {
+    try {
+      const { name, description, price, stock, category } = req.body;
+      const image = req.file.originalname;
+      const email = req.params.email;
 
-    const { data, error } = await supabase
-      .from("product")
-      .insert([
-        {
-          user_email: email,
-          name: name,
-          description: description,
-          price: price,
-          stock: stock,
-          category_id: category,
-          images: image,
-        },
-      ])
-      .select("*");
+      const { data, error } = await supabase
+        .from("product")
+        .insert([
+          {
+            user_email: email,
+            name: name,
+            description: description,
+            price: price,
+            stock: stock,
+            category_id: category,
+            images: image,
+          },
+        ])
+        .select("*");
 
-    if (error) {
-      return res.json(error.message);
+      if (error) {
+        return res.json(error.message);
+      }
+
+      return res.json({ data, message: "Insert product successfully!" });
+    } catch (error) {
+      return res.json(error);
     }
-
-    return res.json({ data, message: "Insert product successfully!" });
-  } catch (error) {
-    return res.json(error);
   }
-});
+);
 
 router.put("/update-product/:id", upload.single("image"), async (req, res) => {
   try {
