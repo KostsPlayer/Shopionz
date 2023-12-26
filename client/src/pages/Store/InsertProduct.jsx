@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {
-  // validationInsertproduct,
-  allMessage,
-} from "../../component/Helper/LogicServer";
+import { allMessage } from "../../component/Helper/LogicServer";
 import { ToastContainer } from "react-toastify";
 
 export default function InsertProduct({ onOpen, onClose }) {
@@ -45,6 +42,7 @@ export default function InsertProduct({ onOpen, onClose }) {
     e.preventDefault();
 
     console.log("Form Values:", values);
+    console.log("Email: ", email);
 
     const formData = new FormData();
     formData.append("name", values.name);

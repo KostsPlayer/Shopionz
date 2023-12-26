@@ -97,7 +97,6 @@ router.post(
     try {
       const { name, description, price, stock, category } = req.body;
       const image = req.file.originalname;
-      const email = req.params.email;
 
       const { data, error } = await supabase
         .from("product")
