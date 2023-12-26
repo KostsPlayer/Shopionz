@@ -46,7 +46,7 @@ router.put("/update-menu/:id", async (req, res) => {
 
     const { data, error } = await supabase
       .from("menu")
-      .update([{ name: name, icon: icon, url: url, is_active: is_active }])
+      .update({ name: name, icon: icon, url: url, is_active: is_active })
       .eq("id", menuId)
       .select("*");
 
@@ -66,7 +66,7 @@ router.post("/insert-menu", async (req, res) => {
 
     const { data, error } = await supabase
       .from("menu")
-      .insert([{ name: name, icon: icon, url: url, is_active: is_active }])
+      .insert({ name: name, icon: icon, url: url, is_active: is_active })
       .select("*");
 
     if (error) {

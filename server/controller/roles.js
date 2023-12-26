@@ -20,7 +20,7 @@ router.post("/assign-role", async (req, res) => {
 
     const { data, error } = await supabase
       .from("users")
-      .update([{ role_id: roleValue }])
+      .update({ role_id: roleValue })
       .eq("id", userId)
       .select("*");
 

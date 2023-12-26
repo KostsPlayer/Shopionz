@@ -52,18 +52,15 @@ router.post("/insert-cart", async (req, res) => {
     const getLocalStorage = localStorage.getItem("dataUser");
     const email = getLocalStorage.email;
     const active = 1;
-    
 
     const { data, error } = await supabase
       .from("shopping_cart")
-      .insert([
-        {
-          user_email: email,
-          product_id: product_id,
-          amount: amount,
-          status: active,
-        },
-      ])
+      .insert({
+        user_email: email,
+        product_id: product_id,
+        amount: amount,
+        status: active,
+      })
       .select("*");
 
     if (error) {

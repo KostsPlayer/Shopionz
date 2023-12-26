@@ -100,17 +100,15 @@ router.post(
 
       const { data, error } = await supabase
         .from("product")
-        .insert([
-          {
-            user_email: email,
-            name: name,
-            description: description,
-            price: price,
-            stock: stock,
-            category_id: category,
-            images: image,
-          },
-        ])
+        .insert({
+          user_email: email,
+          name: name,
+          description: description,
+          price: price,
+          stock: stock,
+          category_id: category,
+          images: image,
+        })
         .select("*");
 
       if (error) {
@@ -132,16 +130,14 @@ router.put("/update-product/:id", upload.single("image"), async (req, res) => {
 
     const { data, error } = await supabase
       .from("product")
-      .update([
-        {
-          name: name,
-          description: description,
-          price: price,
-          stock: stock,
-          category_id: category,
-          images: image,
-        },
-      ])
+      .update({
+        name: name,
+        description: description,
+        price: price,
+        stock: stock,
+        category_id: category,
+        images: image,
+      })
       .eq("id", productId)
       .select("*");
 

@@ -62,17 +62,15 @@ router.post("/insert-order", async (req, res) => {
 
     const { data: orderDetail, error: errorOrderDetail } = await supabase
       .from("orders_detail")
-      .insert([
-        {
-          orders_id: orderId,
-          product_id: productId,
-          amount: amount,
-          address: address,
-          phone_number: phoneNumber,
-          shipping_method_id: shippingMethod,
-          payment_method_id: paymentMethod,
-        },
-      ])
+      .insert({
+        orders_id: orderId,
+        product_id: productId,
+        amount: amount,
+        address: address,
+        phone_number: phoneNumber,
+        shipping_method_id: shippingMethod,
+        payment_method_id: paymentMethod,
+      })
       .select("*");
 
     if (errorOrderDetail) {
