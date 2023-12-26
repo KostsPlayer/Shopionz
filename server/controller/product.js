@@ -75,62 +75,68 @@ router.get("/get-product/:id", async (req, res) => {
   }
 });
 
-const pathStorage = supabase.storage.from("Images").getPublicUrl();
+// const storage = multer.diskStorage({
+//   destination: async (req, file, cb) => {
+//     const { data, error } = await supabase.storage
+//       .from("Images")
+//       .upload(pathStorage, file);
 
-const storage = multer.diskStorage({
-  destination: async (req, file, cb) => {
-    const { data, error } = await supabase.storage
-      .from("Images")
-      .upload(pathStorage, file);
+//     if (error) {
+//       cb(error.message);
+//       cb(error.name);
+//       cb(error.stack);
+//     }
+
+//     cb(null, data.path);
+//     console.log(pathStorage);
+//     console.log(file);
+//   },
+// });
+// const upload = multer({ storage });
+
+router.post("/insert-product/:email", async (req, res) => {
+  try {
+    const { name, description, price, stock, category } = req.body;
+    const { image } = req.file;
+    const { email } = req.params.email;
+
+    const pathStorage = supabase.storage.from("Images").getPublicUrl();
+
+    const { data: imageData, error: imageError } = await supabase.storage
+      .from("avatars")
+      .upload(pathStorage, image);
+
+    if (imageError) {
+      res.json(imageError.message);
+      res.json(imageError.stack);
+      res.json(imageError.name);
+    }
+
+    const { data, error } = await supabase
+      .from("product")
+      .insert({
+        user_email: email,
+        name: name,
+        description: description,
+        price: price,
+        stock: stock,
+        category_id: category,
+        images: imageData,
+      })
+      .select("*");
 
     if (error) {
-      cb(error.message);
-      cb(error.name);
-      cb(error.stack);
+      res.json(error.message);
+      res.json(error.code);
+      res.json(error.details);
+      res.json(error.hint);
     }
 
-    cb(null, data.path);
-    console.log(pathStorage);
-    console.log(file);
-  },
-});
-const upload = multer({ storage });
-
-router.post(
-  "/insert-product/:email",
-  upload.single("image"),
-  async (req, res) => {
-    try {
-      const { name, description, price, stock, category } = req.body;
-      const { image } = req.file;
-      const { email } = req.params.email;
-
-      const { data, error } = await supabase
-        .from("product")
-        .insert({
-          user_email: email,
-          name: name,
-          description: description,
-          price: price,
-          stock: stock,
-          category_id: category,
-          images: image,
-        })
-        .select("*");
-
-      if (error) {
-        res.json(error.message);
-        res.json(error.code);
-        res.json(error.details);
-        res.json(error.hint);
-      }
-
-      return res.json({ data: data, message: "Insert product successfully!" });
-    } catch (error) {
-      return res.json(error);
-    }
+    return res.json({ data: data, message: "Insert product successfully!" });
+  } catch (error) {
+    return res.json(error);
   }
-);
+});
 
 router.put("/update-product/:id", upload.single("image"), async (req, res) => {
   try {
