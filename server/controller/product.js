@@ -100,7 +100,8 @@ router.post(
   async (req, res) => {
     try {
       const { name, description, price, stock, category } = req.body;
-      const image = req.file;
+      const { image } = req.file;
+      const { email } = req.params.email;
 
       const { data, error } = await supabase
         .from("product")
