@@ -90,6 +90,8 @@ const storage = multer.diskStorage({
     }
 
     cb(null, data.path);
+    console.log(pathStorage);
+    console.log(file);
   },
 });
 const upload = multer({ storage });
