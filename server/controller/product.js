@@ -14,7 +14,9 @@ const storage = multer.diskStorage({
       .upload(file.originalname, file.buffer);
 
     if (error) {
-      return cb(error);
+      cb(error.message);
+      cb(error.name);
+      cb(error.stack);
     }
 
     cb(null, data.path);
@@ -112,10 +114,13 @@ router.post(
         .select("*");
 
       if (error) {
-        return res.json(error);
+        res.json(error.message);
+        res.json(error.code);
+        res.json(error.details);
+        res.json(error.hint);
       }
 
-      return res.json({ data, message: "Insert product successfully!" });
+      return res.json({ data: data, message: "Insert product successfully!" });
     } catch (error) {
       return res.json(error);
     }
