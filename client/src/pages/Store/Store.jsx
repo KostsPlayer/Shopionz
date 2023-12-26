@@ -57,13 +57,13 @@ export default function Store() {
     fecthDataProductSeller();
   }, [dataProduct]);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const recordsPerPage = 8;
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const recordsPerPage = 8;
 
-  const lastIndex = currentPage * recordsPerPage;
-  const firstIndex = lastIndex - recordsPerPage;
-  const currentRecords = dataProduct.map(firstIndex, lastIndex);
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  // const lastIndex = currentPage * recordsPerPage;
+  // const firstIndex = lastIndex - recordsPerPage;
+  // const currentRecords = dataProduct.map(firstIndex, lastIndex);
+  // const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <>
@@ -92,7 +92,7 @@ export default function Store() {
         />
 
         <div className="store-gallery">
-          {currentRecords.map(
+          {dataProduct.map(
             (
               {
                 id,
@@ -144,7 +144,7 @@ export default function Store() {
           )}
         </div>
 
-        <ul className="pagination">
+        {/* <ul className="pagination">
           <li className="page-item">
             <Link
               to="#"
@@ -192,7 +192,7 @@ export default function Store() {
               Next
             </Link>
           </li>
-        </ul>
+        </ul> */}
         {message && <ToastContainer />}
       </Layout>
     </>
