@@ -52,10 +52,9 @@ router.get("/product", async (req, res) => {
   }
 });
 
-router.get("/product-seller", async (req, res) => {
+router.get("/product-seller/:email", async (req, res) => {
   try {
-    const getLocalStorage = localStorage.getItem("dataUser");
-    const email = getLocalStorage.email;
+    const email = req.params.email;
 
     const { data, error } = await supabase
       .from("product")

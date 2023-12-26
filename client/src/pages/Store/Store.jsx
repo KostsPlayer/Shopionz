@@ -38,8 +38,12 @@ export default function Store() {
   };
 
   const fecthDataProductSeller = () => {
+    const getEmail = JSON.parse(localStorage.getItem("dataUser"));
+
+    const email = getEmail.dataUser.email;
+
     axios
-      .get("https://project-ii-server.vercel.app/product-seller")
+      .get(`https://project-ii-server.vercel.app/product-seller/${email}`)
       .then((res) => {
         setDataProduct(res.data);
         console.log(res.data);
@@ -48,9 +52,9 @@ export default function Store() {
         console.error(err);
       });
   };
+
   useEffect(() => {
     fecthDataProductSeller();
-    console.log(dataProduct);
   }, [dataProduct]);
 
   const [currentPage, setCurrentPage] = useState(1);
