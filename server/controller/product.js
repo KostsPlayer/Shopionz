@@ -138,34 +138,34 @@ router.post("/insert-product/:email", async (req, res) => {
   }
 });
 
-router.put("/update-product/:id", upload.single("image"), async (req, res) => {
-  try {
-    const productId = req.params.id;
-    const { name, description, price, stock, category } = req.body;
-    const image = req.file.filename;
+// router.put("/update-product/:id", async (req, res) => {
+//   try {
+//     const productId = req.params.id;
+//     const { name, description, price, stock, category } = req.body;
+//     const image = req.file.filename;
 
-    const { data, error } = await supabase
-      .from("product")
-      .update({
-        name: name,
-        description: description,
-        price: price,
-        stock: stock,
-        category_id: category,
-        images: image,
-      })
-      .eq("id", productId)
-      .select("*");
+//     const { data, error } = await supabase
+//       .from("product")
+//       .update({
+//         name: name,
+//         description: description,
+//         price: price,
+//         stock: stock,
+//         category_id: category,
+//         images: image,
+//       })
+//       .eq("id", productId)
+//       .select("*");
 
-    if (error) {
-      return res.json(error.message);
-    }
+//     if (error) {
+//       return res.json(error.message);
+//     }
 
-    return res.json({ data, message: "Update product successfully!" });
-  } catch (error) {
-    return res.json(error);
-  }
-});
+//     return res.json({ data, message: "Update product successfully!" });
+//   } catch (error) {
+//     return res.json(error);
+//   }
+// });
 
 router.put("/delete-product/:id", async (req, res) => {
   try {
