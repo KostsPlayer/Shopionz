@@ -42,7 +42,6 @@ export default function InsertProduct({ onOpen, onClose }) {
     e.preventDefault();
 
     console.log("Form Values:", values);
-    console.log("Email: ", email);
 
     const formData = new FormData();
     formData.append("name", values.name);
@@ -53,7 +52,6 @@ export default function InsertProduct({ onOpen, onClose }) {
     formData.append("image", values.image[0]);
 
     const getEmail = JSON.parse(localStorage.getItem("dataUser"));
-
     const email = getEmail.dataUser.email;
 
     axios
@@ -68,6 +66,7 @@ export default function InsertProduct({ onOpen, onClose }) {
       .catch((err) => {
         console.error(err);
       });
+    console.log("Email: ", email);
   };
 
   return (
