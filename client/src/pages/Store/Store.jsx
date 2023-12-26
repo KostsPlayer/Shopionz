@@ -56,7 +56,7 @@ export default function Store() {
 
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  const currentRecords = dataProduct.map(firstIndex, lastIndex);
+  const currentRecords = dataProduct.slice(firstIndex, lastIndex);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
@@ -192,3 +192,4 @@ export default function Store() {
     </>
   );
 }
+
