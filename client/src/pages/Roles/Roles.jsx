@@ -40,6 +40,7 @@ export default function Roles() {
       });
 
     console.log(params);
+    console.log(userIdFromRegistration);
   };
 
   return (
