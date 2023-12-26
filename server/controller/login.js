@@ -26,12 +26,17 @@ router.post("/login", async (req, res) => {
           res.json(error.message);
         }
 
+        const imageUrl = supabase.storage
+          .from("Images")
+          .getPublicUrl(data[0].image);
+
         if (response) {
           return res.json({
             message: `Welcome to Shopionz, ${data[0].name}`,
             loggedIn: true,
             role: data[0].role_id,
             dataUser: data[0],
+            imageUrl: imageUrl,
             isValid: true,
           });
         } else {

@@ -79,10 +79,11 @@ export default function Login() {
               "dataUser",
               JSON.stringify({ dataUser: res.data.dataUser })
             );
+            localStorage.setItem("imageUrl", res.data.imageUrl);
 
             const test = JSON.parse(localStorage.getItem("dataUser"));
             console.log(test.dataUser.image);
-            
+
             if (res.data.loggedIn === false) {
               toastMessage("error", res.data.message);
             }
