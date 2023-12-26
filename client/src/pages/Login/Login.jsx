@@ -79,7 +79,10 @@ export default function Login() {
               "dataUser",
               JSON.stringify({ dataUser: res.data.dataUser })
             );
-            localStorage.setItem("imageUrl", { imageUrl: res.data.imageUrl });
+            localStorage.setItem(
+              "imageUrl",
+              JSON.stringify({ imageUrl: res.data.imageUrl })
+            );
 
             const test = JSON.parse(localStorage.getItem("dataUser"));
             console.log(test.dataUser.image);
