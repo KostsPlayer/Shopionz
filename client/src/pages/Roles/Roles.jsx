@@ -24,7 +24,7 @@ export default function Roles() {
   const handleRoleSelection = (params) => {
     axios
       .post("https://project-ii-server.vercel.app/assign-role", {
-        userId: userIdFromRegistration,
+        userId: userIdFromRegistration.id,
         role: params,
       })
       .then((res) => {
@@ -38,7 +38,7 @@ export default function Roles() {
       });
 
     console.log(params);
-    console.log(userIdFromRegistration);
+    console.log(userIdFromRegistration.id);
   };
 
   return (
