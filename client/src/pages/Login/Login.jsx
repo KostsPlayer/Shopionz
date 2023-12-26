@@ -22,11 +22,11 @@ export default function Login() {
   const location = useLocation();
 
   useEffect(() => {
-    const roleMessagge = localStorage.getItem("roleMessagge");
+    const roleMessagge = localStorage.getItem("roleMessage");
 
     if (roleMessagge) {
       toastMessage("success", roleMessagge);
-      localStorage.removeItem("roleMessagge");
+      localStorage.removeItem("roleMessage");
     }
   }, [location.state]);
 

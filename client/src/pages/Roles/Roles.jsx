@@ -30,7 +30,7 @@ export default function Roles() {
       })
       .then((res) => {
         console.log(res.data);
-        localStorage.setItem("roleMessagge", `Welcome to become a ${role}`);
+        localStorage.setItem("roleMessage", `Welcome to become a ${role}`);
         const userId = res.data.userId;
         redirect("/login", { state: { userId: userId } });
       })
