@@ -7,23 +7,6 @@ const app = express();
 configureMiddleware(app);
 const router = express.Router();
 
-const storage = multer.diskStorage({
-  destination: async (req, file, cb) => {
-    const { data, error } = await supabase.storage
-      .from("Images")
-      .upload(file.originalname, file.buffer);
-
-    if (error) {
-      cb(error.message);
-      cb(error.name);
-      cb(error.stack);
-    }
-
-    cb(null, data.path);
-  },
-});
-const upload = multer({ storage });
-
 router.get("/get-category", async (req, res) => {
   try {
     const { data, error } = await supabase.from("category").select("*");
@@ -92,13 +75,30 @@ router.get("/get-product/:id", async (req, res) => {
   }
 });
 
+const storage = multer.diskStorage({
+  destination: async (req, file, cb) => {
+    const { data, error } = await supabase.storage
+      .from("Images")
+      .upload(file.path, file);
+
+    if (error) {
+      cb(error.message);
+      cb(error.name);
+      cb(error.stack);
+    }
+
+    cb(null, data.path);
+  },
+});
+const upload = multer({ storage });
+
 router.post(
   "/insert-product/:email",
   upload.single("image"),
   async (req, res) => {
     try {
       const { name, description, price, stock, category } = req.body;
-      const image = req.file.originalname;
+      const image = req.file;
 
       const { data, error } = await supabase
         .from("product")
