@@ -44,7 +44,6 @@ export default function Registration() {
               "Registration Successfully!"
             );
             const userId = res.data.userId;
-            console.log(res.data);
             redirect(`/roles/${userId}`);
           })
           .catch((err) => {

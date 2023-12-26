@@ -28,9 +28,9 @@ export default function Roles() {
         role: params,
       })
       .then((res) => {
-        console.log(res.data);
         localStorage.setItem("roleMessage", `Welcome to become a ${params}`);
         redirect("/login");
+        console.log(res.data);
       })
       .catch((error) => {
         toastMessage("error", error);
