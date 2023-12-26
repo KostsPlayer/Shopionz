@@ -132,7 +132,7 @@ router.post("/insert-product/:email", async (req, res) => {
       res.json(error.hint);
     }
 
-    return res.json({ data: data, message: "Insert product successfully!" });
+    return res.json({ data: data[0], message: "Insert product successfully!" });
   } catch (error) {
     return res.json(error);
   }
