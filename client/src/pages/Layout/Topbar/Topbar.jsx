@@ -9,10 +9,10 @@ export default function Topbar() {
 
   useEffect(() => {
     setDataUser({
-      images: getImageUrl.imageUrl.data,
+      images: getImageUrl.imageUrl.publicUrl,
     });
-    
-    console.log(getImageUrl.imageUrl.data);
+
+    console.log(getImageUrl.imageUrl.publicUrl);
   }, []);
 
   return (

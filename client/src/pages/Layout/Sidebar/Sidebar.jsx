@@ -36,10 +36,10 @@ export default function Sidebar() {
     setDataUser({
       name: getLocalStorage.dataUser.name,
       email: getLocalStorage.dataUser.email,
-      images: getImageUrl.imageUrl.data,
+      images: getImageUrl.imageUrl.publicUrl,
     });
 
-    console.log(getImageUrl.imageUrl.data);
+    console.log(getImageUrl.imageUrl.publicUrl);
   }, []);
 
   const logout = () => {
