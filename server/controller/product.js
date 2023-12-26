@@ -79,7 +79,7 @@ const storage = multer.diskStorage({
   destination: async (req, file, cb) => {
     const { data, error } = await supabase.storage
       .from("Images")
-      .upload(file.path, file);
+      .upload("/", file);
 
     if (error) {
       cb(error.message);
