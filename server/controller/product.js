@@ -75,11 +75,13 @@ router.get("/get-product/:id", async (req, res) => {
   }
 });
 
+const pathStorage = supabase.storage.from("Images").getPublicUrl();
+
 const storage = multer.diskStorage({
   destination: async (req, file, cb) => {
     const { data, error } = await supabase.storage
       .from("Images")
-      .upload(file.path, file);
+      .upload(pathStorage, file);
 
     if (error) {
       cb(error.message);
