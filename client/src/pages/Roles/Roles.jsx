@@ -38,6 +38,8 @@ export default function Roles() {
         toastMessage("error", error);
         console.error(error);
       });
+
+    console.log(role);
   };
 
   return (
