@@ -38,8 +38,6 @@ export default function Sidebar() {
       email: getLocalStorage.dataUser.email,
       images: getImageUrl.imageUrl.publicUrl,
     });
-
-    console.log(getImageUrl.imageUrl.publicUrl);
   }, []);
 
   const logout = () => {

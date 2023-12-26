@@ -11,8 +11,6 @@ export default function Topbar() {
     setDataUser({
       images: getImageUrl.imageUrl.publicUrl,
     });
-
-    console.log(getImageUrl.imageUrl.publicUrl);
   }, []);
 
   return (

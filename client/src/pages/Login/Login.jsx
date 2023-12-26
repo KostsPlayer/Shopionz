@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useMemo } from "react";
 import Cursor from "../../component/Helper/Cursor";
+import Navbar from "../../component/Navbar/Navbar";
 import image from "../../assets/image/2.jpg";
 import axios from "axios";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   allMessage,
   validationLogin,
@@ -17,9 +18,7 @@ export default function Login() {
 
   useMemo(() => image);
   const { toastMessage, message } = allMessage();
-
   const redirect = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
     const roleMessagge = localStorage.getItem("roleMessage");
@@ -28,7 +27,7 @@ export default function Login() {
       toastMessage("success", roleMessagge);
       localStorage.removeItem("roleMessage");
     }
-  }, [location.state]);
+  }, []);
 
   useEffect(() => {
     const dashboardAccess = localStorage.getItem("dashboardAccess");
@@ -107,6 +106,7 @@ export default function Login() {
   return (
     <>
       <Cursor />
+      <Navbar />
       <div className="login">
         <div className="login-image">
           <img className="image" src={image} alt="image" />
