@@ -22,15 +22,15 @@ export default function Roles() {
     }
   }, [location.state]);
 
-  const handleRoleSelection = (role) => {
+  const handleRoleSelection = (params) => {
     axios
       .post("https://project-ii-server.vercel.app/assign-role", {
         userId: userIdFromRegistration,
-        role: role,
+        role: params,
       })
       .then((res) => {
         console.log(res.data);
-        localStorage.setItem("roleMessage", `Welcome to become a ${role}`);
+        localStorage.setItem("roleMessage", `Welcome to become a ${params}`);
         const userId = res.data.userId;
         redirect("/login", { state: { userId: userId } });
       })
@@ -39,7 +39,7 @@ export default function Roles() {
         console.error(error);
       });
 
-    console.log(role);
+    console.log(params);
   };
 
   return (

@@ -11,6 +11,7 @@ router.post("/assign-role", async (req, res) => {
     const { userId, role } = req.body;
 
     let roleValue;
+
     if (role === "Seller") {
       roleValue = 2;
     } else {
@@ -19,7 +20,7 @@ router.post("/assign-role", async (req, res) => {
 
     const { data, error } = await supabase
       .from("users")
-      .update({ role_id: roleValue })
+      .update([{ role_id: roleValue }])
       .eq("id", userId)
       .select("*");
 
@@ -27,7 +28,7 @@ router.post("/assign-role", async (req, res) => {
       return res.json(error.message);
     }
 
-    return res.json(data);
+    return res.json({ data });
   } catch (error) {
     return res.json(error);
   }
