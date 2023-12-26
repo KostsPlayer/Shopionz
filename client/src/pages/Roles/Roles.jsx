@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Cursor from "../../component/Helper/Cursor";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { allMessage } from "../../component/Helper/LogicServer";
 import { ToastContainer } from "react-toastify";
 import axios from "axios";
@@ -8,10 +8,9 @@ import axios from "axios";
 export default function Roles() {
   axios.defaults.withCredentials = true;
   const { toastMessage, message } = allMessage();
-  const location = useLocation();
   const redirect = useNavigate();
 
-  const userIdFromRegistration = location.state?.userId;
+  const userIdFromRegistration = useParams();
 
   useEffect(() => {
     const registrationMessage = localStorage.getItem("registrationMessage");
@@ -20,7 +19,7 @@ export default function Roles() {
       toastMessage("success", registrationMessage);
       localStorage.removeItem("registrationMessage");
     }
-  }, [location.state]);
+  }, []);
 
   const handleRoleSelection = (params) => {
     axios
@@ -31,8 +30,7 @@ export default function Roles() {
       .then((res) => {
         console.log(res.data);
         localStorage.setItem("roleMessage", `Welcome to become a ${params}`);
-        const userId = res.data.userId;
-        redirect("/login", { state: { userId: userId } });
+        redirect("/login");
       })
       .catch((error) => {
         toastMessage("error", error);

@@ -25,7 +25,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="*" element={<Page404 />} />
         <Route path="/product" element={<Product />} />
         <Route path="/about-us" element={<About />} />
-        <Route path="/roles" element={<Roles />} />
+        <Route path="/roles/:id" element={<Roles />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />

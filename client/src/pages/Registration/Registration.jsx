@@ -45,7 +45,7 @@ export default function Registration() {
             );
             const userId = res.data.userId;
             console.log(res.data);
-            redirect("/roles", { state: { userId: userId } });
+            redirect(`/roles/${userId}`);
           })
           .catch((err) => {
             toastMessage("error", err);
