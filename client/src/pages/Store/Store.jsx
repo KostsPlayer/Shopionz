@@ -43,7 +43,6 @@ export default function Store() {
 
   const fecthDataProductSeller = () => {
     const getEmail = JSON.parse(localStorage.getItem("dataUser"));
-
     const email = getEmail.dataUser.email;
 
     axios
