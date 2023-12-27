@@ -14,6 +14,7 @@ import Menu from "./pages/Menu/Menu";
 import ProductId from "./pages/ProductId/ProductId";
 import Cart from "./pages/Cart/Cart";
 import Order from "./pages/Order/Order";
+import History from "./pages/History/History";
 import "./main.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -35,6 +36,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/product/:id" element={<ProductId />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/order/:id" element={<Order />} />
+        <Route path="/history" element={<History />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
