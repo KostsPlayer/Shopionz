@@ -38,7 +38,7 @@ export default function Topbar() {
         </span>
         <span className="material-symbols-outlined message">mail</span>
         <div className="image">
-          <img className="image-user" scr={dataUser} alt="profile" />
+          <img className="image-user" src={dataUser} alt="profile" />
         </div>
       </div>
     </>

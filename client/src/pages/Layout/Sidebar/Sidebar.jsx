@@ -77,7 +77,7 @@ export default function Sidebar() {
       </div>
       <div className="sidebar-footer">
         <div className="image">
-          <img className="image-user" scr={dataUser.images} alt="profile" />
+          <img className="image-user" src={dataUser.images} alt="profile" />
         </div>
         <div className="user">
           <div className="user-name">{dataUser.name}</div>
