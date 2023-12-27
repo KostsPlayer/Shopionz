@@ -30,9 +30,8 @@ export default function Navbar() {
       setIsValid(true);
 
       setGetData({
-        images: getImageUrl.imageUrl.data,
+        images: getImageUrl.imageUrl.publicUrl,
       });
-      
     } else {
       setIsValid(false);
     }
@@ -119,7 +118,7 @@ export default function Navbar() {
             {isValid ? (
               <img
                 className="home-user-image"
-                scr={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${getData.images}?t=2023-12-24T02%3A30%3A45.365Z`}
+                src={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${getData.images}?t=2023-12-24T02%3A30%3A45.365Z`}
               />
             ) : (
               <>
