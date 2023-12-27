@@ -105,10 +105,9 @@ router.post(
       const image = req.file;
       const email = req.params.email;
 
-      const pathStorage = `https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${image.originalname}`;
       const { data: imageData, error: imageError } = await supabase.storage
         .from("Images")
-        .upload(pathStorage, image.buffer);
+        .upload(`/${image.originalname}`, image.buffer);
 
       if (imageError) {
         res.json(imageError.message);
@@ -139,6 +138,7 @@ router.post(
       return res.json({
         data: productData[0],
         message: "Insert product successfully!",
+        imageData: imageData,
       });
     } catch (error) {
       return res.json(error);
