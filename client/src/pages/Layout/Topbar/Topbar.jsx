@@ -3,14 +3,12 @@ import axios from "axios";
 
 export default function Topbar() {
   axios.defaults.withCredentials = true;
-  const [dataUser, setDataUser] = useState([]);
+  const [dataUser, setDataUser] = useState("");
 
   const getImageUrl = JSON.parse(localStorage.getItem("imageUrl"));
 
   useEffect(() => {
-    setDataUser({
-      images: getImageUrl.imageUrl.publicUrl,
-    });
+    setDataUser(getImageUrl.imageUrl.publicUrl);
   }, []);
 
   return (
@@ -38,7 +36,7 @@ export default function Topbar() {
         </span>
         <span className="material-symbols-outlined message">mail</span>
         <div className="image">
-          <img className="image-user" scr={dataUser.images} alt="profile" />
+          <img className="image-user" scr={dataUser} alt="profile" />
         </div>
       </div>
     </>
