@@ -12,25 +12,25 @@ export default function ProductId() {
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
   const redirect = useNavigate();
-  // const [isValid, setIsValid] = useState(true);
 
   useEffect(() => {
     axios
       .get(`https://project-ii-server.vercel.app/get-product/${id}`)
       .then((res) => {
         setData(res.data[0]);
-        // console.log(res.data[0]);
+        console.log(res.data[0]);
       })
       .catch((err) => {
         console.error(err);
       });
   }, [id]);
 
-  const newPrice = data.price + data.price * (20 / 100);
+  const newPrice = Math.round(data.price + data.price * (15 / 100));
 
   useEffect(() => {
     setTotalPrice(newPrice * quantity);
     console.log(totalPrice);
+    console.log(data.images);
   }, [newPrice, quantity]);
 
   const handleRemoveClick = () => {
@@ -82,7 +82,7 @@ export default function ProductId() {
       <div className="product-id">
         <div className="product-id-image">
           <img
-            src={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${data.images}?t=2023-12-24T02%3A30%3A45.365Z`}
+            src={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${data.images}`}
             alt={data.name}
             width={200}
             height={200}
