@@ -28,9 +28,11 @@ export default function ProductId() {
     console.log(isValid);
   }, [id]);
 
+  const newPrice = data.price + data.price * (20 / 100);
+
   useEffect(() => {
-    setTotalPrice(data.price * quantity);
-  }, [data.price, quantity]);
+    setTotalPrice(newPrice * quantity);
+  }, [newPrice, quantity]);
 
   const handleRemoveClick = () => {
     if (quantity > 1) {
@@ -89,7 +91,7 @@ export default function ProductId() {
         </div>
         <div className="product-id-detail">
           <p>Nama: {data.name}</p>
-          <p>Harga: {data.price}</p>
+          <p>Harga: {newPrice}</p>
           <p>Stock: {data.stock}</p>
           <p>Category: {data.category_name}</p>
           <div className="product-id-count">
