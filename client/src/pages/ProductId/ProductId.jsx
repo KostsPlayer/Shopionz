@@ -45,12 +45,16 @@ export default function ProductId() {
     }
   };
 
+  const getEmail = JSON.parse(localStorage.getItem("dataUser"));
+  const email = getEmail.dataUser.email;
+
   const handleAddToCart = (e) => {
     e.preventDefault();
 
     const valuesCart = {
       product_id: data.id,
       amount: quantity,
+      email: email,
     };
 
     axios

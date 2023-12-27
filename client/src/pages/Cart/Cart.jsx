@@ -17,7 +17,7 @@ export default function Cart() {
     axios
       .get("https://project-ii-server.vercel.app/cart")
       .then((res) => {
-        const initialCheckedItems = res.data.map((acc, item) => {
+        const initialCheckedItems = res.data.reduce((acc, item) => {
           acc[item.id] = item.status === 1;
           return acc;
         }, {});

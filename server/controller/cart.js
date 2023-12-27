@@ -47,9 +47,7 @@ router.get("/cart", async (req, res) => {
 
 router.post("/insert-cart", async (req, res) => {
   try {
-    const { product_id, amount } = req.body;
-    const getLocalStorage = localStorage.getItem("dataUser");
-    const email = getLocalStorage.email;
+    const { product_id, amount, email } = req.body;
     const active = 1;
 
     const { data, error } = await supabase
