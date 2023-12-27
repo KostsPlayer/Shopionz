@@ -34,6 +34,7 @@ export default function Store() {
         getImage
       )
       .then((res) => {
+        console.log(res.data);
         toastMessage("success", res.data.message);
       })
       .catch((err) => {
