@@ -114,10 +114,7 @@ export default function Navbar() {
             className="icon-login"
           >
             {isValid ? (
-              <img
-                className="home-user-image"
-                src={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${getImage}?t=2023-12-24T02%3A30%3A45.365Z`}
-              />
+              <img className="home-user-image" src={getImage} />
             ) : (
               <>
                 <span className="material-symbols-outlined">person</span>
