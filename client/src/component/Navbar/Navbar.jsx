@@ -10,30 +10,34 @@ export default function Navbar() {
   const redirect = useNavigate();
 
   const [isValid, setIsValid] = useState(false);
-  const [getImage, setGetImage] = useState("");
+  const [getData, setGetData] = useState([]);
   // const [getCount, setGetCount] = useState(0);
-  // useEffect(() => {
-  //   axios
-  //     .get("https://project-ii-server.vercel.app/count-cart")
-  //     .then((res) => {
-  //       setGetCount(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // }, []);
 
   const getSession = localStorage.getItem("session");
   const getImageUrl = JSON.parse(localStorage.getItem("imageUrl"));
+  const getEmail = JSON.parse(localStorage.getItem("dataUser"));
+
+  const email = getEmail.dataUser.email;
 
   useEffect(() => {
     if (getSession) {
       setIsValid(true);
 
-      setGetImage(getImageUrl.imageUrl.publicUrl);
+      setGetData({ images: getImageUrl.imageUrl.publicUrl });
     } else {
       setIsValid(false);
     }
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`https://project-ii-server.vercel.app/count-cart/${email}`)
+      .then((res) => {
+        setGetCount(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, []);
 
   const logout = () => {
@@ -115,7 +119,7 @@ export default function Navbar() {
             className="icon-login"
           >
             {isValid ? (
-              <img className="home-user-image" src={getImage} />
+              <img className="home-user-image" src={getData.images} />
             ) : (
               <>
                 <span className="material-symbols-outlined">person</span>

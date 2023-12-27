@@ -6,10 +6,9 @@ const app = express();
 configureMiddleware(app);
 const router = express.Router();
 
-router.get("/count-cart", async (req, res) => {
+router.get("/count-cart/:email", async (req, res) => {
   try {
-    const getLocalStorage = localStorage.getItem("dataUser");
-    const email = getLocalStorage.email;
+    const email = req.params.email;
 
     const { count, error } = await supabase
       .from("shopping_cart")
