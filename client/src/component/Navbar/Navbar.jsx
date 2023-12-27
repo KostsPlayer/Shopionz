@@ -9,7 +9,7 @@ export default function Navbar() {
   const { onEnterNavbar, onLeaveNavbar } = NavbarCursor();
 
   const [isValid, setIsValid] = useState(false);
-  const [getData, setGetData] = useState([]);
+  const [getImage, setGetImage] = useState("");
   const [getCount, setGetCount] = useState(0);
   useEffect(() => {
     axios
@@ -20,7 +20,7 @@ export default function Navbar() {
       .catch((err) => {
         console.error(err);
       });
-  }, [getData]);
+  }, []);
 
   const getSession = localStorage.getItem("session");
   const getImageUrl = JSON.parse(localStorage.getItem("imageUrl"));
@@ -29,13 +29,11 @@ export default function Navbar() {
     if (getSession) {
       setIsValid(true);
 
-      setGetData({
-        images: getImageUrl.imageUrl.publicUrl,
-      });
+      setGetImage(getImageUrl.imageUrl.publicUrl);
     } else {
       setIsValid(false);
     }
-  }, [isValid]);
+  }, []);
 
   const logout = () => {
     localStorage.setItem("logoutMessage", "Logged out successfully!");
@@ -118,7 +116,7 @@ export default function Navbar() {
             {isValid ? (
               <img
                 className="home-user-image"
-                src={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${getData.images}?t=2023-12-24T02%3A30%3A45.365Z`}
+                src={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${getImage}?t=2023-12-24T02%3A30%3A45.365Z`}
               />
             ) : (
               <>
