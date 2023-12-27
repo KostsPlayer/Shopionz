@@ -61,7 +61,10 @@ router.post("/insert-cart", async (req, res) => {
       .select("*");
 
     if (error) {
-      return res.json(error.message);
+      res.json(error.message);
+      res.json(error.code);
+      res.json(error.details);
+      res.json(error.hint);
     }
 
     return res.json(data);
