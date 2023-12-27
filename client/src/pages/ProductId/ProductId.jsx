@@ -9,10 +9,10 @@ export default function ProductId() {
   axios.defaults.withCredentials = true;
   const { id } = useParams();
   const [data, setData] = useState({});
-  const [isValid, setIsValid] = useState(true);
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
   const redirect = useNavigate();
+  // const [isValid, setIsValid] = useState(true);
 
   useEffect(() => {
     axios
@@ -24,14 +24,13 @@ export default function ProductId() {
       .catch((err) => {
         console.error(err);
       });
-
-    console.log(isValid);
   }, [id]);
 
   const newPrice = data.price + data.price * (20 / 100);
 
   useEffect(() => {
     setTotalPrice(newPrice * quantity);
+    console.log(totalPrice);
   }, [newPrice, quantity]);
 
   const handleRemoveClick = () => {
