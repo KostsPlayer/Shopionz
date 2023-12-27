@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import InsertProduct from "./InsertProduct";
 import Layout from "../Layout/Layout";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import UpdateProduct from "./UpdateProduct";
 import { allMessage } from "../../component/Helper/LogicServer";
 import { ToastContainer } from "react-toastify";
@@ -13,6 +12,7 @@ export default function Store() {
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [dataProduct, setDataProduct] = useState([]);
   const [getId, setGetId] = useState(0);
+  const [getImage, setGetImage] = useState("");
   const { toastMessage, message } = allMessage();
 
   const handleProduct = async (productId) => {
@@ -20,6 +20,7 @@ export default function Store() {
       .get(`https://project-ii-server.vercel.app/get-product/${productId}`)
       .then((res) => {
         setGetId(res.data[0].id);
+        setGetImage(res.data[0].images);
       })
       .catch((err) => {
         console.error(err);
@@ -28,7 +29,10 @@ export default function Store() {
 
   const handleDelete = async (id) => {
     await axios
-      .put(`https://project-ii-server.vercel.app/delete-product/${id}`)
+      .put(
+        `https://project-ii-server.vercel.app/delete-product/${id}`,
+        getImage
+      )
       .then((res) => {
         toastMessage("success", res.data.message);
       })
@@ -55,7 +59,8 @@ export default function Store() {
 
   useEffect(() => {
     fecthDataProductSeller();
-  }, []);
+    console.log(getImage);
+  }, [dataProduct]);
 
   return (
     <>

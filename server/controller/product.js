@@ -178,17 +178,30 @@ router.post(
 router.put("/delete-product/:id", async (req, res) => {
   try {
     const productId = req.params.id;
+    const image = req.body;
 
-    const { data, error } = await supabase
+    const { data: dataImage, error: errorImage } = await supabase.storage
+      .from("Images")
+      .remove([`/${image}`]);
+
+    if (errorImage) {
+      return res.json(errorImage.message);
+    }
+
+    const { data: dataProduct, error: errorProduct } = await supabase
       .from("product")
       .delete()
       .eq("id", productId);
 
-    if (error) {
-      return res.json(error.message);
+    if (errorProduct) {
+      return res.json(errorProduct.message);
     }
 
-    return res.json({ data, message: "Delete product successfully!" });
+    return res.json({
+      data: dataProduct,
+      message: "Delete product successfully!",
+      dataImage: dataImage,
+    });
   } catch (error) {
     return res.json(error);
   }
