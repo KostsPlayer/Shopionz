@@ -16,11 +16,11 @@ export default function Navbar() {
   const getSession = localStorage.getItem("session");
   const getImageUrl = JSON.parse(localStorage.getItem("imageUrl"));
 
-  const getEmail = JSON.parse(localStorage.getItem("dataUser"));
-  const email = getEmail.dataUser.email;
-
   useEffect(() => {
     if (getSession) {
+      const getEmail = JSON.parse(localStorage.getItem("dataUser"));
+      const email = getEmail.dataUser.email;
+
       setIsValid(true);
 
       setGetData({ images: getImageUrl.imageUrl.publicUrl });
