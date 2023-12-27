@@ -50,7 +50,6 @@ export default function Store() {
       .get(`https://project-ii-server.vercel.app/product-seller/${email}`)
       .then((res) => {
         setDataProduct(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         console.error(err);
@@ -59,7 +58,6 @@ export default function Store() {
 
   useEffect(() => {
     fecthDataProductSeller();
-    console.log(getImage);
   }, [dataProduct]);
 
   return (
