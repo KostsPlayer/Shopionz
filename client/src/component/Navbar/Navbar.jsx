@@ -11,12 +11,12 @@ export default function Navbar() {
 
   const [isValid, setIsValid] = useState(false);
   const [getData, setGetData] = useState([]);
-  // const [getCount, setGetCount] = useState(0);
+  const [getCount, setGetCount] = useState(0);
 
   const getSession = localStorage.getItem("session");
   const getImageUrl = JSON.parse(localStorage.getItem("imageUrl"));
-  const getEmail = JSON.parse(localStorage.getItem("dataUser"));
 
+  const getEmail = JSON.parse(localStorage.getItem("dataUser"));
   const email = getEmail.dataUser.email;
 
   useEffect(() => {
@@ -24,21 +24,18 @@ export default function Navbar() {
       setIsValid(true);
 
       setGetData({ images: getImageUrl.imageUrl.publicUrl });
+      axios
+        .get(`https://project-ii-server.vercel.app/count-cart/${email}`)
+        .then((res) => {
+          setGetCount(res.data);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     } else {
       setIsValid(false);
     }
-  }, []);
-
-  useEffect(() => {
-    axios
-      .get(`https://project-ii-server.vercel.app/count-cart/${email}`)
-      .then((res) => {
-        setGetCount(res.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
+  }, [getCount]);
 
   const logout = () => {
     localStorage.setItem("logoutMessage", "Logged out successfully!");
@@ -109,7 +106,7 @@ export default function Navbar() {
             to={"/cart"}
           >
             <span className="material-symbols-outlined">local_mall</span>
-            {/* {isValid && <div className="shopping-cart-count">{getCount}</div>} */}
+            {isValid && <div className="shopping-cart-count">{getCount}</div>}
           </Link>
           <Link
             onMouseEnter={onEnterNavbar}
