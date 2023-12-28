@@ -82,24 +82,24 @@ router.post("/insert-order", async (req, res) => {
       .select("*");
 
     if (errorOrder) {
-      return res.json(errorOrder.message);
+      return res.json(errorOrder);
     }
     if (errorOrderDetail) {
-      return res.json(errorOrderDetail.message);
+      return res.json(errorOrderDetail);
     }
     if (productError) {
-      return res.json(productError.message);
+      return res.json(productError);
     }
     if (stockError) {
-      return res.json(stockError.message);
+      return res.json(stockError);
     }
 
     return res.json({
+      message: "Order has been successfully placed!",
       order,
       orderDetail,
       stockData,
       productData,
-      message: "Order has been successfully placed!",
     });
   } catch (error) {
     return res.json(error);

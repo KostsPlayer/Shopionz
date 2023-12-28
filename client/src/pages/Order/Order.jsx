@@ -88,8 +88,8 @@ export default function Order() {
     axios
       .post("https://project-ii-server.vercel.app/insert-order", values)
       .then((res) => {
-        console.log(res.data);
         toastMessage("success", res.data.message);
+        console.log(res.data);
       })
       .catch((err) => {
         console.error(err);
