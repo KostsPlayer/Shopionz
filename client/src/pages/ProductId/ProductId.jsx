@@ -18,7 +18,6 @@ export default function ProductId() {
       .get(`https://project-ii-server.vercel.app/get-product/${id}`)
       .then((res) => {
         setData(res.data[0]);
-        console.log(res.data[0]);
       })
       .catch((err) => {
         console.error(err);
@@ -29,8 +28,6 @@ export default function ProductId() {
 
   useEffect(() => {
     setTotalPrice(newPrice * quantity);
-    console.log(totalPrice);
-    console.log(data.images);
   }, [newPrice, quantity]);
 
   const handleRemoveClick = () => {
