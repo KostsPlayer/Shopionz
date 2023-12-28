@@ -20,7 +20,15 @@ export default function Cart() {
     axios
       .get(`https://project-ii-server.vercel.app/cart/${email}`)
       .then((res) => {
+        console.log(res.data);
         setGetData(res.data);
+        const initialCheckedItems = res.data.reduce((acc, item) => {
+          acc[item.id] = item.status === 1;
+          return acc;
+        }, {});
+
+        setCheckedItem(initialCheckedItems);
+        calculateTotalPrice(getData);
       })
       .catch((err) => {
         console.error(err);
@@ -124,14 +132,6 @@ export default function Cart() {
 
   useEffect(() => {
     fetchData();
-
-    const initialCheckedItems = getData.reduce((acc, item) => {
-      acc[item.id] = item.status === 1;
-      return acc;
-    }, {});
-
-    setCheckedItem(initialCheckedItems);
-    calculateTotalPrice(getData);
   }, [getData, totalPrice, checkedItem]);
 
   return (
