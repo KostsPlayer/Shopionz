@@ -43,9 +43,8 @@ router.post("/insert-order", async (req, res) => {
       phoneNumber,
       amount,
       productId,
+      userId,
     } = req.body;
-    const getLocalStorage = localStorage.getItem("dataUser");
-    const userId = getLocalStorage.id;
 
     const { data: order, error: errorOrder } = await supabase
       .from("orders")

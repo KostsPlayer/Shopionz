@@ -32,14 +32,20 @@ export default function Order() {
       });
   }, [id]);
 
+  const newPrice = Math.round(data.price + data.price * (15 / 100));
+
   useEffect(() => {
-    setTotalPrice(data.price * quantity);
-  }, [data.price, quantity]);
+    setTotalPrice(newPrice * quantity);
+  }, [newPrice, quantity]);
+
+  const getUserId = JSON.parse(localStorage.getItem("dataUser"));
+  const userId = getUserId.dataUser.id;
 
   useEffect(() => {
     setValues({
       ...values,
       amount: quantity,
+      id: userId,
     });
   }, [quantity]);
 
