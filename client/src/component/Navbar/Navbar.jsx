@@ -15,8 +15,11 @@ export default function Navbar() {
 
   const getSession = localStorage.getItem("session");
   const getImageUrl = JSON.parse(localStorage.getItem("imageUrl"));
+  const getEmail = JSON.parse(localStorage.getItem("dataUser"));
 
   const fetchData = () => {
+    const email = getEmail.dataUser.email;
+
     axios
       .get(`https://project-ii-server.vercel.app/count-cart/${email}`)
       .then((res) => {
