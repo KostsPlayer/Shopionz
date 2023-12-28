@@ -35,7 +35,7 @@ export default function Navbar() {
     } else {
       setIsValid(false);
     }
-  }, [getCount, getData]);
+  }, [getCount]);
 
   const logout = () => {
     localStorage.setItem("logoutMessage", "Logged out successfully!");
