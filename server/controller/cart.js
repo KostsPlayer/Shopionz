@@ -16,7 +16,7 @@ router.get("/count-cart/:email", async (req, res) => {
       .eq("user_email", email);
 
     if (error) {
-      return res.json(error.message);
+      return res.json(error);
     }
 
     return res.json(count);
@@ -35,7 +35,7 @@ router.get("/cart/:email", async (req, res) => {
       .eq("user_email", email);
 
     if (error) {
-      return res.json(error.message);
+      return res.json(error);
     }
 
     return res.json(data);
@@ -83,7 +83,7 @@ router.put("/update-cart-amount/:id", async (req, res) => {
       .select("*");
 
     if (error) {
-      return res.json(error.message);
+      return res.json(error);
     }
 
     return res.json(data);
@@ -106,7 +106,7 @@ router.put("/update-cart-status/:id", async (req, res) => {
       .select("*");
 
     if (error) {
-      return res.json(error.message);
+      return res.json(error);
     }
 
     return res.json(data);
@@ -125,10 +125,10 @@ router.put("/delete-cart/:id", async (req, res) => {
       .eq("id", cartId);
 
     if (error) {
-      return res.json(error.message);
+      return res.json(error);
     }
 
-    return res.json(data);
+    return res.json({ data, message: "Delete cart item successfully!" });
   } catch (error) {
     return res.json(error);
   }

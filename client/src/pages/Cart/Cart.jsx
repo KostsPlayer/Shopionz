@@ -10,7 +10,7 @@ export default function Cart() {
   axios.defaults.withCredentials = true;
   const [getData, setGetData] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [checkedItem, setCheckedItem] = useState([]);
+  const [checkedItem, setCheckedItem] = useState({});
   const { message, toastMessage } = allMessage();
 
   const getEmail = JSON.parse(localStorage.getItem("dataUser"));
@@ -20,8 +20,8 @@ export default function Cart() {
     axios
       .get(`https://project-ii-server.vercel.app/cart/${email}`)
       .then((res) => {
-        console.log(res.data);
         setGetData(res.data);
+
         const initialCheckedItems = res.data.reduce((acc, item) => {
           acc[item.id] = item.status === 1;
           return acc;
@@ -95,15 +95,7 @@ export default function Cart() {
         status: newCheckedItems[id] ? 1 : 0,
       })
       .then((res) => {
-        axios
-          .get("https://project-ii-server.vercel.app/cart")
-          .then((res) => {
-            setGetData(res.data);
-            calculateTotalPrice(res.data);
-          })
-          .catch((err) => {
-            console.error(err);
-          });
+        calculateTotalPrice(res.data);
       })
       .catch((err) => {
         console.error(err);
@@ -115,15 +107,6 @@ export default function Cart() {
       .put(`https://project-ii-server.vercel.app/delete-cart/${id}`)
       .then((res) => {
         toastMessage("success", res.data.message);
-
-        axios
-          .get("https://project-ii-server.vercel.app/cart")
-          .then((res) => {
-            setGetData(res.data);
-          })
-          .catch((err) => {
-            console.error(err);
-          });
       })
       .catch((err) => {
         console.error(err);
@@ -159,7 +142,7 @@ export default function Cart() {
 
               <div className="cart-item-image">
                 <img
-                  scr={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${data.product.images}?t=2023-12-24T02%3A30%3A45.365Z`}
+                  src={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${data.product.images}`}
                   alt={data.product.name}
                 />
               </div>
