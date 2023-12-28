@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import Cursor from "../../component/Helper/Cursor";
 import Navbar from "../../component/Navbar/Navbar";
 
 export default function Order() {
   axios.defaults.withCredentials = true;
+  const location = useLocation();
   const { id } = useParams();
   const [data, setData] = useState({});
   const [getPayment, setGetPayment] = useState([]);
   const [getShipping, setGetShipping] = useState([]);
-  const [quantity, setQuantity] = useState(1);
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [quantity, setQuantity] = useState(location.state.quantity);
+  const [totalPrice, setTotalPrice] = useState(location.state.totalPrice);
 
   const getUserId = JSON.parse(localStorage.getItem("dataUser"));
   const userId = getUserId.dataUser.id;
@@ -35,6 +36,8 @@ export default function Order() {
       .catch((err) => {
         console.error(err);
       });
+
+    console.log(location);
   }, [id]);
 
   const newPrice = Math.round(data.price + data.price * (15 / 100));

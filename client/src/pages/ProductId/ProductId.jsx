@@ -65,7 +65,10 @@ export default function ProductId() {
   };
 
   const handleBuyNow = () => {
-    redirect(`/order/${id}`);
+    redirect(`/order/${id}`, {
+      replace: true,
+      state: { quantity, totalPrice },
+    });
   };
 
   return (
