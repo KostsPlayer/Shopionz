@@ -13,23 +13,6 @@ export default function Cart() {
   const [checkedItem, setCheckedItem] = useState({});
   const { message, toastMessage } = allMessage();
 
-  const initialCheckedItems = getData.reduce((acc, item) => {
-    acc[item.id] = item.status === 1;
-    return acc;
-  }, {});
-
-  const calculateTotalPrice = () => {
-    const total = getData.reduce((acc, item) => {
-      if (item.status === 1) {
-        const itemPrice = item.amount * item.product.price;
-        return acc + itemPrice;
-      }
-      return acc;
-    }, 0);
-
-    setTotalPrice(total);
-  };
-
   const fetchData = () => {
     axios
       .get("https://project-ii-server.vercel.app/cart")
@@ -122,6 +105,23 @@ export default function Cart() {
       .catch((err) => {
         console.error(err);
       });
+  };
+
+  const initialCheckedItems = getData.map((acc, item) => {
+    acc[item.id] = item.status === 1;
+    return acc;
+  }, {});
+
+  const calculateTotalPrice = () => {
+    const total = getData.map((acc, item) => {
+      if (item.status === 1) {
+        const itemPrice = item.amount * item.product.price;
+        return acc + itemPrice;
+      }
+      return acc;
+    }, 0);
+
+    setTotalPrice(total);
   };
 
   useEffect(() => {
