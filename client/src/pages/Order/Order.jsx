@@ -89,6 +89,7 @@ export default function Order() {
       .post("https://project-ii-server.vercel.app/insert-order", values)
       .then((res) => {
         toastMessage("success", res.data.message);
+        console.log(res.data.updateStock);
         console.log(res.data);
       })
       .catch((err) => {

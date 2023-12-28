@@ -73,6 +73,7 @@ router.post("/insert-order", async (req, res) => {
       .eq("id", productId);
 
     const updateStock = productData.stock - amount;
+
     const { data: stockData, error: stockError } = await supabase
       .from("product")
       .update({
@@ -100,6 +101,7 @@ router.post("/insert-order", async (req, res) => {
       orderDetail,
       stockData,
       productData,
+      updateStock,
     });
   } catch (error) {
     return res.json(error);
