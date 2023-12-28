@@ -12,6 +12,10 @@ export default function Order() {
   const [getShipping, setGetShipping] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
+
+  const getUserId = JSON.parse(localStorage.getItem("dataUser"));
+  const userId = getUserId.dataUser.id;
+
   const [values, setValues] = useState({
     address: "",
     phoneNumber: "",
@@ -19,6 +23,7 @@ export default function Order() {
     shippingMethod: 1,
     amount: quantity,
     productId: id,
+    userId: userId,
   });
 
   useEffect(() => {
@@ -38,14 +43,10 @@ export default function Order() {
     setTotalPrice(newPrice * quantity);
   }, [newPrice, quantity]);
 
-  const getUserId = JSON.parse(localStorage.getItem("dataUser"));
-  const userId = getUserId.dataUser.id;
-
   useEffect(() => {
     setValues({
       ...values,
       amount: quantity,
-      id: userId,
     });
   }, [quantity]);
 
@@ -86,6 +87,8 @@ export default function Order() {
       .catch((err) => {
         console.error(err);
       });
+
+    console.log(values);
   };
 
   const handleRemoveClick = () => {
