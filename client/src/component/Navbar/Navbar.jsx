@@ -16,22 +16,22 @@ export default function Navbar() {
   const getSession = localStorage.getItem("session");
   const getImageUrl = JSON.parse(localStorage.getItem("imageUrl"));
 
+  const fetchData = () => {
+    axios
+      .get(`https://project-ii-server.vercel.app/count-cart/${email}`)
+      .then((res) => {
+        setGetCount(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   useEffect(() => {
     if (getSession) {
-      const getEmail = JSON.parse(localStorage.getItem("dataUser"));
-      const email = getEmail.dataUser.email;
-
-      setIsValid(true);
-
+      fetchData();
       setGetData({ images: getImageUrl.imageUrl.publicUrl });
-      axios
-        .get(`https://project-ii-server.vercel.app/count-cart/${email}`)
-        .then((res) => {
-          setGetCount(res.data);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+      setIsValid(true);
     } else {
       setIsValid(false);
     }

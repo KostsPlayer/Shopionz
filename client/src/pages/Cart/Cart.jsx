@@ -17,7 +17,7 @@ export default function Cart() {
   const email = getEmail.dataUser.email;
 
   const fetchData = () => {
-    axios 
+    axios
       .get(`https://project-ii-server.vercel.app/cart/${email}`)
       .then((res) => {
         setGetData(res.data);
@@ -34,6 +34,10 @@ export default function Cart() {
         console.error(err);
       });
   };
+
+  useEffect(() => {
+    fetchData();
+  }, [getData, totalPrice, checkedItem]);
 
   const calculateTotalPrice = (cartData) => {
     const total = cartData.reduce((acc, item) => {
@@ -112,10 +116,6 @@ export default function Cart() {
         console.error(err);
       });
   };
-
-  useEffect(() => {
-    fetchData();
-  }, [totalPrice, checkedItem]);
 
   return (
     <>
