@@ -53,12 +53,7 @@ router.post("/insert-order", async (req, res) => {
       })
       .select("*");
 
-    if (errorOrder) {
-      return res.json(errorOrder.message);
-    }
-
     const orderId = order[0].id;
-
     const { data: orderDetail, error: errorOrderDetail } = await supabase
       .from("orders_detail")
       .insert({
@@ -72,11 +67,33 @@ router.post("/insert-order", async (req, res) => {
       })
       .select("*");
 
+    const { data: productData, error: productError } = await supabase
+      .from("product")
+      .select("*")
+      .eq("id", productId);
+
+    const updateStock = productData.stock;
+    const { data: stockData, error: stockError } = await supabase
+      .from("product")
+      .update({
+        stock: updateStock,
+      })
+      .select("*");
+
+    if (errorOrder) {
+      return res.json(errorOrder.message);
+    }
     if (errorOrderDetail) {
       return res.json(errorOrderDetail.message);
     }
+    if (productError) {
+      return res.json(productError.message);
+    }
+    if (stockError) {
+      return res.json(stockError.message);
+    }
 
-    return res.json(orderDetail);
+    return res.json({ order, orderDetail, stockData });
   } catch (error) {
     return res.json(error);
   }
