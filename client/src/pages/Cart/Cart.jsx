@@ -13,9 +13,12 @@ export default function Cart() {
   const [checkedItem, setCheckedItem] = useState([]);
   const { message, toastMessage } = allMessage();
 
+  const getEmail = JSON.parse(localStorage.getItem("dataUser"));
+  const email = getEmail.dataUser.email;
+
   const fetchData = () => {
     axios
-      .get("https://project-ii-server.vercel.app/cart")
+      .get(`https://project-ii-server.vercel.app/cart/${email}`)
       .then((res) => {
         setGetData(res.data);
       })

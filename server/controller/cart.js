@@ -25,10 +25,9 @@ router.get("/count-cart/:email", async (req, res) => {
   }
 });
 
-router.get("/cart", async (req, res) => {
+router.get("/cart/:email", async (req, res) => {
   try {
-    const getLocalStorage = localStorage.getItem("dataUser");
-    const email = getLocalStorage.email;
+    const email = req.params.email;
 
     const { data, error } = await supabase
       .from("shopping_cart")
