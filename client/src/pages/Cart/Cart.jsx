@@ -24,6 +24,23 @@ export default function Cart() {
       });
   };
 
+  const initialCheckedItems = {};
+  for (const item of getData) {
+    initialCheckedItems[item.id] = item.status === 1;
+  }
+
+  const calculateTotalPrice = () => {
+    let total = 0;
+    for (const item of getData) {
+      if (item.status === 1) {
+        const itemPrice = item.amount * item.product.price;
+        total += itemPrice;
+      }
+    }
+
+    setTotalPrice(total);
+  };
+
   const updateCartAmount = (id, newAmount) => {
     axios
       .put(`https://project-ii-server.vercel.app/update-cart-amount/${id}`, {
@@ -105,23 +122,6 @@ export default function Cart() {
       .catch((err) => {
         console.error(err);
       });
-  };
-
-  const initialCheckedItems = getData.map((acc, item) => {
-    acc[item.id] = item.status === 1;
-    return acc;
-  }, {});
-
-  const calculateTotalPrice = () => {
-    const total = getData.map((acc, item) => {
-      if (item.status === 1) {
-        const itemPrice = item.amount * item.product.price;
-        return acc + itemPrice;
-      }
-      return acc;
-    }, 0);
-
-    setTotalPrice(total);
   };
 
   useEffect(() => {
