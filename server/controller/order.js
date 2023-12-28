@@ -74,8 +74,6 @@ router.post("/insert-order", async (req, res) => {
 
     const updateStock = productData[0].stock - amount;
 
-    console.log(updateStock);
-
     const { data: stockData, error: stockError } = await supabase
       .from("product")
       .update({
@@ -99,7 +97,6 @@ router.post("/insert-order", async (req, res) => {
 
     return res.json({
       message: "Order has been successfully placed!",
-      updateStock,
       order,
       orderDetail,
       stockData,

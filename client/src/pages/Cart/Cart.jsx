@@ -10,7 +10,7 @@ export default function Cart() {
   axios.defaults.withCredentials = true;
   const [getData, setGetData] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [checkedItem, setCheckedItem] = useState({});
+  const [checkedItem, setCheckedItem] = useState([]);
   const { message, toastMessage } = allMessage();
 
   const fetchData = () => {
@@ -24,19 +24,14 @@ export default function Cart() {
       });
   };
 
-  const initialCheckedItems = {};
-  for (const item of getData) {
-    initialCheckedItems[item.id] = item.status === 1;
-  }
-
-  const calculateTotalPrice = () => {
-    let total = 0;
-    for (const item of getData) {
+  const calculateTotalPrice = (cartData) => {
+    const total = cartData.reduce((acc, item) => {
       if (item.status === 1) {
         const itemPrice = item.amount * item.product.price;
-        total += itemPrice;
+        return acc + itemPrice;
       }
-    }
+      return acc;
+    }, 0);
 
     setTotalPrice(total);
   };
@@ -126,8 +121,14 @@ export default function Cart() {
 
   useEffect(() => {
     fetchData();
+
+    const initialCheckedItems = getData.reduce((acc, item) => {
+      acc[item.id] = item.status === 1;
+      return acc;
+    }, {});
+
     setCheckedItem(initialCheckedItems);
-    calculateTotalPrice();
+    calculateTotalPrice(getData);
   }, [getData, totalPrice, checkedItem]);
 
   return (

@@ -93,6 +93,7 @@ router.get("/get-product/:id", async (req, res) => {
 //   },
 // });
 // const upload = multer({ storage });
+
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 

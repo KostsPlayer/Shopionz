@@ -123,7 +123,13 @@ export default function Navbar() {
               </>
             )}
           </Link>
-          <span className="material-symbols-outlined" onClick={logout}>
+          <span
+            className="material-symbols-outlined"
+            onMouseEnter={onEnterNavbar}
+            onMouseLeave={onLeaveNavbar}
+            ref={(e) => e && magnets.current.push(e)}
+            onClick={logout}
+          >
             logout
           </span>
         </div>

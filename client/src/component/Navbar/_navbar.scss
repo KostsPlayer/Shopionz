@@ -96,7 +96,7 @@
     .icon-login {
       .home-user-image {
         object-fit: cover;
-        @include m.circle($w-h: 3rem);
+        @include m.circle($w-h: 2.2rem);
       }
     }
   }
