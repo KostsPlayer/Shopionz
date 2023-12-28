@@ -78,6 +78,7 @@ router.post("/insert-order", async (req, res) => {
       .update({
         stock: updateStock,
       })
+      .eq("id", productId)
       .select("*");
 
     if (errorOrder) {
@@ -93,7 +94,13 @@ router.post("/insert-order", async (req, res) => {
       return res.json(stockError.message);
     }
 
-    return res.json({ order, orderDetail, stockData });
+    return res.json({
+      order,
+      orderDetail,
+      stockData,
+      productData,
+      message: "Order has been successfully placed!",
+    });
   } catch (error) {
     return res.json(error);
   }

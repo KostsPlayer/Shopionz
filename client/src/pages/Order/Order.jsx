@@ -3,6 +3,8 @@ import axios from "axios";
 import { useParams, useLocation } from "react-router-dom";
 import Cursor from "../../component/Helper/Cursor";
 import Navbar from "../../component/Navbar/Navbar";
+import { allMessage } from "../../component/Helper/LogicServer";
+import { ToastContainer } from "react-toastify";
 
 export default function Order() {
   axios.defaults.withCredentials = true;
@@ -13,6 +15,7 @@ export default function Order() {
   const [getShipping, setGetShipping] = useState([]);
   const [quantity, setQuantity] = useState(location.state.quantity);
   const [totalPrice, setTotalPrice] = useState(location.state.totalPrice);
+  const { toastMessage, message } = allMessage();
 
   const getUserId = JSON.parse(localStorage.getItem("dataUser"));
   const userId = getUserId.dataUser.id;
@@ -86,6 +89,7 @@ export default function Order() {
       .post("https://project-ii-server.vercel.app/insert-order", values)
       .then((res) => {
         console.log(res.data);
+        toastMessage("success", res.data.message);
       })
       .catch((err) => {
         console.error(err);
@@ -196,6 +200,7 @@ export default function Order() {
           <button onClick={handleSubmit}>Beli</button>
         </div>
       </div>
+      {message && <ToastContainer />}
     </>
   );
 }
