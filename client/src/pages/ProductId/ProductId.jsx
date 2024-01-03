@@ -43,9 +43,10 @@ export default function ProductId() {
   };
 
   const getEmail = JSON.parse(localStorage.getItem("dataUser"));
-  const email = getEmail.dataUser.email;
 
   const handleAddToCart = (e) => {
+    const email = getEmail.dataUser.email;
+
     e.preventDefault();
 
     const valuesCart = {
