@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Cursor from "../../component/Helper/Cursor";
 import Navbar from "../../component/Navbar/Navbar";
+import { allMessage } from "../../component/Helper/LogicServer";
+import { ToastContainer } from "react-toastify";
 
 export default function ProductId() {
   axios.defaults.withCredentials = true;
@@ -12,6 +14,7 @@ export default function ProductId() {
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
   const redirect = useNavigate();
+  const { message, toastMessage } = allMessage();
 
   useEffect(() => {
     axios
@@ -46,8 +49,11 @@ export default function ProductId() {
 
   const handleAddToCart = (e) => {
     const email = getEmail.dataUser.email;
-
     e.preventDefault();
+
+    if (!email) {
+      toastMessage("warn", "You must login first to add product on cart!");
+    }
 
     const valuesCart = {
       product_id: data.id,
@@ -66,6 +72,12 @@ export default function ProductId() {
   };
 
   const handleBuyNow = () => {
+    const email = getEmail.dataUser.email;
+
+    if (!email) {
+      toastMessage("warn", "You must login first to buy some product!");
+    }
+
     redirect(`/order/${id}`, {
       replace: true,
       state: { quantity, totalPrice },
@@ -118,6 +130,7 @@ export default function ProductId() {
           <button onClick={handleBuyNow}>Beli</button>
         </div>
       </div>
+      {message && <ToastContainer />}
     </>
   );
 }
