@@ -45,14 +45,15 @@ export default function ProductId() {
     }
   };
 
-  const getEmail = JSON.parse(localStorage.getItem("dataUser"));
+  const getEmail = JSON.parse(localStorage.getItem("dataUser")) || {};
 
   const handleAddToCart = (e) => {
-    if (!getEmail.dataUser) {
+    const email = getEmail.dataUser?.email;
+
+    if (!email) {
       toastMessage("warn", "You must login first to add product on cart!");
     }
 
-    const email = getEmail.dataUser.email;
     e.preventDefault();
 
     const valuesCart = {
@@ -72,7 +73,9 @@ export default function ProductId() {
   };
 
   const handleBuyNow = () => {
-    if (!getEmail.dataUser) {
+    const email = getEmail.dataUser?.email;
+
+    if (!email) {
       toastMessage("warn", "You must login first to buy some product!");
     }
 
