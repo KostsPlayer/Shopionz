@@ -48,12 +48,12 @@ export default function ProductId() {
   const getEmail = JSON.parse(localStorage.getItem("dataUser"));
 
   const handleAddToCart = (e) => {
-    const email = getEmail.dataUser.email;
-    e.preventDefault();
-
-    if (!email) {
+    if (!getEmail.dataUser) {
       toastMessage("warn", "You must login first to add product on cart!");
     }
+
+    const email = getEmail.dataUser.email;
+    e.preventDefault();
 
     const valuesCart = {
       product_id: data.id,
@@ -72,9 +72,7 @@ export default function ProductId() {
   };
 
   const handleBuyNow = () => {
-    const email = getEmail.dataUser.email;
-
-    if (!email) {
+    if (!getEmail.dataUser) {
       toastMessage("warn", "You must login first to buy some product!");
     }
 
