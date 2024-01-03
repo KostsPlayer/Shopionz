@@ -52,24 +52,24 @@ export default function ProductId() {
 
     if (!email) {
       toastMessage("warn", "You must login first to add product on cart!");
+    } else {
+      e.preventDefault();
+
+      const valuesCart = {
+        product_id: data.id,
+        amount: quantity,
+        email: email,
+      };
+
+      axios
+        .post("https://project-ii-server.vercel.app/insert-cart", valuesCart)
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-
-    e.preventDefault();
-
-    const valuesCart = {
-      product_id: data.id,
-      amount: quantity,
-      email: email,
-    };
-
-    axios
-      .post("https://project-ii-server.vercel.app/insert-cart", valuesCart)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   };
 
   const handleBuyNow = () => {
@@ -77,12 +77,12 @@ export default function ProductId() {
 
     if (!email) {
       toastMessage("warn", "You must login first to buy some product!");
+    } else {
+      redirect(`/order/${id}`, {
+        replace: true,
+        state: { quantity, totalPrice },
+      });
     }
-
-    redirect(`/order/${id}`, {
-      replace: true,
-      state: { quantity, totalPrice },
-    });
   };
 
   return (
