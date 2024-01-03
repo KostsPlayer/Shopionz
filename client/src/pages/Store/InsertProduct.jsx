@@ -34,6 +34,12 @@ export default function InsertProduct({ onOpen, onClose }) {
     if (e.target.type === "file") {
       setValues({ ...values, [e.target.name]: e.target.files });
     } else {
+      if (
+        (e.target.name === "price" || e.target.name === "stock") &&
+        parseFloat(e.target.value) < 0
+      ) {
+        return toastMessage("error", "Cannot Negatif");
+      }
       setValues({ ...values, [e.target.name]: e.target.value });
     }
   };

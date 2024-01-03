@@ -6,6 +6,7 @@ export function LayoutImageCatalog() {
   axios.defaults.withCredentials = true;
   const [product, setProduct] = useState([]);
 
+  const number = 2+3
   useEffect(() => {
     axios
       .get("https://project-ii-server.vercel.app/product")

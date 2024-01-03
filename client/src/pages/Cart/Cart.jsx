@@ -14,21 +14,21 @@ export default function Cart() {
   const { message, toastMessage } = allMessage();
 
   const getEmail = JSON.parse(localStorage.getItem("dataUser"));
-  const email = getEmail.dataUser.email;
 
   const fetchData = () => {
+    const email = getEmail.dataUser.email;
+
     axios
       .get(`https://project-ii-server.vercel.app/cart/${email}`)
       .then((res) => {
-        setGetData(res.data);
-
         const initialCheckedItems = res.data.reduce((acc, item) => {
           acc[item.id] = item.status === 1;
           return acc;
         }, {});
 
         setCheckedItem(initialCheckedItems);
-        calculateTotalPrice(getData);
+        setGetData(res.data);
+        calculateTotalPrice(res.data);
       })
       .catch((err) => {
         console.error(err);
@@ -99,6 +99,7 @@ export default function Cart() {
         status: newCheckedItems[id] ? 1 : 0,
       })
       .then((res) => {
+        setGetData(res.data);
         calculateTotalPrice(res.data);
       })
       .catch((err) => {

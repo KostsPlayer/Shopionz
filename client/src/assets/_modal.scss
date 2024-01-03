@@ -37,10 +37,59 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 60vw;
+    max-width: 60vw;
     height: auto;
-    padding: 1%;
+    padding: 1.5%;
     background-color: #fff;
     animation: openSlider 0.75s ease-in-out;
+    display: grid;
+    grid-template-areas:
+      "title close"
+      "modal modal";
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 1rem;
+    grid-template-rows: 0.2fr 1fr;
+    // border: #000 solid 0.2rem;
+
+    h1 {
+      grid-area: title;
+      // border: #000 solid 0.2rem;
+    }
+
+    .material-symbols-outlined {
+      grid-area: close;
+      // border: #000 solid 0.2rem;
+      @include m.flex($justify: flex-end);
+    }
+
+    .form-modal-area {
+      // border: #000 solid 0.2rem;
+      grid-area: modal;
+      @include m.flex($direction: column);
+      gap: 1.5vh;
+
+      &-row {
+        @include m.flex($align: flex-start, $direction: column);
+        row-gap: 0.5vh;
+        width: 100%;
+        // border: #000 solid 0.2rem;
+
+        .form-label {
+          // border: #000 solid 0.2rem;
+        }
+
+        .form-input {
+          height: 5vh;
+          width: inherit;
+          // border: #000 solid 0.2rem;
+        }
+      }
+
+      .form-submit {
+        // border: #000 solid 0.2rem;
+        width: fit-content;
+        @include m.flex($justify: flex-end);
+      }
+    }
   }
 }

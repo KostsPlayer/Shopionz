@@ -115,8 +115,8 @@ export default function Navbar() {
             onMouseEnter={onEnterNavbar}
             onMouseLeave={onLeaveNavbar}
             ref={(e) => e && magnets.current.push(e)}
-            to="/login"
             className="icon-login"
+            to={isValid ? "/dashboard" : "/login"}
           >
             {isValid ? (
               <img className="home-user-image" src={getData.images} />
@@ -126,15 +126,17 @@ export default function Navbar() {
               </>
             )}
           </Link>
-          <span
-            className="material-symbols-outlined"
-            onMouseEnter={onEnterNavbar}
-            onMouseLeave={onLeaveNavbar}
-            ref={(e) => e && magnets.current.push(e)}
-            onClick={logout}
-          >
-            logout
-          </span>
+          {isValid && (
+            <span
+              className="material-symbols-outlined"
+              onMouseEnter={onEnterNavbar}
+              onMouseLeave={onLeaveNavbar}
+              ref={(e) => e && magnets.current.push(e)}
+              onClick={logout}
+            >
+              logout
+            </span>
+          )}
         </div>
       </nav>
     </>
