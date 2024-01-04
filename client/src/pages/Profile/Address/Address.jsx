@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Layout from "../Layout/Layout";
+import Layout from "../../Layout/Layout";
 
 export default function Address() {
   axios.defaults.withCredentials = true;
