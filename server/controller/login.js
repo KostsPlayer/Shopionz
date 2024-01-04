@@ -37,7 +37,7 @@ router.post("/login", async (req, res) => {
             dataUser: data[0],
             imageUrl: imageUrl,
             isValid: true,
-            data: data[0],
+            roles: data[0].roles.roles,
           });
         } else {
           return res.json({
