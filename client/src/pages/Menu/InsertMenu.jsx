@@ -118,7 +118,7 @@ export default function InsertMenu({ onOpen, onClose, title }) {
                 type="checkbox"
                 id="is_active"
                 name="is_active"
-                className="form-input"
+                className="form-checked"
               />
             </div>
             <button type="submit" className="form-submit">

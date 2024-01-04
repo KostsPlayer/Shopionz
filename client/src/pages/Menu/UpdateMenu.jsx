@@ -38,7 +38,10 @@ export default function UpdateMenu({ onOpen, onClose, menuId, title }) {
       .validate(getMenu, { abortEarly: false })
       .then(() => {
         axios
-          .put(`https://project-ii-server.vercel.app/update-menu/${menuId}`, getMenu)
+          .put(
+            `https://project-ii-server.vercel.app/update-menu/${menuId}`,
+            getMenu
+          )
           .then((res) => {
             toastMessage("success", res.data.message);
           })
@@ -120,7 +123,7 @@ export default function UpdateMenu({ onOpen, onClose, menuId, title }) {
                 type="checkbox"
                 id="is_active"
                 name="is_active"
-                className="form-input"
+                className="form-checked"
                 checked={getMenu?.is_active || ""}
               />
             </div>
