@@ -39,7 +39,7 @@
     transform: translate(-50%, -50%);
     max-width: 60vw;
     height: auto;
-    padding: 1.5%;
+    padding: 1.5% 1.8% 1%;
     background-color: #fff;
     animation: openSlider 0.75s ease-in-out;
     display: grid;
@@ -65,7 +65,7 @@
     .form-modal-area {
       // border: #000 solid 0.2rem;
       grid-area: modal;
-      @include m.flex($direction: column);
+      @include m.flex($direction: column, $align: flex-end);
       gap: 1.5vh;
 
       &-row {
@@ -88,7 +88,8 @@
       .form-submit {
         // border: #000 solid 0.2rem;
         width: fit-content;
-        @include m.flex($justify: flex-end);
+        padding: 1.5%;
+        // @include m.flex($justify: flex-end);
       }
     }
   }

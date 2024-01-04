@@ -1379,11 +1379,51 @@ h3 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 60vw;
+  max-width: 60vw;
   height: auto;
-  padding: 1%;
+  padding: 1.5% 1.8% 1%;
   background-color: #fff;
   animation: openSlider 0.75s ease-in-out;
+  display: grid;
+  grid-template-areas: "title close" "modal modal";
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 1rem;
+  grid-template-rows: 0.2fr 1fr;
+}
+.overlay-modal .modal-area h1 {
+  grid-area: title;
+}
+.overlay-modal .modal-area .material-symbols-outlined {
+  grid-area: close;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: row;
+}
+.overlay-modal .modal-area .form-modal-area {
+  grid-area: modal;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 1.5vh;
+}
+.overlay-modal .modal-area .form-modal-area-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  row-gap: 0.5vh;
+  width: 100%;
+}
+.overlay-modal .modal-area .form-modal-area-row .form-input {
+  height: 5vh;
+  width: inherit;
+}
+.overlay-modal .modal-area .form-modal-area .form-submit {
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 1.5%;
 }
 
 .table-menu {
