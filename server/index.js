@@ -7,10 +7,10 @@ import menuRouter from "./controller/menu.js";
 import productRouter from "./controller/product.js";
 import cartRouter from "./controller/cart.js";
 import orderRouter from "./controller/order.js";
+import userRouter from "./controller/users.js";
 import dotenv from "dotenv";
 
 dotenv.config();
-
 
 const app = express();
 configureMiddleware(app);
@@ -22,6 +22,7 @@ app.use(menuRouter);
 app.use(productRouter);
 app.use(cartRouter);
 app.use(orderRouter);
+app.use(userRouter);
 
 const port = process.env.REACT_APP_PORT || 5001;
 app.listen(port, () => {

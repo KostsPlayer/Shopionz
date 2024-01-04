@@ -70,7 +70,7 @@ export default function Login() {
               redirect("/dashboard");
             } else if (res.data.loggedIn === true && res.data.role === 3) {
               localStorage.setItem("loginMessage", res.data.message);
-              redirect("/");
+              redirect("/profile");
             }
 
             localStorage.setItem("session", res.data.isValid);

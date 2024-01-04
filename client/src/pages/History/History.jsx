@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Layout from "../Layout/Layout";
 
 export default function History() {
+  axios.defaults.withCredentials = true;
   return (
     <>
-      <h1>Hello World!</h1>
+      <Layout>
+        <h1>Hello World!</h1>
+      </Layout>
     </>
   );
 }
