@@ -13,7 +13,7 @@ router.post("/login", async (req, res) => {
   try {
     const { data, error } = await supabase
       .from("users")
-      .select(`*, roles(*)`)
+      .select("*, roles(*)")
       .or(`name.eq.${usernameEmail}, email.eq.${usernameEmail}`);
 
     if (error) {

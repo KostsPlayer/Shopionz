@@ -23,7 +23,7 @@ export default function Address() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5001/provincies")
+      .get("https://project-ii-server.vercel.app/provincies")
       .then((res) => {
         setGetProvincies(res.data);
       })
@@ -35,7 +35,9 @@ export default function Address() {
   useEffect(() => {
     if (selectedProvince.id) {
       axios
-        .get(`http://localhost:5001/regencies/${selectedProvince.id}`)
+        .get(
+          `https://project-ii-server.vercel.app/regencies/${selectedProvince.id}`
+        )
         .then((res) => {
           setGetRegencies(res.data);
         })
@@ -48,7 +50,9 @@ export default function Address() {
   useEffect(() => {
     if (selectedRegency.id) {
       axios
-        .get(`http://localhost:5001/districts/${selectedRegency.id}`)
+        .get(
+          `https://project-ii-server.vercel.app/districts/${selectedRegency.id}`
+        )
         .then((res) => {
           setGetDistricts(res.data);
         })
@@ -61,7 +65,9 @@ export default function Address() {
   useEffect(() => {
     if (selectedDistrict.id) {
       axios
-        .get(`http://localhost:5001/villages/${selectedDistrict.id}`)
+        .get(
+          `https://project-ii-server.vercel.app/villages/${selectedDistrict.id}`
+        )
         .then((res) => {
           setGetVillages(res.data);
         })
