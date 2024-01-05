@@ -6,9 +6,7 @@ export default function Address() {
   axios.defaults.withCredentials = true;
 
   const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
-  const userId = getLocalStorage.userUser.id;
-
-  console.log(userId);
+  const userId = getLocalStorage.dataUser.id;
 
   const [getProvincies, setGetProvincies] = useState([]);
   const [getRegencies, setGetRegencies] = useState([]);
@@ -25,7 +23,7 @@ export default function Address() {
     district: "",
     villages: "",
     address: "",
-    // userId: userId,
+    userId: userId,
   });
 
   useEffect(() => {
