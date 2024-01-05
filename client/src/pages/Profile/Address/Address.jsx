@@ -120,7 +120,7 @@ export default function Address() {
     setSelectedDistrict(selectedDistrictObject);
     setValues((prevValues) => ({
       ...prevValues,
-      district: selectedDistrictObject.name,
+      districts: selectedDistrictObject.name,
     }));
   };
 
