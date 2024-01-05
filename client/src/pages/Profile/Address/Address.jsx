@@ -19,7 +19,11 @@ export default function Address() {
     district: "",
     villages: "",
     address: "",
+    userId: userId,
   });
+
+  const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
+  const userId = getLocalStorage.userUser.id;
 
   useEffect(() => {
     axios
@@ -135,7 +139,14 @@ export default function Address() {
   };
 
   const handleSubmit = () => {
-    console.log(values);
+    axios
+      .post("https://project-ii-server.vercel.app/insert-address", values)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -144,6 +155,7 @@ export default function Address() {
         <h1>Hello World!</h1>
         <div className="address">
           <select
+            className="address-select-provincies"
             name="provincies"
             id="provincies"
             value={selectedProvince.id}
@@ -159,6 +171,7 @@ export default function Address() {
             ))}
           </select>
           <select
+            className="address-select-regencies"
             name="regencies"
             id="regencies"
             value={selectedRegency.id}
@@ -174,6 +187,7 @@ export default function Address() {
             ))}
           </select>
           <select
+            className="address-select-districts"
             name="districts"
             id="districts"
             value={selectedDistrict.id}
@@ -189,6 +203,7 @@ export default function Address() {
             ))}
           </select>
           <select
+            className="address-select-villages"
             name="villages"
             id="villages"
             value={selectedVillage.id}
@@ -204,6 +219,7 @@ export default function Address() {
             ))}
           </select>
           <textarea
+            className="address-textarea"
             name="address"
             id="address"
             cols="30"
@@ -211,7 +227,11 @@ export default function Address() {
             value={address}
             onChange={handleAddressChange}
           ></textarea>
-          <button type="submit" onClick={handleSubmit}>
+          <button
+            className="address-button"
+            type="submit"
+            onClick={handleSubmit}
+          >
             Submit
           </button>
         </div>

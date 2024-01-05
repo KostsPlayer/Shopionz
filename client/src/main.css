@@ -1583,6 +1583,42 @@ h3 {
   gap: 1rem;
 }
 
+.address {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: "select-1 select-2" "select-3 select-4" "textarea textarea" "button button";
+  gap: 0.5vw;
+}
+.address-select-provincies {
+  grid-area: select-1;
+  height: 6vh;
+}
+.address-select-regencies {
+  grid-area: select-2;
+  height: 6vh;
+}
+.address-select-districts {
+  height: 6vh;
+  grid-area: select-3;
+}
+.address-select-villages {
+  grid-area: select-4;
+  height: 6vh;
+}
+.address-textarea {
+  grid-area: textarea;
+}
+.address-button {
+  grid-area: button;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  justify-self: flex-end;
+  width: 5rem;
+  height: 6vh;
+}
+
 * {
   padding: 0;
   margin: 0;

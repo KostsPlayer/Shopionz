@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+import Layout from "../Layout/Layout";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Layout from "../Layout/Layout";
+import moment from "moment";
 
 export default function Profile() {
   axios.defaults.withCredentials = true;
@@ -11,15 +12,18 @@ export default function Profile() {
   const getImageUrl = JSON.parse(localStorage.getItem("imageUrl"));
 
   useEffect(() => {
+    const getDate = moment(getLocalStorage.dataUser.date_available);
+    const customDate = getDate.format("dddd, D MMMM YYYY");
+
     setDataUser({
       name: getLocalStorage.dataUser.name,
       email: getLocalStorage.dataUser.email,
       phoneNumber: getLocalStorage.dataUser.phone_number,
       role: getLocalStorage.dataUser.roles.roles,
-      date: getLocalStorage.dataUser.date_available,
+      date: customDate,
       images: getImageUrl.imageUrl.publicUrl,
     });
-  }, []);
+  }, [getLocalStorage, getImageUrl]);
 
   return (
     <>
