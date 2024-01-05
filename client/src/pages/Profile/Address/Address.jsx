@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Layout from "../../Layout/Layout";
 
 export default function Address() {
@@ -20,11 +21,13 @@ export default function Address() {
   const [values, setValues] = useState({
     provincies: "",
     regencies: "",
-    district: "",
+    districts: "",
     villages: "",
     address: "",
     userId: userId,
   });
+
+  const redirect = useNavigate();
 
   useEffect(() => {
     axios
@@ -144,6 +147,7 @@ export default function Address() {
       .post("https://project-ii-server.vercel.app/insert-address", values)
       .then((res) => {
         console.log(res.data);
+        redirect("/profile");
       })
       .catch((err) => {
         console.log(err);

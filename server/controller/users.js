@@ -62,13 +62,13 @@ router.get("/villages/:id", async (req, res) => {
 
 router.post("/insert-address", async (req, res) => {
   try {
-    const { provinces, regencies, districts, villages, address, userId } =
+    const { provincies, regencies, districts, villages, address, userId } =
       req.body;
 
     const { data, error } = await supabase
       .from("addresses")
       .insert({
-        provinces: provinces,
+        provinces: provincies,
         regencies: regencies,
         districts: districts,
         villages: villages,
@@ -76,6 +76,25 @@ router.post("/insert-address", async (req, res) => {
         user_id: userId,
       })
       .select("*");
+
+    if (error) {
+      return res.json(error);
+    }
+
+    return res.json(data);
+  } catch (error) {
+    return res.json(error);
+  }
+});
+
+router.get("/get-address/:id", async (req, res) => {
+  const userId = req.params.id;
+
+  try {
+    const { data, error } = await supabase
+      .from("addresses")
+      .select("*")
+      .eq("user_id", userId);
 
     if (error) {
       return res.json(error);

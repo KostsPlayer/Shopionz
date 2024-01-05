@@ -25,6 +25,19 @@ export default function Profile() {
     });
   }, [getLocalStorage, getImageUrl]);
 
+  useEffect(() => {
+    axios
+      .get(
+        `https://project-ii-server.vercel.app/get-address/${getLocalStorage.dataUser.id}`
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, [getLocalStorage]);
+
   return (
     <>
       <Layout>
