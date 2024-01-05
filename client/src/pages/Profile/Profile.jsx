@@ -36,7 +36,7 @@ export default function Profile() {
       .catch((err) => {
         console.error(err);
       });
-  }, [getLocalStorage]);
+  }, []);
 
   return (
     <>
