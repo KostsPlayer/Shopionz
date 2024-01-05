@@ -4,6 +4,10 @@ import Layout from "../../Layout/Layout";
 
 export default function Address() {
   axios.defaults.withCredentials = true;
+
+  const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
+  const userId = getLocalStorage.userUser.id;
+
   const [getProvincies, setGetProvincies] = useState([]);
   const [getRegencies, setGetRegencies] = useState([]);
   const [getDistricts, setGetDistricts] = useState([]);
@@ -21,9 +25,6 @@ export default function Address() {
     address: "",
     userId: userId,
   });
-
-  const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
-  const userId = getLocalStorage.userUser.id;
 
   useEffect(() => {
     axios
