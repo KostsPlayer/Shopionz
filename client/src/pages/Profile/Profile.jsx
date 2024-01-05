@@ -23,6 +23,8 @@ export default function Profile() {
       date: customDate,
       images: getImageUrl.imageUrl.publicUrl,
     });
+
+    console.log(getLocalStorage.dataUser.id);
   }, [getLocalStorage, getImageUrl]);
 
   return (

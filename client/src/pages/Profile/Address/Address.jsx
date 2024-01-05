@@ -8,6 +8,8 @@ export default function Address() {
   const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
   const userId = getLocalStorage.userUser.id;
 
+  console.log(userId);
+
   const [getProvincies, setGetProvincies] = useState([]);
   const [getRegencies, setGetRegencies] = useState([]);
   const [getDistricts, setGetDistricts] = useState([]);
@@ -23,7 +25,7 @@ export default function Address() {
     district: "",
     villages: "",
     address: "",
-    userId: userId,
+    // userId: userId,
   });
 
   useEffect(() => {
