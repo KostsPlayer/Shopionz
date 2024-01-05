@@ -68,7 +68,7 @@ router.post("/insert-address", async (req, res) => {
     const { data, error } = await supabase
       .from("addresses")
       .insert({
-        provinces: provincies,
+        provincies: provincies,
         regencies: regencies,
         districts: districts,
         villages: villages,
