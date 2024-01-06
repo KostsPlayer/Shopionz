@@ -100,11 +100,11 @@ export default function Profile() {
           </div>
           <div className="profile-desc">
             <div className="profile-desc-row">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="name">Username</label>
               <input
                 type="text"
-                name="username"
-                id="username"
+                name="name"
+                id="name"
                 value={values?.name || ""}
                 onChange={handleChange}
               />
