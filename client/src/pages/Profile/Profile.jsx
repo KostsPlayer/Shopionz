@@ -80,7 +80,7 @@ export default function Profile() {
 
   useEffect(() => {
     console.log(values);
-  }, [values]);
+  }, []);
 
   return (
     <>
