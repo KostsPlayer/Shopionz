@@ -113,7 +113,7 @@ router.put("/delete-address/:id", async (req, res) => {
     const { data, error } = await supabase
       .from("addresses")
       .delete()
-      .eq("user_id", addressId);
+      .eq("id", addressId);
 
     if (error) {
       return res.json(error);

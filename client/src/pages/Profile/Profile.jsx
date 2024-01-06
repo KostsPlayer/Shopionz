@@ -62,15 +62,12 @@ export default function Profile() {
 
   const handleChange = (e) => {
     if (e.target.type === "file") {
-      setValues((prevValues) => ({
-        ...prevValues,
-        [e.target.name]: e.target.files,
-      }));
+      setValues({ ...values, [e.target.name]: e.target.files });
     } else {
-      setValues((prevValues) => ({
-        ...prevValues,
+      setValues({
+        ...values,
         [e.target.name]: e.target.value,
-      }));
+      });
     }
 
     console.log(values);
@@ -111,7 +108,7 @@ export default function Profile() {
                 type="text"
                 name="username"
                 id="username"
-                value={dataUser?.username || ""}
+                value={values?.username || ""}
                 onChange={handleChange}
               />
             </div>
@@ -121,7 +118,7 @@ export default function Profile() {
                 type="text"
                 name="email"
                 id="email"
-                value={dataUser?.email || ""}
+                value={values?.email || ""}
                 onChange={handleChange}
               />
             </div>
@@ -131,7 +128,7 @@ export default function Profile() {
                 type="text"
                 name="phone_number"
                 id="phone_number"
-                value={dataUser?.phoneNumber || ""}
+                value={values?.phoneNumber || ""}
                 onChange={handleChange}
               />
             </div>
