@@ -93,7 +93,6 @@ export default function Profile() {
                 type="file"
                 name="image"
                 id="image"
-                value={dataUser?.imageProfile || ""}
                 onChange={handleChange}
               />
               Select Image
