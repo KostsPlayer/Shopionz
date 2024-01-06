@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Layout from "../Layout/Layout";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { allMessage } from "../../component/Helper/LogicServer";
+import { ToastContainer } from "react-toastify";
 import moment from "moment";
 moment.locale("id");
 
@@ -9,8 +11,10 @@ export default function Profile() {
   axios.defaults.withCredentials = true;
   const [dataUser, setDataUser] = useState([]);
   const [dataAddress, setDataAddress] = useState([]);
+  const [values, setValues] = useState({});
   const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
   const getImageUrl = JSON.parse(localStorage.getItem("imageUrl"));
+  const { message, toastMessage } = allMessage();
 
   useEffect(() => {
     axios
@@ -37,24 +41,41 @@ export default function Profile() {
       role: getLocalStorage.dataUser.roles.roles,
       date: customDate,
       images: getImageUrl.imageUrl.publicUrl,
+      imageProfile: getLocalStorage.dataUser.image,
     });
   }, [getLocalStorage, getImageUrl]);
 
-  const [values, setValues] = useState({
-    username: "",
-    email: "",
-    phoneNumber: 0,
-    images: "",
+  useEffect(() => {
+    axios
+      .get(
+        `https://project-ii-server.vercel.app/profile/${getLocalStorage.dataUser.id}`
+      )
+      .then((res) => {
+        console.log(res.data[0]);
+        setValues(res.data[0]);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   });
 
   const handleChange = (e) => {
-    e.preventDefault();
-
     if (e.target.type === "file") {
       setValues({ ...values, [e.target.name]: e.target.files });
     } else {
       setValues({ ...values, [e.target.name]: e.target.value });
     }
+  };
+
+  const handleDeleteAddress = (id) => {
+    axios
+      .put(`https://project-ii-server.vercel.app/delete-address/${id}`)
+      .then((res) => {
+        toastMessage("success", "Delete address successfully!");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   useEffect(() => {
@@ -72,6 +93,7 @@ export default function Profile() {
                 type="file"
                 name="image"
                 id="image"
+                value={dataUser?.imageProfile || ""}
                 onChange={handleChange}
               />
               Select Image
@@ -84,7 +106,7 @@ export default function Profile() {
                 type="text"
                 name="username"
                 id="username"
-                value={dataUser.username}
+                value={dataUser?.username || ""}
                 onChange={handleChange}
               />
             </div>
@@ -94,7 +116,7 @@ export default function Profile() {
                 type="text"
                 name="email"
                 id="email"
-                value={dataUser.email}
+                value={dataUser?.email || ""}
                 onChange={handleChange}
               />
             </div>
@@ -104,7 +126,7 @@ export default function Profile() {
                 type="text"
                 name="phone_number"
                 id="phone_number"
-                value={dataUser.phoneNumber}
+                value={dataUser?.phoneNumber || ""}
                 onChange={handleChange}
               />
             </div>
@@ -135,7 +157,7 @@ export default function Profile() {
               <span class="material-symbols-outlined">add_circle</span>
             </Link>
             {dataAddress.map(
-              ({ address, villages, districts, regencies, provincies }) => (
+              ({ id, address, villages, districts, regencies, provincies }) => (
                 <div className="profile-address-item">
                   <div className="column-left">
                     {address}, {villages}, {districts}, {regencies},{" "}
@@ -143,7 +165,10 @@ export default function Profile() {
                   </div>
                   <div className="column-right">
                     <div className="icon">
-                      <div className="delete">
+                      <div
+                        className="delete"
+                        onClick={() => handleDeleteAddress(id)}
+                      >
                         <div className="bagde-icon">
                           <span className="material-symbols-outlined">
                             delete
@@ -165,6 +190,7 @@ export default function Profile() {
             )}
           </div>
         </div>
+        {message && <ToastContainer />}
       </Layout>
     </>
   );

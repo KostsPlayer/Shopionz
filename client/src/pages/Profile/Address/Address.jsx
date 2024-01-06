@@ -147,6 +147,7 @@ export default function Address() {
       .post("https://project-ii-server.vercel.app/insert-address", values)
       .then((res) => {
         console.log(res.data);
+        
         redirect("/profile");
       })
       .catch((err) => {

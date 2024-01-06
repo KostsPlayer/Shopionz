@@ -106,6 +106,44 @@ router.get("/get-address/:id", async (req, res) => {
   }
 });
 
+router.put("/delete-address/:id", async (req, res) => {
+  const userId = req.params.id;
+
+  try {
+    const { data, error } = await supabase
+      .from("addresses")
+      .delete()
+      .eq("user_id", userId);
+
+    if (error) {
+      return res.json(error);
+    }
+
+    return res.json(data);
+  } catch (error) {
+    return res.json(error);
+  }
+});
+
+router.get("/profile/:id", async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    const { data, error } = await supabase
+      .from("users")
+      .select("*")
+      .eq("id", userId);
+
+    if (error) {
+      return res.json(error);
+    }
+
+    return res.json(data);
+  } catch (error) {
+    return res.json(error);
+  }
+});
+
 router.put("/update-profile/:id", async (req, res) => {
   try {
     const userId = req.params.id;
