@@ -23,7 +23,6 @@ export default function Profile() {
       )
       .then((res) => {
         setDataAddress(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         console.error(err);
@@ -57,7 +56,7 @@ export default function Profile() {
       .catch((err) => {
         console.error(err);
       });
-  });
+  }, []);
 
   const handleChange = (e) => {
     if (e.target.type === "file") {
@@ -65,6 +64,8 @@ export default function Profile() {
     } else {
       setValues({ ...values, [e.target.name]: e.target.value });
     }
+
+    console.log(values);
   };
 
   const handleDeleteAddress = (id) => {
@@ -77,10 +78,6 @@ export default function Profile() {
         console.error(err);
       });
   };
-
-  useEffect(() => {
-    console.log(values);
-  }, []);
 
   return (
     <>
