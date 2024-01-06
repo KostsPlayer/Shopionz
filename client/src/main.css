@@ -1628,28 +1628,60 @@ h3 {
   width: fit-content;
   height: -moz-fit-content;
   height: fit-content;
+  border: 0.2rem solid #000;
 }
 .profile-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 15vw;
+  height: 15vw;
+  border-radius: 50%;
   grid-area: image;
+  border: 0.2rem solid #000;
+}
+.profile-image img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
 }
 .profile-desc {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   grid-area: desc;
   width: 100%;
   height: 100%;
+  border: 0.2rem solid #000;
+}
+.profile-desc-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+.profile-desc-row input {
+  width: inherit;
+  height: 5vh;
 }
 .profile-address {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  gap: 2vh;
   padding: 2%;
   grid-area: address;
   width: 100%;
   height: 100%;
+  border: 0.2rem solid #000;
+}
+.profile-address-item {
+  text-align: justify;
 }
 
 * {

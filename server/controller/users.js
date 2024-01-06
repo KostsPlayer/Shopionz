@@ -106,4 +106,30 @@ router.get("/get-address/:id", async (req, res) => {
   }
 });
 
+router.put("/update-profile/:id", async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const { username, email, phoneNumber, images } = req.body;
+
+    const { data, error } = await supabase
+      .from("users")
+      .update({
+        name: username,
+        email: email,
+        phone_number: phoneNumber,
+        images: images,
+      })
+      .eq("id", userId)
+      .select("*");
+
+    if (error) {
+      return res.json(error);
+    }
+
+    return res.json(data);
+  } catch (error) {
+    return res.json(error);
+  }
+});
+
 export default router;
