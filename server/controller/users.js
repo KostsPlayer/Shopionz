@@ -107,13 +107,13 @@ router.get("/get-address/:id", async (req, res) => {
 });
 
 router.put("/delete-address/:id", async (req, res) => {
-  const userId = req.params.id;
+  const addressId = req.params.id;
 
   try {
     const { data, error } = await supabase
       .from("addresses")
       .delete()
-      .eq("user_id", userId);
+      .eq("user_id", addressId);
 
     if (error) {
       return res.json(error);
