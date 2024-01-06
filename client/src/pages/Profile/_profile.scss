@@ -1,2 +1,31 @@
 @use "./../../assets/mixin" as m;
 @use "./Address/address";
+
+.profile {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-areas:
+    "image desc"
+    "address address";
+
+  &-image {
+    grid-area: image;
+    object-fit: cover;
+    width: fit-content;
+    height: fit-content;
+  }
+
+  &-desc {
+    grid-area: desc;
+    width: fit-content;
+    height: fit-content;
+  }
+
+  &-address {
+    @include m.flex($direction: column);
+    grid-area: address;
+    width: fit-content;
+    height: fit-content;
+  }
+}

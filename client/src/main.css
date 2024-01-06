@@ -1619,6 +1619,40 @@ h3 {
   height: 6vh;
 }
 
+.profile {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-areas: "image desc" "address address";
+}
+.profile-image {
+  grid-area: image;
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.profile-desc {
+  grid-area: desc;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.profile-address {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  grid-area: address;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
 * {
   padding: 0;
   margin: 0;
