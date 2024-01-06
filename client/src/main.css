@@ -1640,10 +1640,14 @@ h3 {
   width: 100%;
   height: 100%;
 }
-.profile-image img {
+.profile-image-img {
   width: 15vw;
   height: 15vw;
   border-radius: 50%;
+}
+.profile-image-img img {
+  width: 100%;
+  height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
 }

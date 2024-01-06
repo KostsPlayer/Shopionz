@@ -65,8 +65,10 @@ export default function Profile() {
     <>
       <Layout>
         <div className="profile">
-          <div className="profile image">
-            <img src={dataUser.images} alt="profile-user" />
+          <div className="profile-image">
+            <div className="profile-image-img">
+              <img src={dataUser.images} alt="profile-user" />
+            </div>
             <input
               type="file"
               name="image"
