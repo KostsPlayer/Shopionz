@@ -14,13 +14,13 @@
 
   &-image {
     @include m.flex($direction: column);
-    @include m.circle($w-h: 15vw);
     grid-area: image;
     border: 0.2rem solid #000;
+    width: 100%;
+    height: 100%;
 
     img {
-      width: 100%;
-      height: 100%;
+      @include m.circle($w-h: 15vw);
       object-fit: cover;
     }
   }
