@@ -31,7 +31,7 @@ export default function Profile() {
     const customDate = getDate.format("dddd, D MMMM YYYY");
 
     setDataUser({
-      name: getLocalStorage.dataUser.name,
+      username: getLocalStorage.dataUser.name,
       email: getLocalStorage.dataUser.email,
       phoneNumber: getLocalStorage.dataUser.phone_number,
       role: getLocalStorage.dataUser.roles.roles,
@@ -66,26 +66,26 @@ export default function Profile() {
       <Layout>
         <div className="profile">
           <div className="profile-image">
-            <div className="profile-image-img">
-              <img src={dataUser.images} alt="profile-user" />
-            </div>
-            <input
-              type="file"
-              name="image"
-              id="image"
-              files={dataUser.image}
-              onChange={handleChange}
-            />
+            <img src={dataUser.images} alt="profile-user" />
+            <label htmlFor="image" className="profile-image-label">
+              <input
+                type="file"
+                name="image"
+                id="image"
+                onChange={handleChange}
+              />
+              Select Image
+            </label>
           </div>
           <div className="profile-desc">
             <div className="profile-desc-row">
-              <label htmlFor="username">Name</label>
+              <label htmlFor="username">Username</label>
               <input
                 type="text"
                 name="username"
                 id="username"
+                value={dataUser.username}
                 onChange={handleChange}
-                value={dataUser.name}
               />
             </div>
             <div className="profile-desc-row">
@@ -94,8 +94,8 @@ export default function Profile() {
                 type="text"
                 name="email"
                 id="email"
-                onChange={handleChange}
                 value={dataUser.email}
+                onChange={handleChange}
               />
             </div>
             <div className="profile-desc-row">
@@ -104,23 +104,65 @@ export default function Profile() {
                 type="text"
                 name="phone_number"
                 id="phone_number"
-                onChange={handleChange}
                 value={dataUser.phoneNumber}
+                onChange={handleChange}
               />
             </div>
-            <p>Role : {dataUser.role}</p>
-            <p>Date Registered : {dataUser.date}</p>
+            <div className="profile-desc-row">
+              <label htmlFor="role">Role</label>
+              <input
+                type="text"
+                name="role"
+                id="role"
+                value={dataUser.role}
+                disabled
+              />
+            </div>
+            <div className="profile-desc-row">
+              <label htmlFor="date">Registered since</label>
+              <input
+                type="text"
+                name="date"
+                id="date"
+                value={dataUser.date}
+                disabled
+              />
+            </div>
           </div>
           <div className="profile-address">
+            <Link className="profile-address-add" to={"/address"}>
+              Add New Address
+              <span class="material-symbols-outlined">add_circle</span>
+            </Link>
             {dataAddress.map(
               ({ address, villages, districts, regencies, provincies }) => (
-                <p className="profile-address-item">
-                  Address : {address}, {villages}, {districts}, {regencies},{" "}
-                  {provincies}
-                </p>
+                <div className="profile-address-item">
+                  <div className="column-left">
+                    {address}, {villages}, {districts}, {regencies},{" "}
+                    {provincies}
+                  </div>
+                  <div className="column-right">
+                    <div className="icon">
+                      <div className="delete">
+                        <div className="bagde-icon">
+                          <span className="material-symbols-outlined">
+                            delete
+                          </span>
+                        </div>
+                      </div>
+                      <div className="edit">
+                        <div className="bagde-icon">
+                          <span className="material-symbols-outlined">
+                            edit
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="set-main">Set Main Address</div>
+                  </div>
+                </div>
               )
             )}
-            <Link to={"/address"}>Add New Address</Link>
           </div>
         </div>
       </Layout>
