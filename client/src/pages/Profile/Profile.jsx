@@ -49,8 +49,6 @@ export default function Profile() {
             src={dataUser.images}
             alt="profile-user"
             className="profile-image"
-            width={200}
-            height={200}
           />
           <div className="profile-desc">
             <p>Name : {dataUser.name}</p>
