@@ -7,9 +7,24 @@ import moment from "moment";
 export default function Profile() {
   axios.defaults.withCredentials = true;
   const [dataUser, setDataUser] = useState([]);
+  const [dataAddress, setDataAddress] = useState([]);
 
   const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
   const getImageUrl = JSON.parse(localStorage.getItem("imageUrl"));
+
+  useEffect(() => {
+    axios
+      .get(
+        `https://project-ii-server.vercel.app/get-address/${getLocalStorage.dataUser.id}`
+      )
+      .then((res) => {
+        setDataAddress(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
 
   useEffect(() => {
     const getDate = moment(getLocalStorage.dataUser.date_available);
@@ -25,19 +40,6 @@ export default function Profile() {
     });
   }, [getLocalStorage, getImageUrl]);
 
-  useEffect(() => {
-    axios
-      .get(
-        `https://project-ii-server.vercel.app/get-address/${getLocalStorage.dataUser.id}`
-      )
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
-
   return (
     <>
       <Layout>
@@ -48,14 +50,22 @@ export default function Profile() {
           width={200}
           height={200}
         />
-        <p>Name : {dataUser.name}</p>
-        <p>Email : {dataUser.email}</p>
-        <p>Phone Number : {dataUser.phoneNumber}</p>
-        <p>Role : {dataUser.role}</p>
-        <p>Date Registered : {dataUser.date}</p>
-        <p>
-          Address : <Link to={"/address"}>Add New Address</Link>
-        </p>
+        <span>Name : {dataUser.name}</span>
+        <span>Email : {dataUser.email}</span>
+        <span>Phone Number : {dataUser.phoneNumber}</span>
+        <span>Role : {dataUser.role}</span>
+        <span>Date Registered : {dataUser.date}</span>
+        <span>
+          Address :
+          {dataAddress.map(
+            ({ address, villages, districts, regencies, provincies }) => (
+              <p>
+                {address}, {villages}, {districts}, {regencies}, {provincies}
+              </p>
+            )
+          )}
+          <Link to={"/address"}>Add New Address</Link>
+        </span>
       </Layout>
     </>
   );
