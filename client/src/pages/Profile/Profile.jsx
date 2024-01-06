@@ -36,9 +36,6 @@ export default function Profile() {
     const customDate = getDate.format("dddd, D MMMM YYYY");
 
     setDataUser({
-      username: getLocalStorage.dataUser.name,
-      email: getLocalStorage.dataUser.email,
-      phoneNumber: getLocalStorage.dataUser.phone_number,
       role: getLocalStorage.dataUser.roles.roles,
       date: customDate,
       images: getImageUrl.imageUrl.publicUrl,
@@ -108,7 +105,7 @@ export default function Profile() {
                 type="text"
                 name="username"
                 id="username"
-                value={values?.username || ""}
+                value={values?.name || ""}
                 onChange={handleChange}
               />
             </div>
@@ -128,7 +125,7 @@ export default function Profile() {
                 type="text"
                 name="phone_number"
                 id="phone_number"
-                value={values?.phoneNumber || ""}
+                value={values?.phone_number || ""}
                 onChange={handleChange}
               />
             </div>
