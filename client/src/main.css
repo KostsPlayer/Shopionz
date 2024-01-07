@@ -1635,6 +1635,8 @@ h3 {
   align-items: center;
   flex-direction: row;
   gap: 1vw;
+  width: 100%;
+  height: auto;
 }
 .profile-form-image {
   display: flex;

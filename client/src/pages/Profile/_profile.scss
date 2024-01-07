@@ -12,6 +12,8 @@
   &-form {
     @include m.flex();
     gap: 1vw;
+    width: 100%;
+    height: auto;
 
     &-image {
       // border: 0.2rem solid #000;

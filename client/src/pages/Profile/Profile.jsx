@@ -63,14 +63,6 @@ export default function Profile() {
 
   const handleChange = (e) => {
     if (e.target.type === "file") {
-      const reader = new FileReader();
-
-      reader.onload = (event) => {
-        setPreviewImage(event.target.result);
-      };
-
-      reader.readAsDataURL(e.target.files[0]);
-
       setValues({ ...values, [e.target.name]: e.target.files });
     } else {
       setValues({
