@@ -81,7 +81,7 @@ export default function Profile() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefualt();
+    e.preventDefault();
     console.log(values);
 
     const formData = new FormData();
@@ -188,8 +188,8 @@ export default function Profile() {
                   disabled
                 />
               </div>
+              <button type="submit">Submit</button>
             </div>
-            <button type="submit">Submit</button>
           </form>
           <div className="profile-address">
             <Link className="profile-address-add" to={"/address"}>
