@@ -12,6 +12,7 @@ export default function Profile() {
   const [dataUser, setDataUser] = useState([]);
   const [dataAddress, setDataAddress] = useState([]);
   const [values, setValues] = useState({});
+  const [previewImage, setPreviewImage] = useState(dataUser.images);
 
   const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
   const getImageUrl = JSON.parse(localStorage.getItem("imageUrl"));
@@ -39,7 +40,6 @@ export default function Profile() {
       role: getLocalStorage.dataUser.roles.roles,
       date: customDate,
       images: getImageUrl.imageUrl.publicUrl,
-      imageProfile: getLocalStorage.dataUser.image,
     });
   }, [getLocalStorage, getImageUrl]);
 
@@ -59,6 +59,14 @@ export default function Profile() {
 
   const handleChange = (e) => {
     if (e.target.type === "file") {
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        setPreviewImage(event.target.result);
+      };
+
+      reader.readAsDataURL(e.target.files[0]);
+
       setValues({ ...values, [e.target.name]: e.target.files });
     } else {
       setValues({
@@ -66,8 +74,30 @@ export default function Profile() {
         [e.target.name]: e.target.value,
       });
     }
+  };
 
+  const handleSubmit = (e) => {
+    e.preventDefualt();
     console.log(values);
+
+    const formData = new FormData();
+    formData.append("username", values.name);
+    formData.append("email", values.email);
+    formData.append("phoneNumber", values.phone_number);
+    formData.append("images", values.image[0]);
+
+    axios
+      .put(
+        `https://project-ii-server.vercel.app/update-profile/${getLocalStorage.dataUser.id}`,
+        formData
+      )
+      .then((res) => {
+        console.log(res.data);
+        toastMessage("success", "Updated profile successfully!");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   const handleDeleteAddress = (id) => {
@@ -86,70 +116,77 @@ export default function Profile() {
     <>
       <Layout>
         <div className="profile">
-          <div className="profile-image">
-            <img src={dataUser.images} alt="profile-user" />
-            <label htmlFor="image" className="profile-image-label">
-              <input
-                type="file"
-                name="image"
-                id="image"
-                onChange={handleChange}
-              />
-              Select Image
-            </label>
-          </div>
-          <div className="profile-desc">
-            <div className="profile-desc-row">
-              <label htmlFor="name">Username</label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                value={values?.name || ""}
-                onChange={handleChange}
-              />
+          <form
+            className="profile-form"
+            encType="multipart/form-data"
+            onSubmit={handleSubmit}
+          >
+            <div className="profile-form-image">
+              <img src={dataUser.images} alt="profile-user" />
+              <label htmlFor="image" className="profile-image-label">
+                <input
+                  type="file"
+                  name="image"
+                  id="image"
+                  onChange={handleChange}
+                />
+                Select Image
+              </label>
             </div>
-            <div className="profile-desc-row">
-              <label htmlFor="email">Email</label>
-              <input
-                type="text"
-                name="email"
-                id="email"
-                value={values?.email || ""}
-                onChange={handleChange}
-              />
+            <div className="profile-form-desc">
+              <div className="profile-desc-row">
+                <label htmlFor="name">Username</label>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  value={values?.name || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="profile-desc-row">
+                <label htmlFor="email">Email</label>
+                <input
+                  type="text"
+                  name="email"
+                  id="email"
+                  value={values?.email || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="profile-desc-row">
+                <label htmlFor="phone_number">Phone Number</label>
+                <input
+                  type="text"
+                  name="phone_number"
+                  id="phone_number"
+                  value={values?.phone_number || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="profile-desc-row">
+                <label htmlFor="role">Role</label>
+                <input
+                  type="text"
+                  name="role"
+                  id="role"
+                  value={dataUser.role}
+                  disabled
+                />
+              </div>
+              <div className="profile-desc-row">
+                <label htmlFor="date">Registered since</label>
+                <input
+                  type="text"
+                  name="date"
+                  id="date"
+                  value={dataUser.date}
+                  disabled
+                />
+              </div>
             </div>
-            <div className="profile-desc-row">
-              <label htmlFor="phone_number">Phone Number</label>
-              <input
-                type="text"
-                name="phone_number"
-                id="phone_number"
-                value={values?.phone_number || ""}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="profile-desc-row">
-              <label htmlFor="role">Role</label>
-              <input
-                type="text"
-                name="role"
-                id="role"
-                value={dataUser.role}
-                disabled
-              />
-            </div>
-            <div className="profile-desc-row">
-              <label htmlFor="date">Registered since</label>
-              <input
-                type="text"
-                name="date"
-                id="date"
-                value={dataUser.date}
-                disabled
-              />
-            </div>
-          </div>
+            <button type="submit">Submit</button>
+          </form>
           <div className="profile-address">
             <Link className="profile-address-add" to={"/address"}>
               Add New Address

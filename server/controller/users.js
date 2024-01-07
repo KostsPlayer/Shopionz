@@ -1,6 +1,7 @@
 import express from "express";
 import configureMiddleware from "../config/middleware.js";
 import supabase from "../config/supabase.js";
+import multer from "multer";
 
 const app = express();
 configureMiddleware(app);
@@ -144,27 +145,39 @@ router.get("/profile/:id", async (req, res) => {
   }
 });
 
-router.put("/update-profile/:id", async (req, res) => {
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+router.put("/update-profile/:id", upload.single("image"), async (req, res) => {
   try {
     const userId = req.params.id;
-    const { username, email, phoneNumber, images } = req.body;
+    const { username, email, phoneNumber } = req.body;
+    const images = req.file;
 
-    const { data, error } = await supabase
+    const { data: imageData, error: imageError } = await supabase.storage
+      .from("Images")
+      .upload(`/${images.originalname}`, images.buffer);
+
+    if (imageError) {
+      return res.json(imageError);
+    }
+
+    const { data: profileData, error: profileError } = await supabase
       .from("users")
       .update({
         name: username,
         email: email,
         phone_number: phoneNumber,
-        images: images,
+        images: imageData.path,
       })
       .eq("id", userId)
       .select("*");
 
-    if (error) {
-      return res.json(error);
+    if (profileError) {
+      return res.json(profileError);
     }
 
-    return res.json(data);
+    return res.json({ profileData, imageData });
   } catch (error) {
     return res.json(error);
   }
