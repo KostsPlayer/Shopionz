@@ -84,7 +84,13 @@ export default function Profile() {
         formData
       )
       .then((res) => {
-        toastMessage("success", "Updated profile successfully!");
+        localStorage.removeItem("dataUser");
+
+        localStorage.setItem(
+          "dataUser",
+          JSON.stringify({ dataUser: res.data.dataUser })
+        );
+        toastMessage("success", res.data.message);
       })
       .catch((err) => {
         console.error(err);
@@ -112,10 +118,7 @@ export default function Profile() {
             onSubmit={handleSubmit}
           >
             <div className="profile-form-image">
-              <img
-                src={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${values.image}`}
-                alt="profile-user"
-              />
+              <img src={dataUser.image} alt="profile-user" />
               <label htmlFor="image" className="profile-image-label">
                 <input
                   type="file"
