@@ -119,7 +119,10 @@ export default function Profile() {
             onSubmit={handleSubmit}
           >
             <div className="profile-form-image">
-              <img src={dataUser.image} alt="profile-user" />
+              <img
+                src={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${values.image}`}
+                alt="profile-user"
+              />
               <label htmlFor="image" className="profile-image-label">
                 <input
                   type="file"
