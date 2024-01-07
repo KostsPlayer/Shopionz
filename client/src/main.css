@@ -1620,60 +1620,65 @@ h3 {
 }
 
 .profile {
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  grid-template-rows: repeat(2, auto);
-  grid-template-areas: "image desc" "address address";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   width: 100%;
   height: auto;
   padding: 2vw;
   gap: 1vw;
 }
-.profile-image {
+.profile-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 1vw;
+}
+.profile-form-image {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  grid-area: image;
   width: 100%;
   height: auto;
   row-gap: 2vh;
   padding: 0 1.2vw;
 }
-.profile-image img {
+.profile-form-image img {
   width: 20vw;
   height: 20vw;
   border-radius: 50%;
   -o-object-fit: cover;
      object-fit: cover;
 }
-.profile-image .profile-image-label {
+.profile-form-image .profile-image-label {
   border: 0.15vw solid #000;
   display: inline-block;
   color: #000;
   padding: 0.5vw 1vw;
   border-radius: 0.3vw;
 }
-.profile-image .profile-image-label:hover {
+.profile-form-image .profile-image-label:hover {
   background-color: #000;
   color: #fff;
   transition: all 0.3s ease-in-out;
 }
-.profile-image .profile-image-label input {
+.profile-form-image .profile-image-label input {
   display: none;
 }
-.profile-desc {
+.profile-form-desc {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  grid-area: desc;
   width: 100%;
   height: 100%;
   gap: 2vh;
   padding: 0 1.2vw;
 }
-.profile-desc-row {
+.profile-form-desc-row {
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -1682,7 +1687,7 @@ h3 {
   height: 100%;
   gap: 0.7vh;
 }
-.profile-desc-row input {
+.profile-form-desc-row input {
   width: inherit;
   padding: 0 3%;
   height: 6vh;
@@ -1693,7 +1698,7 @@ h3 {
   background-color: #fff;
   color: #000;
 }
-.profile-desc-row input:disabled {
+.profile-form-desc-row input:disabled {
   color: #808080;
 }
 .profile-address {
@@ -1703,7 +1708,6 @@ h3 {
   flex-direction: column;
   gap: 2vh;
   padding: 2%;
-  grid-area: address;
   width: 100%;
   height: 100%;
 }
