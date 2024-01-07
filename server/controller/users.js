@@ -154,21 +154,29 @@ router.put("/update-profile/:id", upload.single("image"), async (req, res) => {
     const { name, email, phone_number } = req.body;
     const image = req.file;
 
-    const { data: imageData, error: imageError } = await supabase.storage
-      .from("Images")
-      .upload(`/${image.originalname}`, image.buffer);
+    let imageData = {};
+    if (image) {
+      const { data, error } = await supabase.storage
+        .from("Images")
+        .upload(`/${image.originalname}`, image.buffer);
 
-    if (imageError) {
-      return res.json(imageError);
+      if (error) {
+        return res.json(error);
+      }
+
+      imageData = { image: data.path };
     }
+
+    const updatedFields = {};
+    if (name) updatedFields.name = name;
+    if (email) updatedFields.email = email;
+    if (phone_number) updatedFields.phone_number = phone_number;
 
     const { data: profileData, error: profileError } = await supabase
       .from("users")
       .update({
-        name: name ? name : "",
-        email: email ? email : "",
-        phone_number: phone_number ? phone_number : "",
-        image: imageData.path ? imageData.path : "",
+        ...updatedFields,
+        ...imageData,
       })
       .eq("id", userId)
       .select("*");
