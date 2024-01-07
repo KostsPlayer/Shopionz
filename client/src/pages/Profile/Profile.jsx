@@ -84,14 +84,14 @@ export default function Profile() {
         formData
       )
       .then((res) => {
-        // localStorage.removeItem("dataUser");
+        localStorage.removeItem("dataUser");
 
-        // localStorage.setItem(
-        //   "dataUser",
-        //   JSON.stringify({ dataUser: res.data.dataUser })
-        // );
-        console.log(res.data);
+        localStorage.setItem(
+          "dataUser",
+          JSON.stringify({ dataUser: res.data.dataUser })
+        );
         toastMessage("success", res.data.message);
+        console.log(res.data);
       })
       .catch((err) => {
         console.error(err);

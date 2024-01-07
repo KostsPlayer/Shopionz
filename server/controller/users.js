@@ -179,7 +179,7 @@ router.put("/update-profile/:id", upload.single("image"), async (req, res) => {
         ...imageData,
       })
       .eq("id", userId)
-      .select("*");
+      .select("*, roles(*)");
 
     if (profileError) {
       return res.json(profileError);

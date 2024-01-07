@@ -18,7 +18,7 @@ export default function Login() {
 
   useMemo(() => image);
   const { toastMessage, message } = allMessage();
-  const redirect = useNavigate();
+  const redirectTo = useNavigate();
 
   useEffect(() => {
     const roleMessagge = localStorage.getItem("roleMessage");
@@ -67,10 +67,10 @@ export default function Login() {
             console.log(res.data);
             if (res.data.loggedIn === true && res.data.role === 2) {
               localStorage.setItem("loginMessage", res.data.message);
-              redirect("/dashboard");
+              redirectTo("/dashboard");
             } else if (res.data.loggedIn === true && res.data.role === 3) {
               localStorage.setItem("loginMessage", res.data.message);
-              redirect("/profile");
+              redirectTo("/profile");
             }
 
             localStorage.setItem("session", res.data.isValid);
