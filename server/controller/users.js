@@ -154,8 +154,8 @@ router.put("/update-profile/:id", upload.single("image"), async (req, res) => {
     const { username, email, phoneNumber } = req.body;
     const images = req.file;
 
-    console.log("Request Body:", req.body);
-    console.log("Request File:", req.file);
+    res.json("Request Body:", req.body);
+    res.json("Request File:", req.file);
 
     const { data: imageData, error: imageError } = await supabase.storage
       .from("Images")
