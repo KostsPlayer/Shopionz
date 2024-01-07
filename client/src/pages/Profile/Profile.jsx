@@ -76,10 +76,10 @@ export default function Profile() {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("username", values.name);
+    formData.append("name", values.name);
     formData.append("email", values.email);
-    formData.append("phoneNumber", values.phone_number);
-    formData.append("images", values.image[0]);
+    formData.append("phone_number", values.phone_number);
+    formData.append("image", values.image[0]);
 
     axios
       .put(

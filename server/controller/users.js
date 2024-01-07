@@ -151,12 +151,12 @@ const upload = multer({ storage: storage });
 router.put("/update-profile/:id", upload.single("image"), async (req, res) => {
   try {
     const userId = req.params.id;
-    const { username, email, phoneNumber } = req.body;
-    const images = req.file;
+    const { name, email, phone_number } = req.body;
+    const image = req.file;
 
     const { data: imageData, error: imageError } = await supabase.storage
       .from("Images")
-      .upload(`/${images.originalname}`, images.buffer);
+      .upload(`/${image.originalname}`, image.buffer);
 
     if (imageError) {
       return res.json(imageError);
@@ -165,9 +165,9 @@ router.put("/update-profile/:id", upload.single("image"), async (req, res) => {
     const { data: profileData, error: profileError } = await supabase
       .from("users")
       .update({
-        name: username,
+        name: name,
         email: email,
-        phone_number: phoneNumber,
+        phone_number: phone_number,
         image: imageData.path,
       })
       .eq("id", userId)
