@@ -12,7 +12,6 @@ export default function Profile() {
   const [dataUser, setDataUser] = useState([]);
   const [dataAddress, setDataAddress] = useState([]);
   const [values, setValues] = useState({});
-  const [previewImage, setPreviewImage] = useState(dataUser.images);
 
   const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
   const getImageUrl = JSON.parse(localStorage.getItem("imageUrl"));
@@ -39,7 +38,7 @@ export default function Profile() {
     setDataUser({
       role: getLocalStorage.dataUser.roles.roles,
       date: customDate,
-      images: getImageUrl.imageUrl.publicUrl,
+      image: getImageUrl.imageUrl.publicUrl,
     });
   }, [getLocalStorage, getImageUrl]);
 
@@ -120,7 +119,7 @@ export default function Profile() {
             onSubmit={handleSubmit}
           >
             <div className="profile-form-image">
-              <img src={dataUser.images} alt="profile-user" />
+              <img src={dataUser.image} alt="profile-user" />
               <label htmlFor="image" className="profile-image-label">
                 <input
                   type="file"

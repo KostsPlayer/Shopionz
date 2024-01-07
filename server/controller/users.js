@@ -177,7 +177,7 @@ router.put("/update-profile/:id", upload.single("image"), async (req, res) => {
       return res.json(profileError);
     }
 
-    return res.json({ profileData, imageData });
+    return res.json(profileData);
   } catch (error) {
     return res.json(error);
   }

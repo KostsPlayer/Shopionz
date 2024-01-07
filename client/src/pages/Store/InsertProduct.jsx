@@ -72,6 +72,8 @@ export default function InsertProduct({ onOpen, onClose }) {
       .catch((err) => {
         console.error(err);
       });
+
+    console.log(formData);
   };
 
   return (
