@@ -44,17 +44,21 @@ export default function Profile() {
   }, [getLocalStorage, getImageUrl]);
 
   useEffect(() => {
-    axios
-      .get(
-        `https://project-ii-server.vercel.app/profile/${getLocalStorage.dataUser.id}`
-      )
-      .then((res) => {
-        console.log(res.data[0]);
-        setValues(res.data[0]);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    const fecthDataProfile = () => {
+      axios
+        .get(
+          `https://project-ii-server.vercel.app/profile/${getLocalStorage.dataUser.id}`
+        )
+        .then((res) => {
+          console.log(res.data[0]);
+          setValues(res.data[0]);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    };
+
+    fecthDataProfile();
   }, []);
 
   const handleChange = (e) => {
@@ -134,7 +138,7 @@ export default function Profile() {
               </label>
             </div>
             <div className="profile-form-desc">
-              <div className="profile-desc-row">
+              <div className="profile-form-desc-row">
                 <label htmlFor="name">Username</label>
                 <input
                   type="text"
@@ -144,7 +148,7 @@ export default function Profile() {
                   onChange={handleChange}
                 />
               </div>
-              <div className="profile-desc-row">
+              <div className="profile-form-desc-row">
                 <label htmlFor="email">Email</label>
                 <input
                   type="text"
@@ -154,7 +158,7 @@ export default function Profile() {
                   onChange={handleChange}
                 />
               </div>
-              <div className="profile-desc-row">
+              <div className="profile-form-desc-row">
                 <label htmlFor="phone_number">Phone Number</label>
                 <input
                   type="text"
@@ -164,7 +168,7 @@ export default function Profile() {
                   onChange={handleChange}
                 />
               </div>
-              <div className="profile-desc-row">
+              <div className="profile-form-desc-row">
                 <label htmlFor="role">Role</label>
                 <input
                   type="text"
@@ -174,7 +178,7 @@ export default function Profile() {
                   disabled
                 />
               </div>
-              <div className="profile-desc-row">
+              <div className="profile-form-desc-row">
                 <label htmlFor="date">Registered since</label>
                 <input
                   type="text"
