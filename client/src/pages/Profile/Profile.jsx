@@ -74,7 +74,6 @@ export default function Profile() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(values);
 
     const formData = new FormData();
     formData.append("username", values.name);
@@ -94,6 +93,9 @@ export default function Profile() {
       .catch((err) => {
         console.error(err);
       });
+
+    console.log(values);
+    console.log(formData);
   };
 
   const handleDeleteAddress = (id) => {
