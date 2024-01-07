@@ -158,7 +158,9 @@ router.put("/update-profile/:id", upload.single("image"), async (req, res) => {
     if (image) {
       const { data, error } = await supabase.storage
         .from("Images")
-        .upload(`/${image.originalname}`, image.buffer);
+        .upload(`/${image.originalname}`, image.buffer, {
+          upsert: true,
+        });
 
       if (error) {
         return res.json(error);
@@ -181,6 +183,11 @@ router.put("/update-profile/:id", upload.single("image"), async (req, res) => {
       .eq("id", userId)
       .select("*, roles(*)");
 
+    const url = supabase.storage
+      .from("Images")
+      .getPublicUrl(profileData[0].image);
+    const imageUrl = url.data;
+
     if (profileError) {
       return res.json(profileError);
     }
@@ -188,6 +195,7 @@ router.put("/update-profile/:id", upload.single("image"), async (req, res) => {
     return res.json({
       dataUser: profileData[0],
       message: "Updated profile successfully!",
+      imageUrl: imageUrl,
     });
   } catch (error) {
     return res.json(error);

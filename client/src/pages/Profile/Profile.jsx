@@ -56,7 +56,7 @@ export default function Profile() {
     };
 
     fecthDataProfile();
-  }, [dataAddress]);
+  }, [values, dataAddress]);
 
   const handleChange = (e) => {
     if (e.target.type === "file") {
@@ -85,13 +85,18 @@ export default function Profile() {
       )
       .then((res) => {
         localStorage.removeItem("dataUser");
+        localStorage.removeItem("imageUrl");
 
         localStorage.setItem(
           "dataUser",
           JSON.stringify({ dataUser: res.data.dataUser })
         );
+
+        localStorage.setItem(
+          "imageUrl",
+          JSON.stringify({ imageUrl: res.data.imageUrl })
+        );
         toastMessage("success", res.data.message);
-        console.log(res.data);
       })
       .catch((err) => {
         console.error(err);

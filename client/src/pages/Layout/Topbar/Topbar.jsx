@@ -10,7 +10,7 @@ export default function Topbar() {
 
   useEffect(() => {
     setDataUser(getImageUrl.imageUrl.publicUrl);
-  }, []);
+  }, [getImageUrl]);
 
   useEffect(() => {}, []);
 
