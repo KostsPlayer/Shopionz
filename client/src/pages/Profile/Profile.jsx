@@ -23,7 +23,6 @@ export default function Profile() {
         `https://project-ii-server.vercel.app/get-address/${getLocalStorage.dataUser.id}`
       )
       .then((res) => {
-        console.log(res.data);
         setDataAddress(res.data);
       })
       .catch((err) => {
@@ -49,7 +48,6 @@ export default function Profile() {
           `https://project-ii-server.vercel.app/profile/${getLocalStorage.dataUser.id}`
         )
         .then((res) => {
-          console.log(res.data[0]);
           setValues(res.data[0]);
         })
         .catch((err) => {
@@ -58,7 +56,7 @@ export default function Profile() {
     };
 
     fecthDataProfile();
-  }, []);
+  }, [values, dataAddress]);
 
   const handleChange = (e) => {
     if (e.target.type === "file") {
@@ -86,22 +84,17 @@ export default function Profile() {
         formData
       )
       .then((res) => {
-        console.log(res.data);
         toastMessage("success", "Updated profile successfully!");
       })
       .catch((err) => {
         console.error(err);
       });
-
-    console.log(values);
-    console.log(formData);
   };
 
   const handleDeleteAddress = (id) => {
     axios
       .put(`https://project-ii-server.vercel.app/delete-address/${id}`)
       .then((res) => {
-        console.log(res.data);
         toastMessage("success", "Delete address successfully!");
       })
       .catch((err) => {
