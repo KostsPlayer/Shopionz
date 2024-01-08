@@ -17,6 +17,7 @@ import Order from "./pages/Order/Order";
 import History from "./pages/History/History";
 import Profile from "./pages/Profile/Profile";
 import Address from "./pages/Profile/Address/Address";
+import Category from "./pages/Category/Category";
 import "./main.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -41,6 +42,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/history" element={<History />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/address" element={<Address />} />
+        <Route path="/category" element={<Category />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

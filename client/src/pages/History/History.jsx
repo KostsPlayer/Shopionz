@@ -5,14 +5,14 @@ import Layout from "../Layout/Layout";
 export default function History() {
   axios.defaults.withCredentials = true;
 
-  const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
+  // const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
   const [history, setHistory] = useState([]);
   let no = 1;
 
   useEffect(() => {
     axios
       .get(
-        `https://project-ii-server.vercel.app/history/${getLocalStorage.dataUser.id}`
+        `https://project-ii-server.vercel.app/get-history`
       )
       .then((res) => {
         console.log(res.data);
