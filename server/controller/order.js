@@ -107,4 +107,23 @@ router.post("/insert-order", async (req, res) => {
   }
 });
 
+router.get("/history/:id", async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    const { data, error } = await supabase
+      .from("orders")
+      .select("*, orders_detail(*)")
+      .eq("user_id", userId);
+
+    if (error) {
+      return res.json(error);
+    }
+
+    return res.json(data);
+  } catch (error) {
+    return res.json(error);
+  }
+});
+
 export default router;

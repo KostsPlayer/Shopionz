@@ -91,12 +91,12 @@ export default function Profile() {
           "dataUser",
           JSON.stringify({ dataUser: res.data.dataUser })
         );
-
         localStorage.setItem(
           "imageUrl",
           JSON.stringify({ imageUrl: res.data.imageUrl })
         );
         toastMessage("success", res.data.message);
+        console.log(res.data);
       })
       .catch((err) => {
         console.error(err);
