@@ -16,12 +16,15 @@ export default function History() {
       )
       .then((res) => {
         console.log(res.data);
+        setHistory(res.data);
       })
       .catch((err) => {
         console.error(err);
       });
-  }, [getLocalStorage]);
-  
+
+    console.log(history);
+  }, [getLocalStorage, history]);
+
   return (
     <>
       <Layout>

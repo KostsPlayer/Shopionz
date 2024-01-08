@@ -196,6 +196,7 @@ router.put("/update-profile/:id", upload.single("image"), async (req, res) => {
       dataUser: profileData[0],
       message: "Updated profile successfully!",
       imageUrl: imageUrl,
+      imageData
     });
   } catch (error) {
     return res.json(error);
