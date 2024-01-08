@@ -56,7 +56,7 @@ export default function Profile() {
     };
 
     fecthDataProfile();
-  }, [values, dataAddress]);
+  }, [dataAddress]);
 
   const handleChange = (e) => {
     if (e.target.type === "file") {

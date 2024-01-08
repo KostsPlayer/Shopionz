@@ -23,37 +23,39 @@ export default function History() {
       });
 
     console.log(history);
-  }, [getLocalStorage, history]);
+  }, []);
 
   return (
     <>
       <Layout>
         <h1>Hello World!</h1>
-        <div className="delete">
-          <div className="bagde-icon">
-            <span className="material-symbols-outlined">delete</span>
+        <div className="history">
+          <div className="delete">
+            <div className="bagde-icon">
+              <span className="material-symbols-outlined">delete</span>
+            </div>
           </div>
+          <table className="history-table">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Icon</th>
+                <th>Activate</th>
+                <th>Date Available</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{no++}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <table className="table-menu">
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Name</th>
-              <th>Icon</th>
-              <th>Activate</th>
-              <th>Date Available</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{no++}</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
       </Layout>
     </>
   );

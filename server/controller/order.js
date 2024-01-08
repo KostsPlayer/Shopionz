@@ -113,7 +113,7 @@ router.get("/history/:id", async (req, res) => {
 
     const { data, error } = await supabase
       .from("orders")
-      .select("*, orders_detail(*)")
+      .select("*")
       .eq("user_id", userId);
 
     if (error) {
