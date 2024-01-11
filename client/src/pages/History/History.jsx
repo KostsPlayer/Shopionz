@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Layout from "../../../../../project-ii - Copy/src/pages/Layout/Layout";
+import Layout from "../Layout/Layout";
 import moment from "moment";
 
 export default function History() {
