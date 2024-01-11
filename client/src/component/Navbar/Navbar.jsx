@@ -38,7 +38,7 @@ export default function Navbar() {
     } else {
       setIsValid(false);
     }
-  }, [getCount, getImageUrl]);
+  }, [getImageUrl]);
 
   const logout = () => {
     localStorage.setItem("logoutMessage", "Logged out successfully!");
