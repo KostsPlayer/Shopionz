@@ -6,14 +6,14 @@ const app = express();
 configureMiddleware(app);
 const router = express.Router();
 
-router.get("/count-cart/:email", async (req, res) => {
+router.get("/count-cart/:id", async (req, res) => {
   try {
-    const email = req.params.email;
+    const userId = req.params.id;
 
     const { count, error } = await supabase
       .from("shopping_cart")
       .select("*", { count: "exact", head: true })
-      .eq("user_email", email);
+      .eq("user_id", userId);
 
     if (error) {
       return res.json(error);
@@ -25,14 +25,14 @@ router.get("/count-cart/:email", async (req, res) => {
   }
 });
 
-router.get("/cart/:email", async (req, res) => {
+router.get("/cart/:id", async (req, res) => {
   try {
-    const email = req.params.email;
+    const userId = req.params.id;
 
     const { data, error } = await supabase
       .from("shopping_cart")
       .select(`*, product (*)`)
-      .eq("user_email", email);
+      .eq("user_id", userId);
 
     if (error) {
       return res.json(error);

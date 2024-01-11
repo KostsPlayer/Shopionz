@@ -37,14 +37,14 @@ router.get("/product", async (req, res) => {
   }
 });
 
-router.get("/product-seller/:email", async (req, res) => {
+router.get("/product-seller/:id", async (req, res) => {
   try {
-    const email = req.params.email;
+    const userId = req.params.id;
 
     const { data, error } = await supabase
       .from("product")
       .select(`*, category(*)`)
-      .eq("user_email", email);
+      .eq("user_id", userId);
 
     if (error) {
       return res.json(error.message);
@@ -75,77 +75,54 @@ router.get("/get-product/:id", async (req, res) => {
   }
 });
 
-// const storage = multer.diskStorage({
-//   destination: async (req, file, cb) => {
-//     const { data, error } = await supabase.storage
-//       .from("Images")
-//       .upload(pathStorage, file);
-
-//     if (error) {
-//       cb(error.message);
-//       cb(error.name);
-//       cb(error.stack);
-//     }
-
-//     cb(null, data.path);
-//     console.log(pathStorage);
-//     console.log(file);
-//   },
-// });
-// const upload = multer({ storage });
-
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-router.post(
-  "/insert-product/:email",
-  upload.single("image"),
-  async (req, res) => {
-    try {
-      const { name, description, price, stock, category } = req.body;
-      const image = req.file;
-      const email = req.params.email;
+router.post("/insert-product/:id", upload.single("image"), async (req, res) => {
+  try {
+    const { name, description, price, stock, category } = req.body;
+    const image = req.file;
+    const userId = req.params.id;
 
-      const { data: imageData, error: imageError } = await supabase.storage
-        .from("Images")
-        .upload(`/${image.originalname}`, image.buffer);
+    const { data: imageData, error: imageError } = await supabase.storage
+      .from("Images")
+      .upload(`/${image.originalname}`, image.buffer);
 
-      if (imageError) {
-        res.json(imageError.message);
-        res.json(imageError.stack);
-        res.json(imageError.name);
-      }
-
-      const { data: productData, error: productError } = await supabase
-        .from("product")
-        .insert({
-          user_email: email,
-          name: name,
-          description: description,
-          price: price,
-          stock: stock,
-          category_id: category,
-          images: imageData.path,
-        })
-        .select("*");
-
-      if (productError) {
-        res.json(productError.message);
-        res.json(productError.code);
-        res.json(productError.details);
-        res.json(productError.hint);
-      }
-
-      return res.json({
-        data: productData[0],
-        message: "Insert product successfully!",
-        imageData: imageData,
-      });
-    } catch (error) {
-      return res.json(error);
+    if (imageError) {
+      res.json(imageError.message);
+      res.json(imageError.stack);
+      res.json(imageError.name);
     }
+
+    const { data: productData, error: productError } = await supabase
+      .from("product")
+      .insert({
+        user_id: userId,
+        name: name,
+        description: description,
+        price: price,
+        stock: stock,
+        category_id: category,
+        images: imageData.path,
+      })
+      .select("*");
+
+    if (productError) {
+      res.json(productError.message);
+      res.json(productError.code);
+      res.json(productError.details);
+      res.json(productError.hint);
+    }
+
+    return res.json({
+      data: productData[0],
+      message: "Insert product successfully!",
+      imageData: imageData,
+    });
+  } catch (error) {
+    return res.json(error);
   }
-);
+});
 
 // router.put("/update-product/:id", async (req, res) => {
 //   try {
@@ -209,3 +186,22 @@ router.put("/delete-product/:id", async (req, res) => {
 });
 
 export default router;
+
+// const storage = multer.diskStorage({
+//   destination: async (req, file, cb) => {
+//     const { data, error } = await supabase.storage
+//       .from("Images")
+//       .upload(pathStorage, file);
+
+//     if (error) {
+//       cb(error.message);
+//       cb(error.name);
+//       cb(error.stack);
+//     }
+
+//     cb(null, data.path);
+//     console.log(pathStorage);
+//     console.log(file);
+//   },
+// });
+// const upload = multer({ storage });

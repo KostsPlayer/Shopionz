@@ -50,14 +50,6 @@ router.post("/insert-order", async (req, res) => {
       .from("orders")
       .insert({
         user_id: userId,
-      })
-      .select("*");
-
-    const orderId = order[0].id;
-    const { data: orderDetail, error: errorOrderDetail } = await supabase
-      .from("orders_detail")
-      .insert({
-        orders_id: orderId,
         product_id: productId,
         amount: amount,
         address: address,
@@ -85,9 +77,6 @@ router.post("/insert-order", async (req, res) => {
     if (errorOrder) {
       return res.json(errorOrder);
     }
-    if (errorOrderDetail) {
-      return res.json(errorOrderDetail);
-    }
     if (productError) {
       return res.json(productError);
     }
@@ -98,7 +87,6 @@ router.post("/insert-order", async (req, res) => {
     return res.json({
       message: "Order has been successfully placed!",
       order,
-      orderDetail,
       stockData,
       productData,
     });
@@ -107,11 +95,14 @@ router.post("/insert-order", async (req, res) => {
   }
 });
 
-router.get("/get-history", async (req, res) => {
+router.get("/history/:id", async (req, res) => {
   try {
+    const userId = req.params.id;
+
     const { data, error } = await supabase
-      .from("orders, orders_detail(*)")
-      .select("*");
+      .from("orders")
+      .select("*, product(name), shipping_method(name), payment_method(name)")
+      .eq("user_id", userId);
 
     if (error) {
       return res.json(error);

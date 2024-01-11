@@ -41,7 +41,6 @@ export default function UpdateProduct({ onOpen, onClose, productId }) {
         formData
       )
       .then((res) => {
-        location.reload();
         toastMessage("success", res.data.message);
       })
       .catch((err) => {

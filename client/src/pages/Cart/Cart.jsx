@@ -12,14 +12,13 @@ export default function Cart() {
   const [totalPrice, setTotalPrice] = useState(0);
   const [checkedItem, setCheckedItem] = useState({});
   const { message, toastMessage } = allMessage();
-
-  const getEmail = JSON.parse(localStorage.getItem("dataUser"));
+  const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
 
   const fetchData = () => {
-    const email = getEmail.dataUser.email;
-
     axios
-      .get(`https://project-ii-server.vercel.app/cart/${email}`)
+      .get(
+        `https://project-ii-server.vercel.app/cart/${getLocalStorage.dataUser.id}`
+      )
       .then((res) => {
         const initialCheckedItems = res.data.reduce((acc, item) => {
           acc[item.id] = item.status === 1;

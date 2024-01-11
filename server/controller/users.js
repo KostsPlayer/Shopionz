@@ -196,8 +196,30 @@ router.put("/update-profile/:id", upload.single("image"), async (req, res) => {
       dataUser: profileData[0],
       message: "Updated profile successfully!",
       imageUrl: imageUrl,
-      imageData
+      imageData,
     });
+  } catch (error) {
+    return res.json(error);
+  }
+});
+
+router.put("/update-main-address/:id", async (req, res) => {
+  const addressId = req.params.id;
+  const status = req.body;
+
+  try {
+    const { data, error } = await supabase
+      .from("address")
+      .update({
+        status: status,
+      })
+      .eq("id", addressId);
+
+    if (error) {
+      return res.json(error);
+    }
+
+    return res.json(data);
   } catch (error) {
     return res.json(error);
   }

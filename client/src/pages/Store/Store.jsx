@@ -42,11 +42,10 @@ export default function Store() {
   };
 
   const fecthDataProductSeller = () => {
-    const getEmail = JSON.parse(localStorage.getItem("dataUser"));
-    const email = getEmail.dataUser.email;
-
     axios
-      .get(`https://project-ii-server.vercel.app/product-seller/${email}`)
+      .get(
+        `https://project-ii-server.vercel.app/product-seller/${getLocalStorage.dataUser.id}`
+      )
       .then((res) => {
         setDataProduct(res.data);
       })

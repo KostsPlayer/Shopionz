@@ -116,3 +116,23 @@ html.lenis {
 .delete {
   @include m.action-icon($bg-color: #dc3545, $color: #dc3545);
 }
+
+.badge-success {
+  border-radius: 50vw;
+  padding: 5% 15%;
+  width: fit-content;
+  height: auto;
+  background-color: #198754;
+  color: #fff;
+  font-size: 65%;
+}
+
+.badge-unsuccess {
+  border-radius: 50vw;
+  padding: 5% 15%;
+  width: fit-content;
+  height: auto;
+  background-color: #dc3545;
+  color: #fff;
+  font-size: 65%;
+}
