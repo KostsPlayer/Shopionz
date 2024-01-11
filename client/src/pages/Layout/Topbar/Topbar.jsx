@@ -4,15 +4,12 @@ import axios from "axios";
 export default function Topbar() {
   axios.defaults.withCredentials = true;
   const [dataUser, setDataUser] = useState("");
-  const [getCount, setGetCount] = useState(0);
 
   const getImageUrl = JSON.parse(localStorage.getItem("imageUrl"));
 
   useEffect(() => {
     setDataUser(getImageUrl.imageUrl.publicUrl);
   }, [getImageUrl]);
-
-  useEffect(() => {}, []);
 
   return (
     <>

@@ -13,7 +13,6 @@ export default function Sales() {
     axios
       .get(`https://project-ii-server.vercel.app/sales/${getLocalStorage.dataUser.id}`)
       .then((res) => {
-        console.log(res.data);
         setDataSales(res.data);
       })
       .catch((err) => {

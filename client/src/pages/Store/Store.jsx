@@ -14,6 +14,7 @@ export default function Store() {
   const [getId, setGetId] = useState(0);
   const [getImage, setGetImage] = useState("");
   const { toastMessage, message } = allMessage();
+  const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
 
   const handleProduct = async (productId) => {
     await axios

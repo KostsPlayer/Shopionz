@@ -13,9 +13,10 @@ export default function History() {
 
   useEffect(() => {
     axios
-      .get(`https://project-ii-server.vercel.app/history/${getLocalStorage.dataUser.id}`)
+      .get(
+        `https://project-ii-server.vercel.app/history/${getLocalStorage.dataUser.id}`
+      )
       .then((res) => {
-        console.log(res.data);
         setHistory(res.data);
       })
       .catch((err) => {

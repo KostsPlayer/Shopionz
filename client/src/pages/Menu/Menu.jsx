@@ -38,7 +38,7 @@ export default function Menu() {
       });
   };
 
-  const fecthDataMenu = () => {
+  useEffect(() => {
     axios
       .get("https://project-ii-server.vercel.app/menu")
       .then((res) => {
@@ -47,10 +47,6 @@ export default function Menu() {
       .catch((err) => {
         console.error(err);
       });
-  };
-
-  useEffect(() => {
-    fecthDataMenu();
   }, [getId, dataMenu]);
 
   return (

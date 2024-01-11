@@ -17,28 +17,25 @@ export default function Navbar() {
   const getImageUrl = JSON.parse(localStorage.getItem("imageUrl"));
   const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
 
-  const fetchData = () => {
-    axios
-      .get(
-        `https://project-ii-server.vercel.app/count-cart/${getLocalStorage.dataUser.id}`
-      )
-      .then((res) => {
-        setGetCount(res.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-
   useEffect(() => {
     if (getSession) {
-      fetchData();
+      axios
+        .get(
+          `https://project-ii-server.vercel.app/count-cart/${getLocalStorage.dataUser.id}`
+        )
+        .then((res) => {
+          setGetCount(res.data);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+
       setGetData({ images: getImageUrl.imageUrl.publicUrl });
       setIsValid(true);
     } else {
       setIsValid(false);
     }
-  }, [getImageUrl]);
+  }, [getImageUrl, getLocalStorage, getCount]);
 
   const logout = () => {
     localStorage.setItem("logoutMessage", "Logged out successfully!");
