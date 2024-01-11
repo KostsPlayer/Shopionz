@@ -19,16 +19,16 @@ export default function Navbar() {
 
   useEffect(() => {
     if (getSession) {
-      axios
-        .get(
-          `https://project-ii-server.vercel.app/count-cart/${getStorage.dataUser.id}`
-        )
-        .then((res) => {
-          setGetCount(res.data);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+      // axios
+      //   .get(
+      //     `https://project-ii-server.vercel.app/count-cart/${getStorage.dataUser.id}`
+      //   )
+      //   .then((res) => {
+      //     setGetCount(res.data);
+      //   })
+      //   .catch((err) => {
+      //     console.error(err);
+      //   });
 
       setGetData({ images: getImageUrl.imageUrl.publicUrl });
       setIsValid(true);
@@ -106,7 +106,7 @@ export default function Navbar() {
             to={"/cart"}
           >
             <span className="material-symbols-outlined">local_mall</span>
-            {isValid && <div className="shopping-cart-count">{getCount}</div>}
+            {/* {isValid && <div className="shopping-cart-count">{getCount}</div>} */}
           </Link>
           <Link
             onMouseEnter={onEnterNavbar}
