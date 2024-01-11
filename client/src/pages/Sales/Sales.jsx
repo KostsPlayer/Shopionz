@@ -7,7 +7,6 @@ export default function Sales() {
   axios.defaults.withCredentials = true;
   const [dataSales, setDataSales] = useState([]);
   let no = 1;
-  // const [countOrder, setCountOrder] = useState([]);
 
   const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
   useEffect(() => {
@@ -21,20 +20,6 @@ export default function Sales() {
         console.error(err);
       });
   }, []);
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:5001/count-order/${40}`)
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       setCountOrder(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-
-  //   console.log(countOrder);
-  // }, []);
 
   return (
     <>

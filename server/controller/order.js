@@ -114,4 +114,25 @@ router.get("/history/:id", async (req, res) => {
   }
 });
 
+router.get("/sales/:id", async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    const { data, error } = await supabase
+      .from("orders")
+      .select("*, users(*), product(*), shipping_method(*), payment_method(*)")
+      .eq("product.user_id", userId);
+
+    if (error) {
+      return res.json(error);
+    }
+
+    const filteredData = data.filter((item) => item.product !== null);
+
+    return res.json(filteredData);
+  } catch (error) {
+    return res.json(error);
+  }
+});
+
 export default router;
