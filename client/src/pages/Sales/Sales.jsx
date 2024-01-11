@@ -11,7 +11,7 @@ export default function Sales() {
   const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
   useEffect(() => {
     axios
-      .get(`http://localhost:5001/sales/${getLocalStorage.dataUser.id}`)
+      .get(`https://project-ii-server.vercel.app/sales/${getLocalStorage.dataUser.id}`)
       .then((res) => {
         console.log(res.data);
         setDataSales(res.data);
