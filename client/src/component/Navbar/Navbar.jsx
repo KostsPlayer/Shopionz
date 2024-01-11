@@ -15,13 +15,13 @@ export default function Navbar() {
 
   const getSession = localStorage.getItem("session");
   const getImageUrl = JSON.parse(localStorage.getItem("imageUrl"));
-  const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
+  const getStorage = JSON.parse(localStorage.getItem("dataUser"));
 
   useEffect(() => {
     if (getSession) {
       axios
         .get(
-          `https://project-ii-server.vercel.app/count-cart/${getLocalStorage.dataUser.id}`
+          `https://project-ii-server.vercel.app/count-cart/${getStorage.dataUser.id}`
         )
         .then((res) => {
           setGetCount(res.data);
@@ -35,7 +35,7 @@ export default function Navbar() {
     } else {
       setIsValid(false);
     }
-  }, [getImageUrl, getLocalStorage, getCount]);
+  }, [getImageUrl, getStorage, getCount]);
 
   const logout = () => {
     localStorage.setItem("logoutMessage", "Logged out successfully!");
