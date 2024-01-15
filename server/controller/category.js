@@ -42,7 +42,7 @@ router.get("/get-category/:id", async (req, res) => {
 router.put("/update-category/:id", async (req, res) => {
   try {
     const categoryId = req.params.id;
-    const name = req.body;
+    const { name } = req.body;
 
     const { data, error } = await supabase
       .from("category")
@@ -62,7 +62,7 @@ router.put("/update-category/:id", async (req, res) => {
 
 router.post("/insert-category", async (req, res) => {
   try {
-    const name = req.body;
+    const { name } = req.body;
 
     const { data, error } = await supabase
       .from("category")
