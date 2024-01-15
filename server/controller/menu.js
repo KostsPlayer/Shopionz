@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get("/menu", async (req, res) => {
   try {
-    const { data, error } = await supabase.from("menu").select("*");
+    const { data, error } = await supabase.from("menu").select("*").order("id");
 
     if (error) {
       return res.json(error.message);

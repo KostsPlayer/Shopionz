@@ -104,6 +104,7 @@ export default function Profile() {
       .catch((err) => {
         console.error(err);
       });
+      
     // validationProfile
     //   .validate(formData, { abortEarly: false })
     //   .then(() => {
