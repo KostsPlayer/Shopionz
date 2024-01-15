@@ -25,6 +25,10 @@ export const validationLogin = yup.object().shape({
   password: yup.string().required("Password input must be filled"),
 });
 
+export const validationCategory = yup.object().shape({
+  name: yup.string().required("Category name is required"),
+});
+
 export const validationInsertMenu = yup.object().shape({
   name: yup.string().required("Menu name is required"),
   icon: yup.string().required("Menu icon is required"),

@@ -18,7 +18,7 @@ export default function Login() {
 
   useMemo(() => image);
   const { toastMessage, message } = allMessage();
-  const redirectTo = useNavigate();
+  const redirect = useNavigate();
 
   useEffect(() => {
     const roleMessagge = localStorage.getItem("roleMessage");
@@ -65,12 +65,12 @@ export default function Login() {
           .post("https://project-ii-server.vercel.app/login", values)
           .then((res) => {
             console.log(res.data);
-            if (res.data.loggedIn === true && res.data.role === 2) {
+            if (res.data.loggedIn === true && res.data.roles === "Seller") {
               localStorage.setItem("loginMessage", res.data.message);
-              redirectTo("/dashboard");
-            } else if (res.data.loggedIn === true && res.data.role === 3) {
+              redirect("/dashboard");
+            } else if (res.data.loggedIn === true && res.data.roles === "Buyer") {
               localStorage.setItem("loginMessage", res.data.message);
-              redirectTo("/profile");
+              redirect("/profile");
             }
 
             localStorage.setItem("session", res.data.isValid);

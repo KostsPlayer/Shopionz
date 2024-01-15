@@ -1937,6 +1937,47 @@ h3 {
   transition: all 0.3s ease-in-out;
 }
 
+.table-category {
+  width: 100%;
+  height: auto;
+}
+.table-category thead {
+  width: 100%;
+  height: 5vh;
+}
+.table-category thead tr th {
+  width: auto;
+}
+.table-category tbody {
+  width: auto;
+  height: auto;
+}
+.table-category tbody tr td {
+  border-bottom: solid 0.4vh #000;
+}
+.table-category tbody tr td:first-child {
+  text-align: center;
+}
+.table-category tbody tr td:nth-child(2) {
+  text-align: left;
+}
+.table-category tbody tr td:nth-child(3) {
+  text-align: left;
+}
+.table-category tbody tr td:nth-child(4) {
+  text-align: center;
+}
+.table-category tbody tr td:nth-child(5) {
+  text-align: center;
+}
+.table-category tbody tr td:nth-child(6) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 0.3vw;
+}
+
 * {
   padding: 0;
   margin: 0;

@@ -12,7 +12,7 @@ export default function InsertProduct({ onOpen, onClose }) {
 
   useEffect(() => {
     axios
-      .get("https://project-ii-server.vercel.app/get-category")
+      .get("https://project-ii-server.vercel.app/category")
       .then((res) => {
         setGetCategory(res.data);
       })

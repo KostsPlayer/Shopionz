@@ -1,23 +1,129 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import InsertCategory from "./InsertCategory";
+import UpdateCategory from "./UpdateCategory";
 import Layout from "../Layout/Layout";
 import axios from "axios";
+import { allMessage } from "../../component/Helper/LogicServer";
+import { ToastContainer } from "react-toastify";
 
 export default function Category() {
-  useEffect(() => {
+  axios.defaults.withCredentials = true;
+  const [openInsertModal, setOpenInsertModal] = useState(false);
+  const [openUpdateModal, setOpenUpdateModal] = useState(false);
+  const [dataCategory, setDataCategory] = useState([]);
+  const [getId, setGetId] = useState(0);
+  let no = 1;
+
+  const { toastMessage, message } = allMessage();
+
+  const handleCategory = (categoryId) => {
     axios
-      .get("https://project-ii-server.vercel.app/get-category")
+      .get(`https://project-ii-server.vercel.app/get-category/${categoryId}`)
       .then((res) => {
-        console.log(res.data);
+        setGetId(res.data[0].id);
       })
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  };
+
+  const handleDelete = (id) => {
+    axios
+      .put(`https://project-ii-server.vercel.app/delete-category/${id}`)
+      .then((res) => {
+        toastMessage("success", res.data.message);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  useEffect(() => {
+    axios
+      .get("https://project-ii-server.vercel.app/category")
+      .then((res) => {
+        setDataCategory(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, [getId, dataCategory]);
 
   return (
     <>
       <Layout>
-        <h1>Hello World!</h1>
+        <span
+          className="material-symbols-outlined"
+          onClick={() => {
+            setOpenInsertModal(true);
+          }}
+        >
+          add
+        </span>
+
+        <InsertCategory
+          onOpen={openInsertModal}
+          onClose={() => {
+            setOpenInsertModal(false);
+          }}
+          title={"+ New Category"}
+        />
+
+        <UpdateCategory
+          onOpen={openUpdateModal}
+          onClose={() => {
+            setOpenUpdateModal(false);
+          }}
+          categoryId={getId}
+          title={"Update Category"}
+        />
+
+        <table className="table-category">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Name</th>
+              <th>Date Available</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {dataCategory.map((data, index) => {
+              return (
+                <tr key={index}>
+                  <td>{no++}</td>
+                  <td>{data.name}</td>
+                  <td>{data.date_available}</td>
+                  <td>
+                    <div className="edit">
+                      <div
+                        className="bagde-icon"
+                        onClick={() => {
+                          setOpenUpdateModal(true);
+                          handleCategory(data.id);
+                        }}
+                      >
+                        <span className="material-symbols-outlined">edit</span>
+                      </div>
+                    </div>
+                    <div className="delete">
+                      <div
+                        className="bagde-icon"
+                        onClick={() => handleDelete(data.id)}
+                      >
+                        <span className="material-symbols-outlined">
+                          delete
+                        </span>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+
+        {message && <ToastContainer />}
       </Layout>
     </>
   );

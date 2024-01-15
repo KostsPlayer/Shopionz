@@ -22,8 +22,6 @@ export default function History() {
       .catch((err) => {
         console.error(err);
       });
-
-    console.log(history);
   }, []);
 
   return (

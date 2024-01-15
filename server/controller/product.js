@@ -7,7 +7,7 @@ const app = express();
 configureMiddleware(app);
 const router = express.Router();
 
-router.get("/get-category", async (req, res) => {
+router.get("/category", async (req, res) => {
   try {
     const { data, error } = await supabase.from("category").select("*");
 
