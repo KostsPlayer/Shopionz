@@ -96,7 +96,7 @@ export default function Category() {
                   <td>{no++}</td>
                   <td>{data.name}</td>
                   <td>
-                    {moment(data.date_available).format("dddd, D MMMM YY")}
+                    {moment(data.date_available).format("dddd, D MMMM YYYY")}
                   </td>
                   <td>
                     <div className="edit">

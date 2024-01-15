@@ -81,43 +81,43 @@ export default function Profile() {
     formData.append("phone_number", values.phone_number);
     formData.append("image", values.image[0]);
 
-    validationProfile
-      .validate(formData, { abortEarly: false })
-      .then(() => {
-        axios
-          .put(
-            `https://project-ii-server.vercel.app/update-profile/${getLocalStorage.dataUser.id}`,
-            formData
-          )
-          .then((res) => {
-            localStorage.removeItem("dataUser");
-            localStorage.removeItem("imageUrl");
+    axios
+      .put(
+        `https://project-ii-server.vercel.app/update-profile/${getLocalStorage.dataUser.id}`,
+        formData
+      )
+      .then((res) => {
+        localStorage.removeItem("dataUser");
+        localStorage.removeItem("imageUrl");
 
-            localStorage.setItem(
-              "dataUser",
-              JSON.stringify({ dataUser: res.data.dataUser })
-            );
-            localStorage.setItem(
-              "imageUrl",
-              JSON.stringify({ imageUrl: res.data.imageUrl })
-            );
-            toastMessage("success", res.data.message);
-            console.log(res.data);
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      })
-      .catch((errors) => {
-        const errorMessages = errors.inner.map((error) => (
-          <li key={error.path}>{error.message}</li>
-        ));
-        toastMessage(
-          "error",
-          <ul className="error-message">{errorMessages}</ul>,
-          "top-center"
+        localStorage.setItem(
+          "dataUser",
+          JSON.stringify({ dataUser: res.data.dataUser })
         );
+        localStorage.setItem(
+          "imageUrl",
+          JSON.stringify({ imageUrl: res.data.imageUrl })
+        );
+        toastMessage("success", res.data.message);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
       });
+    // validationProfile
+    //   .validate(formData, { abortEarly: false })
+    //   .then(() => {
+    //   })
+    //   .catch((errors) => {
+    //     const errorMessages = errors.inner.map((error) => (
+    //       <li key={error.path}>{error.message}</li>
+    //     ));
+    //     toastMessage(
+    //       "error",
+    //       <ul className="error-message">{errorMessages}</ul>,
+    //       "top-center"
+    //     );
+    //   });
   };
 
   const handleDeleteAddress = (id) => {
@@ -260,16 +260,18 @@ export default function Profile() {
                         </div>
                       </div>
                     </div>
-                    {status ? (
-                      ""
-                    ) : (
-                      <div
-                        className="set-main"
-                        onClick={() => handleMainAddress(id)}
-                      >
-                        Set Main Address
-                      </div>
-                    )}
+                    <>
+                      {status ? (
+                        ""
+                      ) : (
+                        <div
+                          className="set-main"
+                          onClick={() => handleMainAddress(id)}
+                        >
+                          Set Main Address
+                        </div>
+                      )}
+                    </>
                   </div>
                 </div>
               )

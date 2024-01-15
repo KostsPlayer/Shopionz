@@ -103,6 +103,7 @@ export default function Order() {
       setQuantity(quantity - 1);
     }
   };
+  
   const handleAddClick = () => {
     if (quantity < data.stock) {
       setQuantity(quantity + 1);
