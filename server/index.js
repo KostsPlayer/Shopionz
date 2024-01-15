@@ -9,6 +9,7 @@ import cartRouter from "./controller/cart.js";
 import orderRouter from "./controller/order.js";
 import userRouter from "./controller/users.js";
 import categoryRouter from "./controller/category.js";
+import addressesRouter from "./controller/addresses.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -25,6 +26,7 @@ app.use(cartRouter);
 app.use(orderRouter);
 app.use(userRouter);
 app.use(categoryRouter);
+app.use(addressesRouter);
 
 const port = process.env.REACT_APP_PORT || 5001;
 app.listen(port, () => {

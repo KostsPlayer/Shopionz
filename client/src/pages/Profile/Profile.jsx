@@ -14,6 +14,7 @@ export default function Profile() {
   axios.defaults.withCredentials = true;
   const [dataUser, setDataUser] = useState([]);
   const [dataAddress, setDataAddress] = useState([]);
+  const [mainAddress, setMainAddress] = useState(false);
   const [values, setValues] = useState({});
 
   const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
@@ -124,7 +125,23 @@ export default function Profile() {
     axios
       .put(`https://project-ii-server.vercel.app/delete-address/${id}`)
       .then((res) => {
-        toastMessage("success", "Delete address successfully!");
+        toastMessage("success", res.data.message);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const handleMainAddress = (id) => {
+    setMainAddress(!mainAddress);
+
+    axios
+      .put(`https://project-ii-server.vercel.app/main-address/${id}`, {
+        status: mainAddress,
+        userId: getLocalStorage.dataUser.id,
+      })
+      .then((res) => {
+        console.log(res.data);
       })
       .catch((err) => {
         console.error(err);
@@ -208,7 +225,7 @@ export default function Profile() {
           </form>
           <div className="profile-address">
             <Link className="profile-address-add" to={"/address"}>
-              Add New Address
+              + New Address
               <span class="material-symbols-outlined">add_circle</span>
             </Link>
             {dataAddress.map(
@@ -238,7 +255,12 @@ export default function Profile() {
                         </div>
                       </div>
                     </div>
-                    <div className="set-main">Set Main Address</div>
+                    <div
+                      className="set-main"
+                      onClick={() => handleMainAddress(id)}
+                    >
+                      Set Main Address
+                    </div>
                   </div>
                 </div>
               )
