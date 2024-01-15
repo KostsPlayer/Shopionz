@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
   allMessage,
-  validationInsertMenu,
+  validationMenu,
 } from "../../component/Helper/LogicServer";
 import { ToastContainer } from "react-toastify";
 
@@ -34,7 +34,7 @@ export default function UpdateMenu({ onOpen, onClose, menuId, title }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    validationInsertMenu
+    validationMenu
       .validate(getMenu, { abortEarly: false })
       .then(() => {
         axios

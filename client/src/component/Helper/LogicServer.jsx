@@ -25,11 +25,20 @@ export const validationLogin = yup.object().shape({
   password: yup.string().required("Password input must be filled"),
 });
 
+export const validationProfile = yup.object().shape({
+  name: yup.string().required("User name is required"),
+  email: yup
+    .string()
+    .required("Email input must be filled")
+    .email("Invalid email format"),
+  phone_number: yup.number(),
+});
+
 export const validationCategory = yup.object().shape({
   name: yup.string().required("Category name is required"),
 });
 
-export const validationInsertMenu = yup.object().shape({
+export const validationMenu = yup.object().shape({
   name: yup.string().required("Menu name is required"),
   icon: yup.string().required("Menu icon is required"),
   url: yup.string().required("Menu url is required"),

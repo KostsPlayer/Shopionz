@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import Layout from "../Layout/Layout";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { allMessage } from "../../component/Helper/LogicServer";
+import {
+  allMessage,
+  validationProfile,
+} from "../../component/Helper/LogicServer";
 import { ToastContainer } from "react-toastify";
 import moment from "moment";
 moment.locale("id");
@@ -78,28 +81,42 @@ export default function Profile() {
     formData.append("phone_number", values.phone_number);
     formData.append("image", values.image[0]);
 
-    axios
-      .put(
-        `https://project-ii-server.vercel.app/update-profile/${getLocalStorage.dataUser.id}`,
-        formData
-      )
-      .then((res) => {
-        localStorage.removeItem("dataUser");
-        localStorage.removeItem("imageUrl");
+    validationProfile
+      .validate(formData, { abortEarly: false })
+      .then(() => {
+        axios
+          .put(
+            `https://project-ii-server.vercel.app/update-profile/${getLocalStorage.dataUser.id}`,
+            formData
+          )
+          .then((res) => {
+            localStorage.removeItem("dataUser");
+            localStorage.removeItem("imageUrl");
 
-        localStorage.setItem(
-          "dataUser",
-          JSON.stringify({ dataUser: res.data.dataUser })
-        );
-        localStorage.setItem(
-          "imageUrl",
-          JSON.stringify({ imageUrl: res.data.imageUrl })
-        );
-        toastMessage("success", res.data.message);
-        console.log(res.data);
+            localStorage.setItem(
+              "dataUser",
+              JSON.stringify({ dataUser: res.data.dataUser })
+            );
+            localStorage.setItem(
+              "imageUrl",
+              JSON.stringify({ imageUrl: res.data.imageUrl })
+            );
+            toastMessage("success", res.data.message);
+            console.log(res.data);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
       })
-      .catch((err) => {
-        console.error(err);
+      .catch((errors) => {
+        const errorMessages = errors.inner.map((error) => (
+          <li key={error.path}>{error.message}</li>
+        ));
+        toastMessage(
+          "error",
+          <ul className="error-message">{errorMessages}</ul>,
+          "top-center"
+        );
       });
   };
 

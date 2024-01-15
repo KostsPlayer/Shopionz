@@ -5,6 +5,8 @@ import Layout from "../Layout/Layout";
 import axios from "axios";
 import { allMessage } from "../../component/Helper/LogicServer";
 import { ToastContainer } from "react-toastify";
+import moment from "moment";
+moment.locale("id");
 
 export default function Category() {
   axios.defaults.withCredentials = true;
@@ -93,7 +95,9 @@ export default function Category() {
                 <tr key={index}>
                   <td>{no++}</td>
                   <td>{data.name}</td>
-                  <td>{data.date_available}</td>
+                  <td>
+                    {moment(data.date_available).format("dddd, D MMMM YY")}
+                  </td>
                   <td>
                     <div className="edit">
                       <div
