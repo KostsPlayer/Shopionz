@@ -135,8 +135,6 @@ export default function Profile() {
   const handleMainAddress = (id) => {
     setMainAddress(true);
 
-    console.log(mainAddress);
-    
     axios
       .put(`https://project-ii-server.vercel.app/main-address/${id}`, {
         status: mainAddress,
@@ -257,12 +255,16 @@ export default function Profile() {
                         </div>
                       </div>
                     </div>
-                    <div
-                      className="set-main"
-                      onClick={() => handleMainAddress(id)}
-                    >
-                      Set Main Address
-                    </div>
+                    {mainAddress ? (
+                      ""
+                    ) : (
+                      <div
+                        className="set-main"
+                        onClick={() => handleMainAddress(id)}
+                      >
+                        Set Main Address
+                      </div>
+                    )}
                   </div>
                 </div>
               )
