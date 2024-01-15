@@ -50,16 +50,20 @@ router.put("/update-profile/:id", upload.single("image"), async (req, res) => {
       imageData = { image: data.path };
     }
 
-    const updatedFields = {};
-    if (name) updatedFields.name = name;
-    if (email) updatedFields.email = email;
-    if (phone_number) updatedFields.phone_number = phone_number;
+    // const updatedFields = {};
+    // if (name) updatedFields.name = name;
+    // if (email) updatedFields.email = email;
+    // if (phone_number) updatedFields.phone_number = phone_number;
 
     const { data: profileData, error: profileError } = await supabase
       .from("users")
       .update({
-        ...updatedFields,
+        name: name,
+        email: email,
+        phone_number: phone_number,
         ...imageData,
+        // ...updatedFields,
+        // ...imageData,
       })
       .eq("id", userId)
       .select("*, roles(*)");

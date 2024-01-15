@@ -139,10 +139,10 @@ router.put("/main-address/:id", async (req, res) => {
 
     const { data, error } = await supabase
       .from("addresses")
-      .upsert([{ id: addressId, status, user_id: userId }], {
-        onConflict: ["user_id"],
+      .update({
+        status: status,
       })
-      .select("*");
+      .eq("id", addressId);
 
     if (error) {
       return res.json(error);

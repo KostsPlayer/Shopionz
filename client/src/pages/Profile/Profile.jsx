@@ -133,8 +133,10 @@ export default function Profile() {
   };
 
   const handleMainAddress = (id) => {
-    setMainAddress(!mainAddress);
+    setMainAddress(true);
 
+    console.log(mainAddress);
+    
     axios
       .put(`https://project-ii-server.vercel.app/main-address/${id}`, {
         status: mainAddress,
