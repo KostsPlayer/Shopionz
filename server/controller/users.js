@@ -35,7 +35,8 @@ router.put("/update-profile/:id", upload.single("image"), async (req, res) => {
     const { name, email, phone_number } = req.body;
     const image = req.file;
 
-    let imageData = {};
+    // let imageData = {};
+    let dataImage;
     if (image) {
       const { data, error } = await supabase.storage
         .from("Images")
@@ -47,7 +48,8 @@ router.put("/update-profile/:id", upload.single("image"), async (req, res) => {
         return res.json(error);
       }
 
-      imageData = { image: data.path };
+      return (dataImage = data);
+      // imageData = { image: data.path };
     }
 
     // const updatedFields = {};
@@ -61,7 +63,7 @@ router.put("/update-profile/:id", upload.single("image"), async (req, res) => {
         name: name,
         email: email,
         phone_number: phone_number,
-        ...imageData,
+        image: dataImage.path,
         // ...updatedFields,
         // ...imageData,
       })

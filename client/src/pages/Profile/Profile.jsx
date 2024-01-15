@@ -14,7 +14,6 @@ export default function Profile() {
   axios.defaults.withCredentials = true;
   const [dataUser, setDataUser] = useState([]);
   const [dataAddress, setDataAddress] = useState([]);
-  const [mainAddress, setMainAddress] = useState(false);
   const [values, setValues] = useState({});
 
   const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
@@ -133,11 +132,9 @@ export default function Profile() {
   };
 
   const handleMainAddress = (id) => {
-    setMainAddress(true);
-
     axios
       .put(`https://project-ii-server.vercel.app/main-address/${id}`, {
-        status: mainAddress,
+        status: true,
         userId: getLocalStorage.dataUser.id,
       })
       .then((res) => {
@@ -229,7 +226,15 @@ export default function Profile() {
               <span class="material-symbols-outlined">add_circle</span>
             </Link>
             {dataAddress.map(
-              ({ id, address, villages, districts, regencies, provincies }) => (
+              ({
+                id,
+                address,
+                villages,
+                districts,
+                regencies,
+                provincies,
+                status,
+              }) => (
                 <div className="profile-address-item">
                   <div className="column-left">
                     {address}, {villages}, {districts}, {regencies},{" "}
@@ -255,7 +260,7 @@ export default function Profile() {
                         </div>
                       </div>
                     </div>
-                    {mainAddress ? (
+                    {status ? (
                       ""
                     ) : (
                       <div
