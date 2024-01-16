@@ -21,6 +21,7 @@ export default function ProductId() {
       .get(`https://project-ii-server.vercel.app/get-product/${id}`)
       .then((res) => {
         setData(res.data[0]);
+        console.log(res.data[0]);
       })
       .catch((err) => {
         console.error(err);
@@ -108,7 +109,7 @@ export default function ProductId() {
             <div className="left-side-top">
               <p className="left-side-top-name">{data.name}</p>
               <p className="left-side-top-price">{formatPrice(newPrice)}</p>
-              <p className="left-side-top-category">{data.category.name}</p>
+              <p className="left-side-top-category">{data.name}</p>
             </div>
             <div className="left-side-bottom">
               <span className="left-side-bottom-title">Detail</span>
