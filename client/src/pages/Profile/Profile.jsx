@@ -23,7 +23,7 @@ export default function Profile() {
   useEffect(() => {
     axios
       .get(
-        `https://project-ii-server.vercel.app/get-address/${getLocalStorage.dataUser.id}`
+        `https://project-ii-server.vercel.app/address/${getLocalStorage.dataUser.id}`
       )
       .then((res) => {
         setDataAddress(res.data);
@@ -104,7 +104,7 @@ export default function Profile() {
       .catch((err) => {
         console.error(err);
       });
-      
+
     // validationProfile
     //   .validate(formData, { abortEarly: false })
     //   .then(() => {

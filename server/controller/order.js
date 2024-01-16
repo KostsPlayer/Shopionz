@@ -102,7 +102,8 @@ router.get("/history/:id", async (req, res) => {
     const { data, error } = await supabase
       .from("orders")
       .select("*, product(name), shipping_method(name), payment_method(name)")
-      .eq("user_id", userId);
+      .eq("user_id", userId)
+      .order("id");
 
     if (error) {
       return res.json(error);
@@ -121,7 +122,8 @@ router.get("/sales/:id", async (req, res) => {
     const { data, error } = await supabase
       .from("orders")
       .select("*, users(*), product(*), shipping_method(*), payment_method(*)")
-      .eq("product.user_id", userId);
+      .eq("product.user_id", userId)
+      .order("id");
 
     if (error) {
       return res.json(error);

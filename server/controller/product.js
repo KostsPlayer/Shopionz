@@ -7,25 +7,12 @@ const app = express();
 configureMiddleware(app);
 const router = express.Router();
 
-router.get("/category", async (req, res) => {
-  try {
-    const { data, error } = await supabase.from("category").select("*");
-
-    if (error) {
-      return res.json(error.message);
-    }
-
-    return res.json(data);
-  } catch (error) {
-    console.log(error.message);
-  }
-});
-
 router.get("/product", async (req, res) => {
   try {
     const { data, error } = await supabase
       .from("product")
-      .select(`*, category(*)`);
+      .select(`*, category(*)`)
+      .order("id");
 
     if (error) {
       return res.json(error.message);
@@ -44,7 +31,8 @@ router.get("/product-seller/:id", async (req, res) => {
     const { data, error } = await supabase
       .from("product")
       .select(`*, category(*)`)
-      .eq("user_id", userId);
+      .eq("user_id", userId)
+      .order("id");
 
     if (error) {
       return res.json(error.message);

@@ -12,12 +12,13 @@ import { useNavigate } from "react-router-dom";
 
 export default function Registration() {
   axios.defaults.withCredentials = true;
-  const goBack = () => {
-    window.history.back();
-  };
 
   const { toastMessage, message } = allMessage();
   const redirect = useNavigate();
+  const goBack = () => {
+    // window.history.back();
+    redirect("/");
+  };
 
   const [values, setValues] = useState({
     username: "",

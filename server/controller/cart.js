@@ -32,7 +32,7 @@ router.get("/cart/:id", async (req, res) => {
     const { data, error } = await supabase
       .from("shopping_cart")
       .select(`*, product (*)`)
-      .eq("user_id", userId);
+      .eq("user_id", userId).order("id");
 
     if (error) {
       return res.json(error);

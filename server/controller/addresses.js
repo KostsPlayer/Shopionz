@@ -87,14 +87,15 @@ router.post("/insert-address", async (req, res) => {
   }
 });
 
-router.get("/get-address/:id", async (req, res) => {
+router.get("/address/:id", async (req, res) => {
   const userId = req.params.id;
 
   try {
     const { data, error } = await supabase
       .from("addresses")
       .select("*")
-      .eq("user_id", userId);
+      .eq("user_id", userId)
+      .order("id");
 
     if (error) {
       return res.json(error);

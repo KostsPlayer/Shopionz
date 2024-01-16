@@ -8,7 +8,10 @@ const router = express.Router();
 
 router.get("/category", async (req, res) => {
   try {
-    const { data, error } = await supabase.from("category").select("*");
+    const { data, error } = await supabase
+      .from("category")
+      .select("*")
+      .order("id");
 
     if (error) {
       return res.json(error.message);
@@ -86,7 +89,8 @@ router.put("/delete-category/:id", async (req, res) => {
     const { data, error } = await supabase
       .from("category")
       .delete()
-      .eq("id", categoryId);
+      .eq("id", categoryId)
+      .order("id");
 
     if (error) {
       return res.json(error.message);

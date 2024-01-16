@@ -12,13 +12,15 @@ import { ToastContainer } from "react-toastify";
 
 export default function Login() {
   axios.defaults.withCredentials = true;
-  const goBack = () => {
-    window.history.back();
-  };
 
   useMemo(() => image);
   const { toastMessage, message } = allMessage();
   const redirect = useNavigate();
+
+  const goBack = () => {
+    // window.history.back();
+    redirect("/");
+  };
 
   useEffect(() => {
     const roleMessagge = localStorage.getItem("roleMessage");
@@ -68,7 +70,10 @@ export default function Login() {
             if (res.data.loggedIn === true && res.data.roles === "Seller") {
               localStorage.setItem("loginMessage", res.data.message);
               redirect("/dashboard");
-            } else if (res.data.loggedIn === true && res.data.roles === "Buyer") {
+            } else if (
+              res.data.loggedIn === true &&
+              res.data.roles === "Buyer"
+            ) {
               localStorage.setItem("loginMessage", res.data.message);
               redirect("/profile");
             }
@@ -106,7 +111,6 @@ export default function Login() {
   return (
     <>
       <Cursor />
-      <Navbar />
       <div className="login">
         <div className="login-image">
           <img className="image" src={image} alt="image" />
