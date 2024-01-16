@@ -109,7 +109,7 @@ export default function ProductId() {
             <div className="left-side-top">
               <p className="left-side-top-name">{data.name}</p>
               <p className="left-side-top-price">{formatPrice(newPrice)}</p>
-              <p className="left-side-top-category">{data.name}</p>
+              <p className="left-side-top-category">{data.category.name}</p>
             </div>
             <div className="left-side-bottom">
               <span className="left-side-bottom-title">Detail</span>
