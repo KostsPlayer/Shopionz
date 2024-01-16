@@ -85,50 +85,70 @@ export default function ProductId() {
     }
   };
 
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(price);
+  };
+
   return (
     <>
       <Cursor />
       <Navbar />
-      <span
-        className="material-symbols-outlined"
-        onClick={() => {
-          window.history.back();
-        }}
-      >
-        arrow_back
-      </span>
       <div className="product-id">
         <div className="product-id-image">
           <img
             src={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${data.images}`}
             alt={data.name}
-            width={200}
-            height={200}
           />
         </div>
         <div className="product-id-detail">
-          <p>Nama: {data.name}</p>
-          <p>Harga: {newPrice}</p>
-          <p>Stock: {data.stock}</p>
-          <p>Category: {data.category_name}</p>
-          <div className="product-id-count">
-            <span
-              className="material-symbols-outlined"
-              onClick={handleRemoveClick}
-            >
-              remove
-            </span>
-            <p>{quantity}</p>
-            <span
-              className="material-symbols-outlined"
-              onClick={handleAddClick}
-            >
-              add
-            </span>
+          <div className="left-side">
+            <div className="left-side-top">
+              <p className="left-side-top-name">{data.name}</p>
+              <p className="left-side-top-price">{formatPrice(newPrice)}</p>
+              <p className="left-side-top-category">{data.category.name}</p>
+            </div>
+            <div className="left-side-bottom">
+              <span className="left-side-bottom-title">Detail</span>
+              <p className="left-side-bottom-data">{data.description}</p>
+            </div>
           </div>
-          <p>Total Price : {totalPrice}</p>
-          <button onClick={handleAddToCart}>Keranjang</button>
-          <button onClick={handleBuyNow}>Beli</button>
+          <div className="right-side">
+            <div className="right-side-top">
+              <div className="right-side-top-count">
+                <span
+                  className="material-symbols-outlined"
+                  onClick={handleRemoveClick}
+                >
+                  remove
+                </span>
+                <span className="quantity">{quantity}</span>
+                <span
+                  className="material-symbols-outlined"
+                  onClick={handleAddClick}
+                >
+                  add
+                </span>
+              </div>
+              <span className="right-side-top-stock">
+                Total Stock: <span className="stock">{data.stock}</span>
+              </span>
+            </div>
+            <div className="right-side-total">
+              Total Price:{" "}
+              <span className="total">{formatPrice(totalPrice)}</span>
+            </div>
+            <div className="right-side-button">
+              <button className="border" onClick={handleAddToCart}>
+                + Cart
+              </button>
+              <button className="full" onClick={handleBuyNow}>
+                Buy
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       {message && <ToastContainer />}
