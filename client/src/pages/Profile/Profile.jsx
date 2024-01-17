@@ -2,10 +2,7 @@ import React, { useState, useEffect } from "react";
 import Layout from "../Layout/Layout";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import {
-  allMessage,
-  validationProfile,
-} from "../../component/Helper/LogicServer";
+import { allMessage } from "../../component/Helper/LogicServer";
 import { ToastContainer } from "react-toastify";
 import moment from "moment";
 moment.locale("id");
@@ -105,23 +102,9 @@ export default function Profile() {
         console.error(err);
       });
 
-    // validationProfile
-    //   .validate(formData, { abortEarly: false })
-    //   .then(() => {
-    //   })
-    //   .catch((errors) => {
-    //     const errorMessages = errors.inner.map((error) => (
-    //       <li key={error.path}>{error.message}</li>
-    //     ));
-    //     toastMessage(
-    //       "error",
-    //       <ul className="error-message">{errorMessages}</ul>,
-    //       "top-center"
-    //     );
-    //   });
-  };
-
-  const handleDeleteAddress = (id) => {
+    };
+    
+    const handleDeleteAddress = (id) => {
     axios
       .put(`https://project-ii-server.vercel.app/delete-address/${id}`)
       .then((res) => {
@@ -145,7 +128,7 @@ export default function Profile() {
         console.error(err);
       });
   };
-
+  
   return (
     <>
       <Layout>
@@ -176,7 +159,7 @@ export default function Profile() {
                   id="name"
                   value={values?.name || ""}
                   onChange={handleChange}
-                />
+                  />
               </div>
               <div className="profile-form-desc-row">
                 <label htmlFor="email">Email</label>
@@ -266,8 +249,8 @@ export default function Profile() {
                         ""
                       ) : (
                         <div
-                          className="set-main"
-                          onClick={() => handleMainAddress(id)}
+                        className="set-main"
+                        onClick={() => handleMainAddress(id)}
                         >
                           Set Main Address
                         </div>
@@ -284,3 +267,18 @@ export default function Profile() {
     </>
   );
 }
+
+  // validationProfile
+  //   .validate(formData, { abortEarly: false })
+  //   .then(() => {
+  //   })
+  //   .catch((errors) => {
+  //     const errorMessages = errors.inner.map((error) => (
+  //       <li key={error.path}>{error.message}</li>
+  //     ));
+  //     toastMessage(
+  //       "error",
+  //       <ul className="error-message">{errorMessages}</ul>,
+  //       "top-center"
+  //     );
+  //   });

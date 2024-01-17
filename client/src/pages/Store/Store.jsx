@@ -13,6 +13,9 @@ export default function Store() {
   const [dataProduct, setDataProduct] = useState([]);
   const [getId, setGetId] = useState(0);
   const [getImage, setGetImage] = useState("");
+  const [activeContentArray, setActiveContentArray] = useState(
+    Array(dataProduct.length).fill("detail")
+  );
   const { toastMessage, message } = allMessage();
   const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
 
@@ -55,9 +58,32 @@ export default function Store() {
       });
   };
 
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(price);
+  };
+
   useEffect(() => {
     fecthDataProductSeller();
+  }, []);
+
+  const initializeActiveContentArray = (length) => {
+    return Array.from({ length }, () => "detail");
+  };
+
+  useEffect(() => {
+    setActiveContentArray(initializeActiveContentArray(dataProduct.length));
   }, [dataProduct]);
+
+  const handleButtonClick = (contentType, index) => {
+    setActiveContentArray((prevArray) => {
+      const newArray = [...prevArray];
+      newArray[index] = contentType;
+      return newArray;
+    });
+  };
 
   return (
     <>
@@ -95,42 +121,101 @@ export default function Store() {
                 price,
                 stock,
                 images,
-                category_id,
                 date_available,
+                category,
               },
               index
             ) => (
               <div className="gallery-card" key={index}>
                 <img
                   className="gallery-images"
-                  src={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${images}?t=2023-12-24T02%3A30%3A45.365Z`}
-                  alt={`product-${name}`}
+                  src={`/src/assets/product/${images}`}
                 />
                 <div className="gallery-details">
-                  <p>{name}</p>
-                  <p>{description}</p>
-                  <p>{price}</p>
-                  <p>{stock}</p>
-                  <p>{category_id}</p>
-                  <p>{date_available}</p>
-                  <div className="edit">
-                    <div
-                      className="bagde-icon"
-                      onClick={() => {
-                        setOpenUpdateModal(true);
-                        handleProduct(id);
-                      }}
+                  <div className="gallery-details-button">
+                    <button
+                      className={
+                        activeContentArray[index] === "detail" ? "active" : ""
+                      }
+                      onClick={() => handleButtonClick("detail", index)}
                     >
-                      <span className="material-symbols-outlined">edit</span>
-                    </div>
+                      Details
+                    </button>
+                    <button
+                      className={
+                        activeContentArray[index] === "desc" ? "active" : ""
+                      }
+                      onClick={() => handleButtonClick("desc", index)}
+                    >
+                      Description
+                    </button>
+                    <button
+                      className={
+                        activeContentArray[index] === "action" ? "active" : ""
+                      }
+                      onClick={() => handleButtonClick("action", index)}
+                    >
+                      Action
+                    </button>
                   </div>
-                  <div className="delete">
-                    <div
-                      className="bagde-icon"
-                      onClick={() => handleDelete(id)}
-                    >
-                      <span className="material-symbols-outlined">delete</span>
-                    </div>
+                  <div className="gallery-details-content">
+                    {activeContentArray[index] === "detail" && (
+                      <>
+                        <div className="paragraph">
+                          <span>Name</span>
+                          <span>: {name}</span>
+                        </div>
+                        <div className="paragraph">
+                          <span>Price</span>
+                          <span>: {formatPrice(price)}</span>
+                        </div>
+                        <div className="paragraph">
+                          <span>Stock</span>
+                          <span>: {stock}</span>
+                        </div>
+                        <div className="paragraph">
+                          <span>Category</span>
+                          <span>: {category.name}</span>
+                        </div>
+                        <span className="date">
+                          {moment(date_available).format("dddd, D MMMM YYYY")}
+                        </span>
+                      </>
+                    )}
+                    {activeContentArray[index] === "desc" && (
+                      <>
+                        <span>{description}</span>
+                      </>
+                    )}
+                    {activeContentArray[index] === "action" && (
+                      <>
+                        <div className="action">
+                          <div className="edit">
+                            <div
+                              className="bagde-icon"
+                              onClick={() => {
+                                setOpenUpdateModal(true);
+                                handleProduct(id);
+                              }}
+                            >
+                              <span className="material-symbols-outlined">
+                                edit
+                              </span>
+                            </div>
+                          </div>
+                          <div className="delete">
+                            <div
+                              className="bagde-icon"
+                              onClick={() => handleDelete(id)}
+                            >
+                              <span className="material-symbols-outlined">
+                                delete
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

@@ -6,39 +6,6 @@ const app = express();
 configureMiddleware(app);
 const router = express.Router();
 
-router.get("/menu", async (req, res) => {
-  try {
-    const { data, error } = await supabase.from("menu").select("*").order("id");
-
-    if (error) {
-      return res.json(error.message);
-    }
-
-    return res.json(data);
-  } catch (error) {
-    return res.json(error);
-  }
-});
-
-router.get("/get-menu/:id", async (req, res) => {
-  try {
-    const menuId = req.params.id;
-
-    const { data, error } = await supabase
-      .from("menu")
-      .select("*")
-      .eq("id", menuId);
-
-    if (error) {
-      return res.json(error.message);
-    }
-
-    return res.json(data);
-  } catch (error) {
-    return res.json(error);
-  }
-});
-
 router.put("/update-menu/:id", async (req, res) => {
   try {
     const menuId = req.params.id;
@@ -74,6 +41,39 @@ router.post("/insert-menu", async (req, res) => {
     }
 
     return res.json({ data, message: "Insert Menu successfully!" });
+  } catch (error) {
+    return res.json(error);
+  }
+});
+
+router.get("/menu", async (req, res) => {
+  try {
+    const { data, error } = await supabase.from("menu").select("*").order("id");
+
+    if (error) {
+      return res.json(error.message);
+    }
+
+    return res.json(data);
+  } catch (error) {
+    return res.json(error);
+  }
+});
+
+router.get("/get-menu/:id", async (req, res) => {
+  try {
+    const menuId = req.params.id;
+
+    const { data, error } = await supabase
+      .from("menu")
+      .select("*")
+      .eq("id", menuId);
+
+    if (error) {
+      return res.json(error.message);
+    }
+
+    return res.json(data);
   } catch (error) {
     return res.json(error);
   }

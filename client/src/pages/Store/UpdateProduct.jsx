@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {
-  allMessage,
-  // validationInsertProduct,
-} from "../../component/Helper/LogicServer";
+import { allMessage } from "../../component/Helper/LogicServer";
 import { ToastContainer } from "react-toastify";
 
 export default function UpdateProduct({ onOpen, onClose, productId }) {

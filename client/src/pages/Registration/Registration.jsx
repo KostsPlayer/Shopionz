@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState } from "react";
 import Cursor from "../../component/Helper/Cursor";
 import { Link } from "react-router-dom";
 import image from "../../assets/image/2.jpg";

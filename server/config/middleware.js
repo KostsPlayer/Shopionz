@@ -1,8 +1,6 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import cookieParser from "cookie-parser";
-import session from "express-session";
 
 const configureMiddleware = (app) => {
   app.use(express.json());

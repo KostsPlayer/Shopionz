@@ -18,13 +18,7 @@ export default function Dashboard() {
   return (
     <>
       <Layout>
-        <h1 className="test-dasshboard">Hello Worlr!</h1>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus
-          veritatis modi iusto rem! Praesentium neque consectetur quibusdam nemo
-          sit iste vero pariatur beatae deleniti maxime, itaque, necessitatibus
-          veritatis quasi ex.
-        </p>
+        <h1>Hello World!</h1>
         {message && <ToastContainer />}
       </Layout>
     </>

@@ -63,84 +63,6 @@ router.get("/get-product/:id", async (req, res) => {
   }
 });
 
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
-
-router.post("/insert-product/:id", upload.single("image"), async (req, res) => {
-  try {
-    const { name, description, price, stock, category } = req.body;
-    const image = req.file;
-    const userId = req.params.id;
-
-    const { data: imageData, error: imageError } = await supabase.storage
-      .from("Images")
-      .upload(`/${image.originalname}`, image.buffer);
-
-    if (imageError) {
-      res.json(imageError.message);
-      res.json(imageError.stack);
-      res.json(imageError.name);
-    }
-
-    const { data: productData, error: productError } = await supabase
-      .from("product")
-      .insert({
-        user_id: userId,
-        name: name,
-        description: description,
-        price: price,
-        stock: stock,
-        category_id: category,
-        images: imageData.path,
-      })
-      .select("*");
-
-    if (productError) {
-      res.json(productError.message);
-      res.json(productError.code);
-      res.json(productError.details);
-      res.json(productError.hint);
-    }
-
-    return res.json({
-      data: productData[0],
-      message: "Insert product successfully!",
-      imageData: imageData,
-    });
-  } catch (error) {
-    return res.json(error);
-  }
-});
-
-// router.put("/update-product/:id", async (req, res) => {
-//   try {
-//     const productId = req.params.id;
-//     const { name, description, price, stock, category } = req.body;
-//     const image = req.file.filename;
-
-//     const { data, error } = await supabase
-//       .from("product")
-//       .update({
-//         name: name,
-//         description: description,
-//         price: price,
-//         stock: stock,
-//         category_id: category,
-//         images: image,
-//       })
-//       .eq("id", productId)
-//       .select("*");
-
-//     if (error) {
-//       return res.json(error.message);
-//     }
-
-//     return res.json({ data, message: "Update product successfully!" });
-//   } catch (error) {
-//     return res.json(error);
-//   }
-// });
-
 router.put("/delete-product/:id", async (req, res) => {
   try {
     const productId = req.params.id;
@@ -173,6 +95,50 @@ router.put("/delete-product/:id", async (req, res) => {
   }
 });
 
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+router.post("/insert-product/:id", upload.single("image"), async (req, res) => {
+  try {
+    const { name, description, price, stock, category } = req.body;
+    const image = req.file;
+    const userId = req.params.id;
+
+    const { data: imageData, error: imageError } = await supabase.storage
+      .from("Images")
+      .upload(`/${image.originalname}`, image.buffer);
+
+    if (imageError) {
+      return res.json(imageError);
+    }
+
+    const { data: productData, error: productError } = await supabase
+      .from("product")
+      .insert({
+        user_id: userId,
+        name: name,
+        description: description,
+        price: price,
+        stock: stock,
+        category_id: category,
+        images: imageData.path,
+      })
+      .select("*");
+
+    if (productError) {
+      return res.json(productError);
+    }
+
+    return res.json({
+      data: productData[0],
+      message: "Insert product successfully!",
+      imageData: imageData,
+    });
+  } catch (error) {
+    return res.json(error);
+  }
+});
+
 export default router;
 
 // const storage = multer.diskStorage({
@@ -193,3 +159,32 @@ export default router;
 //   },
 // });
 // const upload = multer({ storage });
+
+// router.put("/update-product/:id", async (req, res) => {
+//   try {
+//     const productId = req.params.id;
+//     const { name, description, price, stock, category } = req.body;
+//     const image = req.file.filename;
+
+//     const { data, error } = await supabase
+//       .from("product")
+//       .update({
+//         name: name,
+//         description: description,
+//         price: price,
+//         stock: stock,
+//         category_id: category,
+//         images: image,
+//       })
+//       .eq("id", productId)
+//       .select("*");
+
+//     if (error) {
+//       return res.json(error.message);
+//     }
+
+//     return res.json({ data, message: "Update product successfully!" });
+//   } catch (error) {
+//     return res.json(error);
+//   }
+// });

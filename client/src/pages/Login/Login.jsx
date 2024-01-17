@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
 import Cursor from "../../component/Helper/Cursor";
-import Navbar from "../../component/Navbar/Navbar";
 import image from "../../assets/image/2.jpg";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
