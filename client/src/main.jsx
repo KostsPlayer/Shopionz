@@ -27,8 +27,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Routes>
         <Route index element={<Home />} />
         <Route path="*" element={<Page404 />} />
-        <Route path="/product" element={<Product />} />
-        <Route path="/about-us" element={<About />} />
+        <Route path="/product" element={<Page404 />} />
+        <Route path="/about-us" element={<Page404 />} />
         <Route path="/roles/:id" element={<Roles />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/login" element={<Login />} />
@@ -43,6 +43,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/profile" element={<Profile />} />
         <Route path="/address" element={<Address />} />
         <Route path="/category" element={<Category />} />
+        <Route path="/shipping-method" element={<Page404 />} />
+        <Route path="/payment-method" element={<Page404 />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

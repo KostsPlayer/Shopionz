@@ -27,7 +27,7 @@ export default function Sidebar() {
 
   useEffect(() => {
     fetchDataMenu();
-  }, []);
+  }, [dataMenu]);
 
   const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
   const getImageUrl = JSON.parse(localStorage.getItem("imageUrl"));
