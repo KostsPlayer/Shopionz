@@ -40,9 +40,9 @@ export default function Cart() {
   }, [getData, totalPrice, checkedItem]);
 
   const calculateTotalPrice = (cartData) => {
-    const total = cartData.reduce((acc, item) => {
-      if (item.status === 1) {
-        const itemPrice = item.amount * item.product.price;
+    const total = cartData.reduce((acc, { status, amount, product }) => {
+      if (status === 1) {
+        const itemPrice = amount * product.price;
         return acc + itemPrice;
       }
       return acc;
@@ -143,7 +143,9 @@ export default function Cart() {
 
               <div className="cart-item-image">
                 <img
-                  src={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${product.images}`}
+                  src={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${
+                    product && product.images
+                  }`}
                   alt={product.name}
                 />
               </div>
