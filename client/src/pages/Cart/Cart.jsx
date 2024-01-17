@@ -146,13 +146,13 @@ export default function Cart() {
                   src={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${
                     product && product.images
                   }`}
-                  alt={product.name}
+                  alt={product && product.name}
                 />
               </div>
               <div className="cart-item-detail">
-                <p>Nama: {product.name}</p>
-                <p>Harga: {product.price}</p>
-                <p>Total: {amount * product.price}</p>
+                <p>Nama: {product && product.name}</p>
+                <p>Harga: {product && product.price}</p>
+                <p>Total: {amount * (product && product.price)}</p>
                 <div className="cart-count">
                   <span
                     className="material-symbols-outlined"
@@ -163,7 +163,9 @@ export default function Cart() {
                   <p>{amount}</p>
                   <span
                     className="material-symbols-outlined"
-                    onClick={() => handleAddClick(id, amount, product.stock)}
+                    onClick={() =>
+                      handleAddClick(id, amount, product && product.stock)
+                    }
                   >
                     add
                   </span>
