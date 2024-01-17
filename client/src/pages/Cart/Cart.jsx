@@ -28,6 +28,7 @@ export default function Cart() {
         setCheckedItem(initialCheckedItems);
         setGetData(res.data);
         calculateTotalPrice(res.data);
+        console.log(res.data);
       })
       .catch((err) => {
         console.error(err);
@@ -131,45 +132,43 @@ export default function Cart() {
       </span>
       <div className="cart">
         <div className="cart-container">
-          {getData.map((data) => (
-            <div className="cart-item" key={data.id}>
+          {getData.map(({ id, product, amount }, index) => (
+            <div className="cart-item" key={index}>
               <input
-                onChange={() => handleChecked(data.id)}
+                onChange={() => handleChecked(id)}
                 type="checkbox"
                 name="status"
-                checked={checkedItem[data.id]}
+                checked={checkedItem[id]}
               />
 
               <div className="cart-item-image">
                 <img
-                  src={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${data.product.images}`}
-                  alt={data.product.name}
+                  src={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${product.images}`}
+                  alt={product.name}
                 />
               </div>
               <div className="cart-item-detail">
-                <p>Nama: {data.product.name}</p>
-                <p>Harga: {data.product.price}</p>
-                <p>Total: {data.amount * data.product.price}</p>
+                <p>Nama: {product.name}</p>
+                <p>Harga: {product.price}</p>
+                <p>Total: {amount * product.price}</p>
                 <div className="cart-count">
                   <span
                     className="material-symbols-outlined"
-                    onClick={() => handleRemoveClick(data.id, data.amount)}
+                    onClick={() => handleRemoveClick(id, amount)}
                   >
                     remove
                   </span>
-                  <p>{data.amount}</p>
+                  <p>{amount}</p>
                   <span
                     className="material-symbols-outlined"
-                    onClick={() =>
-                      handleAddClick(data.id, data.amount, data.product.stock)
-                    }
+                    onClick={() => handleAddClick(id, amount, product.stock)}
                   >
                     add
                   </span>
                   <div className="delete">
                     <div
                       className="bagde-icon"
-                      onClick={() => handleDelete(data.id)}
+                      onClick={() => handleDelete(id)}
                     >
                       <span className="material-symbols-outlined">delete</span>
                     </div>
