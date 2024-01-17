@@ -32,7 +32,8 @@ router.get("/cart/:id", async (req, res) => {
     const { data, error } = await supabase
       .from("shopping_cart")
       .select(`*, product (*)`)
-      .eq("user_id", userId).order("id");
+      .eq("user_id", userId)
+      .order("id");
 
     if (error) {
       return res.json(error);
@@ -46,13 +47,13 @@ router.get("/cart/:id", async (req, res) => {
 
 router.post("/insert-cart", async (req, res) => {
   try {
-    const { product_id, amount, email } = req.body;
+    const { product_id, amount, userId } = req.body;
     const active = 1;
 
     const { data, error } = await supabase
       .from("shopping_cart")
       .insert({
-        user_email: email,
+        user_id: userId,
         product_id: product_id,
         amount: amount,
         status: active,

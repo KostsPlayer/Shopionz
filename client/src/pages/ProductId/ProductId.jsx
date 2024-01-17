@@ -47,12 +47,12 @@ export default function ProductId() {
     }
   };
 
-  const getEmail = JSON.parse(localStorage.getItem("dataUser")) || {};
+  const getLocalStorage = JSON.parse(localStorage.getItem("dataUser")) || {};
 
   const handleAddToCart = (e) => {
-    const email = getEmail.dataUser?.email;
+    const userId = getLocalStorage.dataUser?.id;
 
-    if (!email) {
+    if (!userId) {
       toastMessage("warn", "You must login first to add product on cart!");
     } else {
       e.preventDefault();
@@ -60,7 +60,7 @@ export default function ProductId() {
       const valuesCart = {
         product_id: data.id,
         amount: quantity,
-        email: email,
+        userId: userId,
       };
 
       axios
@@ -75,9 +75,9 @@ export default function ProductId() {
   };
 
   const handleBuyNow = () => {
-    const email = getEmail.dataUser?.email;
+    const userId = getLocalStorage.dataUser?.id;
 
-    if (!email) {
+    if (!userId) {
       toastMessage("warn", "You must login first to buy some product!");
     } else {
       redirect(`/order/${id}`, {
