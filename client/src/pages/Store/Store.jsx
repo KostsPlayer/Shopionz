@@ -5,6 +5,8 @@ import axios from "axios";
 import UpdateProduct from "./UpdateProduct";
 import { allMessage } from "../../component/Helper/LogicServer";
 import { ToastContainer } from "react-toastify";
+import moment from "moment";
+moment.locale("id");
 
 export default function Store() {
   axios.defaults.withCredentials = true;
@@ -129,7 +131,7 @@ export default function Store() {
               <div className="gallery-card" key={index}>
                 <img
                   className="gallery-images"
-                  src={`/src/assets/product/${images}`}
+                  src={`https://crijtkbvmmpjdbxqqkpi.supabase.co/storage/v1/object/public/Images/${images}?t=2023-12-24T02%3A30%3A45.365Z`}
                 />
                 <div className="gallery-details">
                   <div className="gallery-details-button">
