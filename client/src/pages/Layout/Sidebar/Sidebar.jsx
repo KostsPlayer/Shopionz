@@ -37,6 +37,7 @@ export default function Sidebar() {
       name: getLocalStorage.dataUser.name,
       email: getLocalStorage.dataUser.email,
       images: getImageUrl.imageUrl.publicUrl,
+      role: getLocalStorage.dataUser.role_id,
     });
   }, [getLocalStorage, getImageUrl]);
 
@@ -50,43 +51,51 @@ export default function Sidebar() {
 
   return (
     <>
-      <div className="sidebar-header">
-        <Link className="logo" to="/">
-          Shopionz
-        </Link>
-      </div>
-      <div className="sidebar-menu">
-        {dataMenu.map((item, index) => (
-          <div
-            key={index}
-            className={`container-menu ${active === index ? "active" : ""}`}
-            onClick={() => handleItemClick(index)}
-          >
-            {item.is_active === true ? (
-              <Link to={`/${item.url}`} className="menu">
-                <span className={`material-symbols-outlined`}>{item.icon}</span>
-                <span className="menu-text">{item.name}</span>
-              </Link>
-            ) : (
-              ""
-            )}
+      {dataUser.role === 2 && dataUser.role === 1 ? (
+        <>
+          <div className="sidebar-header">
+            <Link className="logo" to="/">
+              Shopionz
+            </Link>
           </div>
-        ))}
-      </div>
-      <div className="sidebar-footer">
-        <div className="image">
-          <img className="image-user" src={dataUser.images} alt="profile" />
-        </div>
-        <div className="user">
-          <div className="user-name">{dataUser.name}</div>
-          <div className="user-email">{dataUser.email}</div>
-        </div>
-        <div className="logout">
-          <span className="material-symbols-outlined" onClick={logout}>
-            logout
-          </span>
-        </div>
-      </div>
+          <div className="sidebar-menu">
+            {dataMenu.map((item, index) => (
+              <div
+                key={index}
+                className={`container-menu ${active === index ? "active" : ""}`}
+                onClick={() => handleItemClick(index)}
+              >
+                {item.is_active === true ? (
+                  <Link to={`/${item.url}`} className="menu">
+                    <span className={`material-symbols-outlined`}>
+                      {item.icon}
+                    </span>
+                    <span className="menu-text">{item.name}</span>
+                  </Link>
+                ) : (
+                  ""
+                )}
+              </div>
+            ))}
+          </div>
+          <div className="sidebar-footer">
+            <div className="image">
+              <img className="image-user" src={dataUser.images} alt="profile" />
+            </div>
+            <div className="user">
+              <div className="user-name">{dataUser.name}</div>
+              <div className="user-email">{dataUser.email}</div>
+            </div>
+            <div className="logout">
+              <span className="material-symbols-outlined" onClick={logout}>
+                logout
+              </span>
+            </div>
+          </div>
+        </>
+      ) : (
+        ""
+      )}
     </>
   );
 }
