@@ -13,24 +13,40 @@ export default function Order() {
   const [data, setData] = useState({});
   const [getPayment, setGetPayment] = useState([]);
   const [getShipping, setGetShipping] = useState([]);
+  const [getAddress, setGetAddress] = useState([]);
   const [quantity, setQuantity] = useState(location.state.quantity);
   const [totalPrice, setTotalPrice] = useState(location.state.totalPrice);
   const { toastMessage, message } = allMessage();
 
-  const getUserId = JSON.parse(localStorage.getItem("dataUser"));
-  const user = JSON.parse(localStorage.getItem("dataUser"));
-  const userId = getUserId.dataUser.id;
+  const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
+  const userId = getLocalStorage.dataUser.id;
+  const userName = getLocalStorage.dataUser.name;
+  const userEmail = getLocalStorage.dataUser.email;
+  const userPhoneNumber = getLocalStorage.dataUser.phone_number;
+
+  useEffect(() => {
+    axios
+      .get(`https://project-ii-server.vercel.app/address/${userId}`)
+      .then((res) => {
+        setGetAddress(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
 
   const [values, setValues] = useState({
     address: "",
-    phoneNumber: "",
-    paymentMethod: 1,
-    shippingMethod: 1,
+    paymentMethod: 0,
+    shippingMethod: 0,
     amount: quantity,
     productId: id,
-    userId: userId,
     grossAmount: totalPrice,
-    user: user,
+    userId: userId,
+    email: userEmail,
+    name: userName,
+    phoneNumber: userPhoneNumber,
   });
 
   useEffect(() => {
@@ -44,7 +60,6 @@ export default function Order() {
       });
 
     console.log(location);
-    console.log(user);
   }, [id]);
 
   const newPrice = Math.round(data.price + data.price * (15 / 100));
@@ -134,6 +149,11 @@ export default function Order() {
             width={300}
             height={300}
           />
+          {getAddress.map((data, index) => (
+            <>
+              <p key={index}>{data}</p>
+            </>
+          ))}
           <input
             type="text"
             placeholder="Adress"

@@ -95,6 +95,7 @@ router.get("/address/:id", async (req, res) => {
       .from("addresses")
       .select("*")
       .eq("user_id", userId)
+      .order("status", { ascending: false })
       .order("id");
 
     if (error) {

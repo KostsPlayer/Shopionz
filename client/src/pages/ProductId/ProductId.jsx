@@ -51,9 +51,15 @@ export default function ProductId() {
 
   const handleAddToCart = (e) => {
     const userId = getLocalStorage.dataUser?.id;
+    const userPhoneNumber = getLocalStorage.dataUser?.phone_number;
 
     if (!userId) {
       toastMessage("warn", "You must login first to add product on cart!");
+    } else if (!userPhoneNumber || userPhoneNumber === null) {
+      toastMessage(
+        "warn",
+        "Please fill in the phone number on the profile page first."
+      );
     } else {
       e.preventDefault();
 
@@ -76,9 +82,15 @@ export default function ProductId() {
 
   const handleBuyNow = () => {
     const userId = getLocalStorage.dataUser?.id;
+    const userPhoneNumber = getLocalStorage.dataUser?.phone_number;
 
     if (!userId) {
       toastMessage("warn", "You must login first to buy some product!");
+    } else if (!userPhoneNumber || userPhoneNumber === null) {
+      toastMessage(
+        "warn",
+        "Please fill in the phone number on the profile page first."
+      );
     } else {
       redirect(`/order/${id}`, {
         replace: true,

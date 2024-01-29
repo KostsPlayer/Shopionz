@@ -140,6 +140,7 @@ export default function Login() {
                   name="password"
                   id="password"
                   placeholder="Password"
+                  autoComplete="off"
                   onChange={handleChange}
                 />
                 <label htmlFor="password">Password</label>
