@@ -18,6 +18,7 @@ export default function Order() {
   const { toastMessage, message } = allMessage();
 
   const getUserId = JSON.parse(localStorage.getItem("dataUser"));
+  const user = JSON.parse(localStorage.getItem("dataUser"));
   const userId = getUserId.dataUser.id;
 
   const [values, setValues] = useState({
@@ -28,6 +29,8 @@ export default function Order() {
     amount: quantity,
     productId: id,
     userId: userId,
+    grossAmount: totalPrice,
+    user: user,
   });
 
   useEffect(() => {
@@ -41,6 +44,7 @@ export default function Order() {
       });
 
     console.log(location);
+    console.log(user);
   }, [id]);
 
   const newPrice = Math.round(data.price + data.price * (15 / 100));
@@ -103,7 +107,7 @@ export default function Order() {
       setQuantity(quantity - 1);
     }
   };
-  
+
   const handleAddClick = () => {
     if (quantity < data.stock) {
       setQuantity(quantity + 1);
@@ -152,7 +156,7 @@ export default function Order() {
             onChange={handleChange}
             value={values.paymentMethod}
           >
-            <option value="" disabled>
+            <option value="" disabled selected>
               Select Payment Method
             </option>
             {getPayment.map((payment, index) => (
@@ -167,7 +171,7 @@ export default function Order() {
             onChange={handleChange}
             value={values.shippingMethod}
           >
-            <option value="" disabled>
+            <option value="" disabled selected>
               Select Shipping Method
             </option>
             {getShipping.map((shipping, index) => (
