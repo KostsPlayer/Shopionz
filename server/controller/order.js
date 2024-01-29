@@ -1,6 +1,9 @@
 import express from "express";
 import configureMiddleware from "../config/middleware.js";
+import midtransClient from "midtrans-client";
 import supabase from "../config/supabase.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 configureMiddleware(app);
@@ -44,6 +47,7 @@ router.post("/insert-order", async (req, res) => {
       amount,
       productId,
       userId,
+      grossAmount,
     } = req.body;
 
     const { data: order, error: errorOrder } = await supabase
@@ -61,7 +65,7 @@ router.post("/insert-order", async (req, res) => {
 
     const { data: productData, error: productError } = await supabase
       .from("product")
-      .select("*")
+      .select("*, category(*)")
       .eq("id", productId);
 
     const updateStock = productData[0].stock - amount;
@@ -83,6 +87,42 @@ router.post("/insert-order", async (req, res) => {
     if (stockError) {
       return res.json(stockError);
     }
+
+    const snap = new midtransClient.Snap({
+      isProduction: false,
+      serverKey: process.env.MIDTRANS_SERVER_KEY,
+      clientKeyKey: process.env.MIDTRANS_CLIENT_KEY,
+    });
+
+    const parameter = {
+      transaction_details: {
+        order_id: order[0].id,
+        gross_amount: grossAmount,
+      },
+      customer_details: {
+        first_name: "TEST",
+        email: "test@midtrans.com",
+        phone: "+628123456",
+        billing_address: {
+          first_name: "TEST",
+          last_name: "UTOMO",
+          phone: "081 2233 44-55",
+          address: "Sudirman",
+          city: "Jakarta",
+          postal_code: "12190",
+          country_code: "IDN",
+        },
+        shipping_address: {
+          first_name: "TEST",
+          last_name: "UTOMO",
+          phone: "0 8128-75 7-9338",
+          address: "Sudirman",
+          city: "Jakarta",
+          postal_code: "12190",
+          country_code: "IDN",
+        },
+      },
+    };
 
     return res.json({
       message: "Order has been successfully placed!",
