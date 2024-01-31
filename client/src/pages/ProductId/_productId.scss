@@ -1,12 +1,12 @@
 @use "./../../assets/mixin" as m;
 
 .product-id {
-  padding: 2% 11%;
   // @include m.flex($align: flex-start);
+  padding: 2% 11%;
   gap: 2vw;
   display: grid;
   grid-template-rows: auto;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto 1fr;
 
   &-image {
     width: 20rem;

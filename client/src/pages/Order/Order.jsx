@@ -149,11 +149,6 @@ export default function Order() {
             width={300}
             height={300}
           />
-          {getAddress.map((data, index) => (
-            <>
-              <p key={index}>{data}</p>
-            </>
-          ))}
           <input
             type="text"
             placeholder="Adress"

@@ -151,7 +151,7 @@ export default function ProductId() {
               </span>
             </div>
             <div className="right-side-total">
-              Total Price:{" "}
+              Subtotal price:{" "}
               <span className="total">{formatPrice(totalPrice)}</span>
             </div>
             <div className="right-side-button">

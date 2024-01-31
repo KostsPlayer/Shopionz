@@ -2,7 +2,6 @@ import { useState } from "react";
 import * as yup from "yup";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { createClient } from "@supabase/supabase-js";
 
 export const validationSignUp = yup.object().shape({
   username: yup.string().required("Name input must be filled"),
