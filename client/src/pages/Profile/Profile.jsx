@@ -121,7 +121,7 @@ export default function Profile() {
         userId: getLocalStorage.dataUser.id,
       })
       .then((res) => {
-        console.log(res.data);
+        toastMessage("success", res.data.message);
       })
       .catch((err) => {
         console.error(err);

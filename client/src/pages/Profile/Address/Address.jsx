@@ -147,7 +147,7 @@ export default function Address() {
       .post("https://project-ii-server.vercel.app/insert-address", values)
       .then((res) => {
         console.log(res.data);
-        
+
         redirect("/profile");
       })
       .catch((err) => {
@@ -167,7 +167,7 @@ export default function Address() {
             value={selectedProvince.id}
             onChange={handleProvinceChange}
           >
-            <option value="" disabled>
+            <option value="" disabled selected>
               Select Provincies
             </option>
             {getProvincies.map((provinces) => (
@@ -183,7 +183,7 @@ export default function Address() {
             value={selectedRegency.id}
             onChange={handleRegencyChange}
           >
-            <option value="" disabled>
+            <option value="" disabled selected>
               Select Regencies
             </option>
             {getRegencies.map((regencies) => (
@@ -199,7 +199,7 @@ export default function Address() {
             value={selectedDistrict.id}
             onChange={handleDistrictChange}
           >
-            <option value="" disabled>
+            <option value="" disabled selected>
               Select Districts
             </option>
             {getDistricts.map((districts) => (
@@ -215,7 +215,7 @@ export default function Address() {
             value={selectedVillage.id}
             onChange={handleVillageChange}
           >
-            <option value="" disabled>
+            <option value="" disabled selected>
               Select Villages
             </option>
             {getVillages.map((villages) => (

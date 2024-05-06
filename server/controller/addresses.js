@@ -150,7 +150,10 @@ router.put("/main-address/:id", async (req, res) => {
       return res.json(error);
     }
 
-    return res.json(data);
+    return res.json({
+      data,
+      message: "Address change has successfully become the primary address",
+    });
   } catch (error) {
     return res.json(error);
   }
