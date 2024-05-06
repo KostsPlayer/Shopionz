@@ -24,8 +24,6 @@ app.use(categoryRouter);
 app.use(addressesRouter);
 app.use(authRouter);
 
-console.log("Supabase URL: ", process.env.SUPABASE_URL);
-
 const port = process.env.REACT_APP_PORT || 5001;
 app.listen(port, () => {
   console.log(`running server on port ${port}`);
