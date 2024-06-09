@@ -82,9 +82,10 @@ router.post("/login", async (req, res) => {
 
         if (response) {
           const user = data[0];
+          const getToken = process.env.JWT_TOKEN;
           const token = jwt.sign(
             { id: user.id, roles: user.roles.roles },
-            process.env.JWT_TOKEN,
+            getToken,
             { expiresIn: "24h" }
           );
 

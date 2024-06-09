@@ -10,7 +10,7 @@ const configureMiddleware = (app) => {
       methods: ["GET", "POST", "PUT", "OPTIONS", "DELETE"],
       credentials: true,
       optionsSuccessStatus: 200,
-      allowedHeaders: ["Content-Type", "Authorization"],
+      // allowedHeaders: ["Content-Type", "Authorization"],
     })
   );
   app.use(bodyParser.urlencoded({ extended: true }));
