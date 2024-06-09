@@ -28,6 +28,7 @@ export default function InsertMenu({ onOpen, onClose, title }) {
   };
 
   useEffect(() => {
+    console.log(getToken);
     console.log(decodedToken);
   }, []);
 
