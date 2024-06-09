@@ -2,13 +2,12 @@ import express from "express";
 import supabase from "../config/supabase.js";
 import bcrypt from "bcrypt";
 import configureMiddleware from "../config/middleware.js";
-import crypto from "crypto";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 configureMiddleware(app);
-const router = express.Router();
-const JWT_SECRET = crypto.randomBytes(64).toString("hex");
 
 router.post("/registration", async (req, res) => {
   try {
@@ -84,7 +83,7 @@ router.post("/login", async (req, res) => {
           const user = data[0];
           const token = jwt.sign(
             { id: user.id, roles: user.roles.roles },
-            JWT_SECRET,
+            process.env.JWT_SECRET,
             { expiresIn: "24h" }
           );
 
@@ -98,7 +97,7 @@ router.post("/login", async (req, res) => {
             dataUser: user,
             imageUrl: imageUrl,
             isValid: true,
-            roles: user.roles.roles
+            roles: user.roles.roles,
           });
         } else {
           return res.json({
