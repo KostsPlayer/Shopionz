@@ -17,7 +17,7 @@ export default function InsertMenu({ onOpen, onClose, title }) {
   });
 
   const getToken = localStorage.getItem("token");
-  const decodedToken = jwtDecode(getToken);
+  const decodedToken = jwtDecode(JSON.parse(getToken));
 
   const handleChange = (e) => {
     setIsActive(!isActice);
@@ -38,15 +38,19 @@ export default function InsertMenu({ onOpen, onClose, title }) {
       .validate(values, { abortEarly: false })
       .then(() => {
         axios
-          .post("https://project-ii-server.vercel.app/insert-menu", values)
+          .post("https://project-ii-server.vercel.app/insert-menu", values, {
+            headers: {
+              Authorization: `Bearer ${decodedToken}`,
+            },
+          })
           .then((res) => {
             toastMessage("success", res.data.message);
             console.log(res.data);
             console.log(values);
-            })
-            .catch((err) => {
-              console.log(err);
-              toastMessage("error", err);
+          })
+          .catch((err) => {
+            console.log(err);
+            toastMessage("error", err.message);
           });
       })
       .catch((errors) => {
