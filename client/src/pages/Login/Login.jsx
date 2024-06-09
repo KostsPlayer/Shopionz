@@ -70,13 +70,14 @@ export default function Login() {
               localStorage.setItem("loginMessage", res.data.message);
               redirect("/dashboard");
             } else if (
-                  res.data.loggedIn === true &&
-                  res.data.roles === "Buyer"
-                ) {
-                  localStorage.setItem("loginMessage", res.data.message);
-                  redirect("/profile");
+              res.data.loggedIn === true &&
+              res.data.roles === "Buyer"
+            ) {
+              localStorage.setItem("loginMessage", res.data.message);
+              redirect("/profile");
             }
 
+            localStorage.setItem("token", JSON.stringify(res.data.token));
             localStorage.setItem("session", res.data.isValid);
             localStorage.setItem(
               "dataUser",

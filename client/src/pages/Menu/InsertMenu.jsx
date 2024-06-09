@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {
-  validationMenu,
-  allMessage,
-} from "../../component/Helper/LogicServer";
+import { validationMenu, allMessage } from "../../component/Helper/LogicServer";
 import { ToastContainer } from "react-toastify";
+import { jwtDecode } from "jwt-decode";
 
 export default function InsertMenu({ onOpen, onClose, title }) {
   axios.defaults.withCredentials = true;
@@ -18,6 +16,9 @@ export default function InsertMenu({ onOpen, onClose, title }) {
     is_active: isActice,
   });
 
+  const getToken = localStorage.getItem("token");
+  const decodedToken = jwtDecode(getToken);
+
   const handleChange = (e) => {
     setIsActive(!isActice);
 
@@ -25,6 +26,10 @@ export default function InsertMenu({ onOpen, onClose, title }) {
       e.target.type === "checkbox" ? e.target.checked : e.target.value;
     setValues({ ...values, [e.target.name]: newValue });
   };
+
+  useEffect(() => {
+    console.log(decodedToken);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,9 +43,10 @@ export default function InsertMenu({ onOpen, onClose, title }) {
             toastMessage("success", res.data.message);
             console.log(res.data);
             console.log(values);
-          })
-          .catch((err) => {
-            console.log(err);
+            })
+            .catch((err) => {
+              console.log(err);
+              toastMessage("error", err);
           });
       })
       .catch((errors) => {

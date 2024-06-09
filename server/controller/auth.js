@@ -85,7 +85,7 @@ router.post("/login", async (req, res) => {
           const token = jwt.sign(
             { id: user.id, roles: user.roles.roles },
             JWT_SECRET,
-            { expiresIn: "1h" }
+            { expiresIn: "24h" }
           );
 
           const url = supabase.storage.from("Images").getPublicUrl(user.image);
@@ -98,6 +98,7 @@ router.post("/login", async (req, res) => {
             dataUser: user,
             imageUrl: imageUrl,
             isValid: true,
+            roles: user.roles.roles
           });
         } else {
           return res.json({
