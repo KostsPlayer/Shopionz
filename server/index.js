@@ -9,7 +9,6 @@ import categoryRouter from "./controller/category.js";
 import addressesRouter from "./controller/addresses.js";
 import authRouter from "./controller/auth.js";
 import dotenv from "dotenv";
-
 dotenv.config();
 
 const app = express();
@@ -24,7 +23,7 @@ app.use(categoryRouter);
 app.use(addressesRouter);
 app.use(authRouter);
 
-const port = process.env.REACT_APP_PORT || 5001;
+const port = process.env.REACT_APP_PORT;
 app.listen(port, () => {
   console.log(`running server on port ${port}`);
 });
