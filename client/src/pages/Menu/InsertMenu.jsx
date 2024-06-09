@@ -17,7 +17,7 @@ export default function InsertMenu({ onOpen, onClose, title }) {
   });
 
   const getToken = localStorage.getItem("token");
-  const decodedToken = jwtDecode(JSON.parse(getToken));
+  const decodedToken = JSON.parse(getToken);
 
   const handleChange = (e) => {
     setIsActive(!isActice);

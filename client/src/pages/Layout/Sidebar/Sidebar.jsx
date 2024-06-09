@@ -45,6 +45,7 @@ export default function Sidebar() {
     localStorage.removeItem("dataUser");
     localStorage.removeItem("session");
     localStorage.removeItem("imageUrl");
+    localStorage.removeItem("token");
     redirect("/login");
   };
 

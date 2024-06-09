@@ -42,6 +42,7 @@ export default function Navbar() {
     localStorage.removeItem("dataUser");
     localStorage.removeItem("imageUrl");
     localStorage.removeItem("session");
+    localStorage.removeItem("token");
     redirect("/login");
   };
 
