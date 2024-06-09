@@ -2,10 +2,13 @@ import express from "express";
 import supabase from "../config/supabase.js";
 import bcrypt from "bcrypt";
 import configureMiddleware from "../config/middleware.js";
+import crypto from "crypto";
+import jwt from "jsonwebtoken";
 
 const app = express();
 configureMiddleware(app);
 const router = express.Router();
+const JWT_SECRET = crypto.randomBytes(64).toString("hex");
 
 router.post("/registration", async (req, res) => {
   try {
@@ -68,26 +71,33 @@ router.post("/login", async (req, res) => {
       .or(`name.eq.${usernameEmail}, email.eq.${usernameEmail}`);
 
     if (error) {
-      res.json(error.message);
+      return res.json({ error: error.message });
     }
 
     if (data.length > 0) {
       bcrypt.compare(password, data[0].password, (error, response) => {
         if (error) {
-          res.json(error.message);
+          return res.json({ error: error.message });
         }
 
-        const url = supabase.storage.from("Images").getPublicUrl(data[0].image);
-        const imageUrl = url.data;
-
         if (response) {
+          const user = data[0];
+          const token = jwt.sign(
+            { id: user.id, roles: user.roles.roles },
+            JWT_SECRET,
+            { expiresIn: "1h" }
+          );
+
+          const url = supabase.storage.from("Images").getPublicUrl(user.image);
+          const imageUrl = url.data;
+
           return res.json({
-            message: `Welcome to Shopionz, ${data[0].name}`,
+            message: `Welcome to Shopionz, ${user.name}`,
             loggedIn: true,
-            dataUser: data[0],
+            token: token,
+            dataUser: user,
             imageUrl: imageUrl,
             isValid: true,
-            roles: data[0].roles.roles,
           });
         } else {
           return res.json({
@@ -101,7 +111,7 @@ router.post("/login", async (req, res) => {
       return res.json({ loggedIn: false, message: "User doesn't exist" });
     }
   } catch (error) {
-    return res.json(error);
+    return res.json({ error: error.message });
   }
 });
 

@@ -1,6 +1,7 @@
 import express from "express";
 import supabase from "../config/supabase.js";
 import configureMiddleware from "../config/middleware.js";
+import { verifyToken } from "../config/verifyToken.js";
 
 const app = express();
 configureMiddleware(app);
@@ -27,7 +28,7 @@ router.put("/update-menu/:id", async (req, res) => {
   }
 });
 
-router.post("/insert-menu", async (req, res) => {
+router.post("/insert-menu", verifyToken, async (req, res) => {
   try {
     const { name, icon, url, is_active } = req.body;
 
