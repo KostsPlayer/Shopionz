@@ -9,7 +9,6 @@ dotenv.config();
 const app = express();
 configureMiddleware(app);
 const router = express.Router();
-const JWT_SECRET = crypto.randomBytes(64).toString("hex");
 
 router.post("/registration", async (req, res) => {
   try {
