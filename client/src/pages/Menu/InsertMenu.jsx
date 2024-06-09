@@ -41,7 +41,7 @@ export default function InsertMenu({ onOpen, onClose, title }) {
         axios
           .post("https://project-ii-server.vercel.app/insert-menu", values, {
             headers: {
-              Authorization: `Bearer ${decodedToken}`,
+              Authorization: `Bearer ${getToken}`,
             },
           })
           .then((res) => {
