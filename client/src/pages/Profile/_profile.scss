@@ -27,6 +27,7 @@
       img {
         @include m.circle($w-h: 20vw);
         object-fit: cover;
+        
       }
 
       .profile-image-label {

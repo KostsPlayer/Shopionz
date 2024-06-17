@@ -9,7 +9,7 @@ const router = express.Router();
 router.get("/provincies", async (req, res) => {
   try {
     await fetch(
-      `https://kanglerian.github.io/api-wilayah-indonesia/api/provinces.json`
+      `https://kanglerian.github.io/api-wilayah-indonesi  a/api/provinces.json`
     )
       .then((response) => response.json())
       .then((provinces) => res.json(provinces));
