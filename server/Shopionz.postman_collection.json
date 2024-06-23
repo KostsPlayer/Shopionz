@@ -1,0 +1,728 @@
+{
+	"info": {
+		"_postman_id": "70fad8c0-bf47-4e3a-b8fe-cd7aba70bb24",
+		"name": "Shopionz",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31936531"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usernameEmail\": \"KostsPlayer\",\r\n    \"password\": \"1qazxsw2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://project-ii-server.vercel.app/login",
+							"protocol": "https",
+							"host": [
+								"project-ii-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign-Role",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 45,\r\n    \"role\": \"Seller\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://project-ii-server.vercel.app/assign-role",
+							"protocol": "https",
+							"host": [
+								"project-ii-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"assign-role"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZXMiOiJTZWxsZXIiLCJpYXQiOjE3MTkxMzkzMjcsImV4cCI6MTcxOTIyNTcyN30.du0FiBRP7EfabQo6QebAze9ObRCVf_08D1Y2sfIF804",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"test1\",\r\n    \"email\": \"test2@gmail.com\",\r\n    \"password\": \"1qazxsw2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://project-ii-server.vercel.app/registration",
+							"protocol": "https",
+							"host": [
+								"project-ii-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"registration"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Menu",
+			"item": [
+				{
+					"name": "Get-Menu",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://project-ii-server.vercel.app/menu",
+							"protocol": "https",
+							"host": [
+								"project-ii-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"menu"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get-Menu:ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://project-ii-server.vercel.app/get-menu/1",
+							"protocol": "https",
+							"host": [
+								"project-ii-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"get-menu",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create-Menu",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZXMiOiJTZWxsZXIiLCJpYXQiOjE3MTkxMzkzMjcsImV4cCI6MTcxOTIyNTcyN30.du0FiBRP7EfabQo6QebAze9ObRCVf_08D1Y2sfIF804",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"test\",\r\n    \"icon\": \"test\",\r\n    \"url\": \"test\",\r\n    \"is_active\": 1 \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://project-ii-server.vercel.app/insert-menu",
+							"protocol": "https",
+							"host": [
+								"project-ii-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"insert-menu"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update-Menu",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZXMiOiJTZWxsZXIiLCJpYXQiOjE3MTkxMzkzMjcsImV4cCI6MTcxOTIyNTcyN30.du0FiBRP7EfabQo6QebAze9ObRCVf_08D1Y2sfIF804",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"test1\",\r\n    \"icon\": \"test2\",\r\n    \"url\": \"test3\",\r\n    \"is_active\": 0 \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://project-ii-server.vercel.app/update-menu/17",
+							"protocol": "https",
+							"host": [
+								"project-ii-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"update-menu",
+								"17"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete-Menu",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZXMiOiJTZWxsZXIiLCJpYXQiOjE3MTkxMzkzMjcsImV4cCI6MTcxOTIyNTcyN30.du0FiBRP7EfabQo6QebAze9ObRCVf_08D1Y2sfIF804",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://project-ii-server.vercel.app/delete-menu/30",
+							"protocol": "https",
+							"host": [
+								"project-ii-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"delete-menu",
+								"30"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Get-Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://project-ii-server.vercel.app/category",
+							"protocol": "https",
+							"host": [
+								"project-ii-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get-Category:ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://project-ii-server.vercel.app/get-category/1",
+							"protocol": "https",
+							"host": [
+								"project-ii-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"get-category",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insert-Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZXMiOiJTZWxsZXIiLCJpYXQiOjE3MTkxMzkzMjcsImV4cCI6MTcxOTIyNTcyN30.du0FiBRP7EfabQo6QebAze9ObRCVf_08D1Y2sfIF804",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Idk\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://project-ii-server.vercel.app/insert-category",
+							"protocol": "https",
+							"host": [
+								"project-ii-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"insert-category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update-Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZXMiOiJTZWxsZXIiLCJpYXQiOjE3MTkxMzkzMjcsImV4cCI6MTcxOTIyNTcyN30.du0FiBRP7EfabQo6QebAze9ObRCVf_08D1Y2sfIF804",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Idk1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://project-ii-server.vercel.app/update-category/8",
+							"protocol": "https",
+							"host": [
+								"project-ii-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"update-category",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete-Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZXMiOiJTZWxsZXIiLCJpYXQiOjE3MTkxMzkzMjcsImV4cCI6MTcxOTIyNTcyN30.du0FiBRP7EfabQo6QebAze9ObRCVf_08D1Y2sfIF804",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://project-ii-server.vercel.app/delete-category/8",
+							"protocol": "https",
+							"host": [
+								"project-ii-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"delete-category",
+								"8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Get-Product",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get-Product:ID",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get-Seller:ID (User)",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Delete-Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://project-ii-server.vercel.app/delete-product/1",
+							"protocol": "https",
+							"host": [
+								"project-ii-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"delete-product",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get-Users",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get-User:ID",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Update-Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZXMiOiJTZWxsZXIiLCJpYXQiOjE3MTkxMzkzMjcsImV4cCI6MTcxOTIyNTcyN30.du0FiBRP7EfabQo6QebAze9ObRCVf_08D1Y2sfIF804",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test2@gmail.com\",\r\n    \"name\": \"test1\",\r\n    \"phone_number\": \"082133466199\",\r\n    \"password\": \"$2b$10$ggm824EVH18UTKXQiMBjM.yyW34tMi..fuUx0IBVzObsJo/uoPr02\",\r\n    \"image\": \"2.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://project-ii-server.vercel.app/update-profile/45",
+							"protocol": "https",
+							"host": [
+								"project-ii-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"update-profile",
+								"45"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Shipping Method",
+			"item": [
+				{
+					"name": "Get-Shipping",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment Method",
+			"item": [
+				{
+					"name": "Get-Payment",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Addresses",
+			"item": [
+				{
+					"name": "Provincies",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Regencies",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Districts",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Villages",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get-Address:ID (User)",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Insert-Address",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZXMiOiJTZWxsZXIiLCJpYXQiOjE3MTkxMzkzMjcsImV4cCI6MTcxOTIyNTcyN30.du0FiBRP7EfabQo6QebAze9ObRCVf_08D1Y2sfIF804",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ", , districts, villages, address, userId\r\n{\r\n    \"provincies\": 2,\r\n    \"regencies\": \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://project-ii-server.vercel.app/insert-address",
+							"protocol": "https",
+							"host": [
+								"project-ii-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"insert-address"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Main-Address:ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZXMiOiJTZWxsZXIiLCJpYXQiOjE3MTkxMzkzMjcsImV4cCI6MTcxOTIyNTcyN30.du0FiBRP7EfabQo6QebAze9ObRCVf_08D1Y2sfIF804",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": true,\r\n    \"userId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://project-ii-server.vercel.app/main-address/13",
+							"protocol": "https",
+							"host": [
+								"project-ii-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"main-address",
+								"13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete-Address",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZXMiOiJTZWxsZXIiLCJpYXQiOjE3MTkxMzkzMjcsImV4cCI6MTcxOTIyNTcyN30.du0FiBRP7EfabQo6QebAze9ObRCVf_08D1Y2sfIF804",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://project-ii-server.vercel.app/delete-address/13",
+							"protocol": "https",
+							"host": [
+								"project-ii-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"delete-address",
+								"13"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
