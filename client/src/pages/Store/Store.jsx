@@ -21,6 +21,9 @@ export default function Store() {
   const { toastMessage, message } = allMessage();
   const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
 
+  const getToken = localStorage.getItem("token");
+  const token = JSON.parse(getToken);
+
   const handleProduct = async (productId) => {
     await axios
       .get(`https://project-ii-server.vercel.app/get-product/${productId}`)

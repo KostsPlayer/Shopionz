@@ -10,6 +10,9 @@ export default function UpdateProduct({ onOpen, onClose, productId }) {
   const { toastMessage, message } = allMessage();
   const [getCategory, setGetCategory] = useState([]);
   const [getProduct, setGetProduct] = useState({});
+  
+  const getToken = localStorage.getItem("token");
+  const token = JSON.parse(getToken);
 
   const handleChange = (e) => {
     if (e.target.type === "file") {

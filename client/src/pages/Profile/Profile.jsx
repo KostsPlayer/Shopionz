@@ -118,7 +118,15 @@ export default function Profile() {
 
   const handleDeleteAddress = (id) => {
     axios
-      .put(`https://project-ii-server.vercel.app/delete-address/${id}`)
+      .delete(
+        `https://project-ii-server.vercel.app/delete-address/${id}`,
+        values,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         toastMessage("success", res.data.message);
       })
@@ -129,10 +137,19 @@ export default function Profile() {
 
   const handleMainAddress = (id) => {
     axios
-      .put(`https://project-ii-server.vercel.app/main-address/${id}`, {
-        status: true,
-        userId: getLocalStorage.dataUser.id,
-      })
+      .put(
+        `https://project-ii-server.vercel.app/main-address/${id}`,
+        {
+          status: true,
+          userId: getLocalStorage.dataUser.id,
+        },
+        values,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         toastMessage("success", res.data.message);
       })

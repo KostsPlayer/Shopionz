@@ -27,6 +27,9 @@ export default function Address() {
     userId: userId,
   });
 
+  const getToken = localStorage.getItem("token");
+  const token = JSON.parse(getToken);
+
   const redirect = useNavigate();
 
   useEffect(() => {
@@ -144,7 +147,16 @@ export default function Address() {
 
   const handleSubmit = () => {
     axios
-      .post("https://project-ii-server.vercel.app/insert-address", values)
+      .post(
+        "https://project-ii-server.vercel.app/insert-address",
+        values,
+        values,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         console.log(res.data);
 

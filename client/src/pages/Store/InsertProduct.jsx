@@ -9,6 +9,8 @@ export default function InsertProduct({ onOpen, onClose }) {
   const { toastMessage, message } = allMessage();
 
   const [getCategory, setGetCategory] = useState([]);
+  const getToken = localStorage.getItem("token");
+  const token = JSON.parse(getToken);
 
   useEffect(() => {
     axios

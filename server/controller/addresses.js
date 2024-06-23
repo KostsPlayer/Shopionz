@@ -109,7 +109,7 @@ router.get("/address/:id", verifyToken, async (req, res) => {
   }
 });
 
-router.put("/delete-address/:id", verifyToken, async (req, res) => {
+router.delete("/delete-address/:id", verifyToken, async (req, res) => {
   const addressId = req.params.id;
 
   try {
