@@ -35,9 +35,14 @@ export default function Store() {
 
   const handleDelete = async (id) => {
     await axios
-      .put(
+      .delete(
         `https://project-ii-server.vercel.app/delete-product/${id}`,
-        getImage
+        getImage,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       )
       .then((res) => {
         toastMessage("success", res.data.message);

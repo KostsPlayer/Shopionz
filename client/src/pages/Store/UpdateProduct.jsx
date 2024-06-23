@@ -35,7 +35,12 @@ export default function UpdateProduct({ onOpen, onClose, productId }) {
     axios
       .put(
         `https://project-ii-server.vercel.app/update-product/${productId}`,
-        formData
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       )
       .then((res) => {
         toastMessage("success", res.data.message);

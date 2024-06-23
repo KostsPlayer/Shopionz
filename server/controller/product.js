@@ -64,7 +64,7 @@ router.get("/get-product/:id", async (req, res) => {
   }
 });
 
-router.put("/delete-product/:id", verifyToken, async (req, res) => {
+router.delete("/delete-product/:id", verifyToken, async (req, res) => {
   try {
     const productId = req.params.id;
     const image = req.body;

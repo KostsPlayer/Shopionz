@@ -62,7 +62,12 @@ export default function InsertProduct({ onOpen, onClose }) {
     axios
       .post(
         `https://project-ii-server.vercel.app/insert-product/${getLocalStorage.dataUser.id}`,
-        formData
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       )
       .then((res) => {
         console.log(res.data);

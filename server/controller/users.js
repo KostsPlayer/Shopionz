@@ -8,6 +8,20 @@ const app = express();
 configureMiddleware(app);
 const router = express.Router();
 
+router.get("/profiles", verifyToken, async (req, res) => {
+  try {
+    const { data, error } = await supabase.from("users").select("*");
+
+    if (error) {
+      return res.json(error);
+    }
+
+    return res.json(data);
+  } catch (error) {
+    return res.json(error);
+  }
+});
+
 router.get("/profile/:id", verifyToken, async (req, res) => {
   try {
     const userId = req.params.id;

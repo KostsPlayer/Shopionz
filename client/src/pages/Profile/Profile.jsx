@@ -13,6 +13,9 @@ export default function Profile() {
   const [dataAddress, setDataAddress] = useState([]);
   const [values, setValues] = useState({});
 
+  const getToken = localStorage.getItem("token");
+  const token = JSON.parse(getToken);
+
   const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
   const getImageUrl = JSON.parse(localStorage.getItem("imageUrl"));
   const { message, toastMessage } = allMessage();
@@ -45,7 +48,12 @@ export default function Profile() {
     const fecthDataProfile = () => {
       axios
         .get(
-          `https://project-ii-server.vercel.app/profile/${getLocalStorage.dataUser.id}`
+          `https://project-ii-server.vercel.app/profile/${getLocalStorage.dataUser.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         )
         .then((res) => {
           setValues(res.data[0]);
@@ -81,7 +89,12 @@ export default function Profile() {
     axios
       .put(
         `https://project-ii-server.vercel.app/update-profile/${getLocalStorage.dataUser.id}`,
-        formData
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       )
       .then((res) => {
         localStorage.removeItem("dataUser");
