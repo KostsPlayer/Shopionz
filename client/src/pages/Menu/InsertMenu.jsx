@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { validationMenu, allMessage } from "../../component/Helper/LogicServer";
 import { ToastContainer } from "react-toastify";
-import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 export default function InsertMenu({ onOpen, onClose, title }) {
   axios.defaults.withCredentials = true;
   if (!onOpen) return null;
+
+  const navigate = useNavigate();
+
   const { toastMessage, message } = allMessage();
   const [isActice, setIsActive] = useState(false);
   const [values, setValues] = useState({
@@ -19,45 +22,70 @@ export default function InsertMenu({ onOpen, onClose, title }) {
   const getToken = localStorage.getItem("token");
   const token = JSON.parse(getToken);
 
-  const handleChange = (e) => {
-    setIsActive(!isActice);
-
-    const newValue =
-      e.target.type === "checkbox" ? e.target.checked : e.target.value;
-    setValues({ ...values, [e.target.name]: newValue });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    validationMenu
-      .validate(values, { abortEarly: false })
-      .then(() => {
-        axios
-          .post("https://project-ii-server.vercel.app/insert-menu", values, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          .then((res) => {
-            toastMessage("success", res.data.message);
-          })
-          .catch((err) => {
-            console.log(err);
-            toastMessage("error", err.message);
-          });
+  const refreshData = useCallback(() => {
+    axios
+      .get("https://project-ii-server.vercel.app/menu", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .catch((errors) => {
-        const errorMessages = errors.inner.map((error) => (
-          <li key={error.path}>{error.message}</li>
-        ));
-        toastMessage(
-          "error",
-          <ul className="error-message">{errorMessages}</ul>,
-          "top-center"
-        );
+      .then((res) => res.data)
+      .catch((err) => {
+        console.error(err);
       });
-  };
+  }, [token]);
+
+  const handleChange = useCallback(
+    (e) => {
+      const newValue =
+        e.target.type === "checkbox" ? e.target.checked : e.target.value;
+      setValues((prevValues) => ({ ...prevValues, [e.target.name]: newValue }));
+    },
+    []
+  );
+
+  const handleActiveChange = useCallback(() => {
+    setIsActive((prevIsActive) => !prevIsActive);
+  }, []);
+
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+
+      validationMenu
+        .validate(values, { abortEarly: false })
+        .then(() => {
+          axios
+            .post("https://project-ii-server.vercel.app/insert-menu", values, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .then((res) => {
+              navigate("/menu-manajement", {
+                state: { messageInsertMenu: res.data.message },
+              });
+              refreshData();
+              onClose(); // Tutup modal setelah berhasil menambahkan menu
+            })
+            .catch((err) => {
+              console.log(err);
+              toastMessage("error", err.message);
+            });
+        })
+        .catch((errors) => {
+          const errorMessages = errors.inner.map((error) => (
+            <li key={error.path}>{error.message}</li>
+          ));
+          toastMessage(
+            "error",
+            <ul className="error-message">{errorMessages}</ul>,
+            "top-center"
+          );
+        });
+    },
+    [values, refreshData, token, validationMenu, onClose, toastMessage]
+  );
 
   return (
     <>
@@ -117,7 +145,10 @@ export default function InsertMenu({ onOpen, onClose, title }) {
                 Active?
               </label>
               <input
-                onChange={handleChange}
+                onChange={(e) => {
+                  handleChange(e);
+                  handleActiveChange();
+                }}
                 checked={values.is_active}
                 type="checkbox"
                 id="is_active"

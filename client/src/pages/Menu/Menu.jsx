@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import InsertMenu from "./InsertMenu";
 import UpdateMenu from "./UpdateMenu";
 import Layout from "../Layout/Layout";
 import axios from "axios";
 import { allMessage } from "../../component/Helper/LogicServer";
 import { ToastContainer } from "react-toastify";
-import { jwtDecode } from "jwt-decode";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Menu() {
   axios.defaults.withCredentials = true;
@@ -16,41 +16,13 @@ export default function Menu() {
   let no = 1;
 
   const { toastMessage, message } = allMessage();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const getToken = localStorage.getItem("token");
   const token = JSON.parse(getToken);
 
-  const handleMenu = (menuId) => {
-    axios
-      .get(`https://project-ii-server.vercel.app/get-menu/${menuId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setGetId(res.data[0].id);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-
-  const handleDelete = (id) => {
-    axios
-      .delete(`https://project-ii-server.vercel.app/delete-menu/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        toastMessage("success", res.data.message);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-
-  useEffect(() => {
+  const refreshData = useCallback(() => {
     axios
       .get("https://project-ii-server.vercel.app/menu", {
         headers: {
@@ -64,6 +36,65 @@ export default function Menu() {
         console.error(err);
       });
   }, [token]);
+
+  useEffect(() => {
+    refreshData();
+  }, [refreshData]);
+
+  const handleMenu = useCallback(
+    (menuId) => {
+      axios
+        .get(`https://project-ii-server.vercel.app/get-menu/${menuId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setGetId(res.data[0].id);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
+    [token, setGetId]
+  );
+
+  const handleDelete = useCallback(
+    (id) => {
+      axios
+        .delete(`https://project-ii-server.vercel.app/delete-menu/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          toastMessage("success", res.data.message);
+          refreshData();
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
+    [token, refreshData, toastMessage]
+  );
+
+  useEffect(() => {
+    if (location.state?.messageInsertMenu) {
+      toastMessage("success", location.state.messageInsertMenu);
+      navigate(location.pathname, {
+        state: { ...location.state, messageInsertMenu: undefined },
+        replace: true,
+      });
+    }
+
+    if (location.state?.messageUpdateMenu) {
+      toastMessage("success", location.state.messageUpdateMenu);
+      navigate(location.pathname, {
+        state: { ...location.state, messageUpdateMenu: undefined },
+        replace: true,
+      });
+    }
+  }, [location.state, location.pathname, navigate, toastMessage]);
 
   return (
     <>
@@ -81,6 +112,7 @@ export default function Menu() {
           onOpen={openInsertModal}
           onClose={() => {
             setOpenInsertModal(false);
+            refreshData();
           }}
           title={"Insert Menu"}
         />
@@ -89,6 +121,7 @@ export default function Menu() {
           onOpen={openUpdateModal}
           onClose={() => {
             setOpenUpdateModal(false);
+            refreshData();
           }}
           menuId={getId}
           title={"Update Menu"}

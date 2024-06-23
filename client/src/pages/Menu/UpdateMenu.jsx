@@ -1,18 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { allMessage, validationMenu } from "../../component/Helper/LogicServer";
 import { ToastContainer } from "react-toastify";
-import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 export default function UpdateMenu({ onOpen, onClose, menuId, title }) {
   axios.defaults.withCredentials = true;
   if (!onOpen) return null;
   const { toastMessage, message } = allMessage();
-  const [isActice, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const [getMenu, setGetMenu] = useState({});
+
+  const navigate = useNavigate();
 
   const getToken = localStorage.getItem("token");
   const token = JSON.parse(getToken);
+
+  const refreshData = useCallback(() => {
+    axios
+      .get("https://project-ii-server.vercel.app/menu", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => res.data)
+      .catch((err) => {
+        console.error(err);
+      });
+  }, [token]);
 
   useEffect(() => {
     axios
@@ -27,49 +42,70 @@ export default function UpdateMenu({ onOpen, onClose, menuId, title }) {
       .catch((err) => {
         console.error(err);
       });
-  }, [menuId]);
+  }, [menuId, token]);
 
-  const handleChange = (e) => {
-    setIsActive(!isActice);
-    const newValue =
-      e.target.type === "checkbox" ? e.target.checked : e.target.value;
-    setGetMenu({ ...getMenu, [e.target.name]: newValue });
-  };
+  const handleChange = useCallback(
+    (e) => {
+      const newValue =
+        e.target.type === "checkbox" ? e.target.checked : e.target.value;
+      setGetMenu((prevMenu) => ({ ...prevMenu, [e.target.name]: newValue }));
+    },
+    []
+  );
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleActiveChange = useCallback(() => {
+    setIsActive((prevIsActive) => !prevIsActive);
+  }, []);
 
-    validationMenu
-      .validate(getMenu, { abortEarly: false })
-      .then(() => {
-        axios
-          .put(
-            `https://project-ii-server.vercel.app/update-menu/${menuId}`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            },
-            getMenu
-          )
-          .then((res) => {
-            toastMessage("success", res.data.message);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      })
-      .catch((errors) => {
-        const errorMessages = errors.inner.map((error) => (
-          <li key={error.path}>{error.message}</li>
-        ));
-        toastMessage(
-          "error",
-          <ul className="error-message">{errorMessages}</ul>,
-          "top-center"
-        );
-      });
-  };
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+
+      validationMenu
+        .validate(getMenu, { abortEarly: false })
+        .then(() => {
+          axios
+            .put(
+              `https://project-ii-server.vercel.app/update-menu/${menuId}`,
+              getMenu,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            )
+            .then((res) => {
+              navigate("/menu-manajement", {
+                state: { messageUpdateMenu: res.data.message },
+              });
+              refreshData();
+              onClose();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((errors) => {
+          const errorMessages = errors.inner.map((error) => (
+            <li key={error.path}>{error.message}</li>
+          ));
+          toastMessage(
+            "error",
+            <ul className="error-message">{errorMessages}</ul>,
+            "top-center"
+          );
+        });
+    },
+    [
+      getMenu,
+      refreshData,
+      token,
+      validationMenu,
+      onClose,
+      navigate,
+      toastMessage,
+    ]
+  );
 
   return (
     <>
@@ -129,12 +165,15 @@ export default function UpdateMenu({ onOpen, onClose, menuId, title }) {
                 Active?
               </label>
               <input
-                onChange={handleChange}
+                onChange={(e) => {
+                  handleActiveChange();
+                  handleChange(e);
+                }}
                 type="checkbox"
                 id="is_active"
                 name="is_active"
                 className="form-checked"
-                checked={getMenu?.is_active || ""}
+                checked={getMenu?.is_active || false}
               />
             </div>
             <button type="submit" className="form-submit">
