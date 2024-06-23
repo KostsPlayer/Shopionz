@@ -82,7 +82,7 @@ router.post("/insert-address", verifyToken, async (req, res) => {
       return res.json(error);
     }
 
-    return res.json(data);
+    return res.json({ data, message: "Insert address successfully" });
   } catch (error) {
     return res.json(error);
   }
@@ -122,7 +122,7 @@ router.delete("/delete-address/:id", verifyToken, async (req, res) => {
       return res.json(error);
     }
 
-    return res.json(data);
+    return res.json({ data, message: "Delete address successfully" });
   } catch (error) {
     return res.json(error);
   }
