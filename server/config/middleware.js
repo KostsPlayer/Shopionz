@@ -9,8 +9,8 @@ const configureMiddleware = (app) => {
       origin: [
         "https://shopionz.vercel.app",
         "http://localhost:5173",
-        "http://localhost:5500",
-        "https://kostsplayer.github.io/restful-swagger-client/",
+        "http://localhost:5500/#/",
+        "https://kostsplayer.github.io/swagger-ui/#/",
       ],
       methods: ["GET", "POST", "PUT", "OPTIONS", "DELETE"],
       credentials: true,
