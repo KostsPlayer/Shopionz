@@ -2,6 +2,7 @@ import express from "express";
 import configureMiddleware from "../config/middleware.js";
 import supabase from "../config/supabase.js";
 import multer from "multer";
+import { verifyToken } from "../config/verifyToken.js";
 
 const app = express();
 configureMiddleware(app);
@@ -63,7 +64,7 @@ router.get("/get-product/:id", async (req, res) => {
   }
 });
 
-router.put("/delete-product/:id", async (req, res) => {
+router.put("/delete-product/:id", verifyToken, async (req, res) => {
   try {
     const productId = req.params.id;
     const image = req.body;
@@ -98,46 +99,51 @@ router.put("/delete-product/:id", async (req, res) => {
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-router.post("/insert-product/:id", upload.single("image"), async (req, res) => {
-  try {
-    const { name, description, price, stock, category } = req.body;
-    const image = req.file;
-    const userId = req.params.id;
+router.post(
+  "/insert-product/:id",
+  verifyToken,
+  upload.single("image"),
+  async (req, res) => {
+    try {
+      const { name, description, price, stock, category } = req.body;
+      const image = req.file;
+      const userId = req.params.id;
 
-    const { data: imageData, error: imageError } = await supabase.storage
-      .from("Images")
-      .upload(`/${image.originalname}`, image.buffer);
+      const { data: imageData, error: imageError } = await supabase.storage
+        .from("Images")
+        .upload(`/${image.originalname}`, image.buffer);
 
-    if (imageError) {
-      return res.json(imageError);
+      if (imageError) {
+        return res.json(imageError);
+      }
+
+      const { data: productData, error: productError } = await supabase
+        .from("product")
+        .insert({
+          user_id: userId,
+          name: name,
+          description: description,
+          price: price,
+          stock: stock,
+          category_id: category,
+          images: imageData.path,
+        })
+        .select("*");
+
+      if (productError) {
+        return res.json(productError);
+      }
+
+      return res.json({
+        data: productData[0],
+        message: "Insert product successfully!",
+        imageData: imageData,
+      });
+    } catch (error) {
+      return res.json(error);
     }
-
-    const { data: productData, error: productError } = await supabase
-      .from("product")
-      .insert({
-        user_id: userId,
-        name: name,
-        description: description,
-        price: price,
-        stock: stock,
-        category_id: category,
-        images: imageData.path,
-      })
-      .select("*");
-
-    if (productError) {
-      return res.json(productError);
-    }
-
-    return res.json({
-      data: productData[0],
-      message: "Insert product successfully!",
-      imageData: imageData,
-    });
-  } catch (error) {
-    return res.json(error);
   }
-});
+);
 
 export default router;
 

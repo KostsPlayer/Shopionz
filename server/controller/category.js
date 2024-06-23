@@ -1,6 +1,7 @@
 import express from "express";
 import configureMiddleware from "../config/middleware.js";
 import supabase from "../config/supabase.js";
+import { verifyToken } from "../config/verifyToken.js";
 
 const app = express();
 configureMiddleware(app);
@@ -42,7 +43,7 @@ router.get("/get-category/:id", async (req, res) => {
   }
 });
 
-router.put("/update-category/:id", async (req, res) => {
+router.put("/update-category/:id", verifyToken, async (req, res) => {
   try {
     const categoryId = req.params.id;
     const { name } = req.body;
@@ -63,7 +64,7 @@ router.put("/update-category/:id", async (req, res) => {
   }
 });
 
-router.post("/insert-category", async (req, res) => {
+router.post("/insert-category", verifyToken, async (req, res) => {
   try {
     const { name } = req.body;
 
@@ -82,7 +83,7 @@ router.post("/insert-category", async (req, res) => {
   }
 });
 
-router.put("/delete-category/:id", async (req, res) => {
+router.put("/delete-category/:id", verifyToken, async (req, res) => {
   try {
     const categoryId = req.params.id;
 

@@ -1,6 +1,7 @@
 import express from "express";
 import configureMiddleware from "../config/middleware.js";
 import supabase from "../config/supabase.js";
+import { verifyToken } from "../config/verifyToken.js";
 
 const app = express();
 configureMiddleware(app);
@@ -60,7 +61,7 @@ router.get("/villages/:id", async (req, res) => {
   }
 });
 
-router.post("/insert-address", async (req, res) => {
+router.post("/insert-address", verifyToken, async (req, res) => {
   try {
     const { provincies, regencies, districts, villages, address, userId } =
       req.body;
@@ -87,7 +88,7 @@ router.post("/insert-address", async (req, res) => {
   }
 });
 
-router.get("/address/:id", async (req, res) => {
+router.get("/address/:id", verifyToken, async (req, res) => {
   const userId = req.params.id;
 
   try {
@@ -108,7 +109,7 @@ router.get("/address/:id", async (req, res) => {
   }
 });
 
-router.put("/delete-address/:id", async (req, res) => {
+router.put("/delete-address/:id", verifyToken, async (req, res) => {
   const addressId = req.params.id;
 
   try {
@@ -127,7 +128,7 @@ router.put("/delete-address/:id", async (req, res) => {
   }
 });
 
-router.put("/main-address/:id", async (req, res) => {
+router.put("/main-address/:id", verifyToken, async (req, res) => {
   try {
     const addressId = req.params.id;
     const { status, userId } = req.body;

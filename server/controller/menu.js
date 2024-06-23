@@ -7,7 +7,7 @@ const app = express();
 configureMiddleware(app);
 const router = express.Router();
 
-router.put("/update-menu/:id", async (req, res) => {
+router.put("/update-menu/:id", verifyToken, async (req, res) => {
   try {
     const menuId = req.params.id;
     const { name, icon, url, is_active } = req.body;
@@ -47,7 +47,7 @@ router.post("/insert-menu", verifyToken, async (req, res) => {
   }
 });
 
-router.get("/menu", async (req, res) => {
+router.get("/menu", verifyToken, async (req, res) => {
   try {
     const { data, error } = await supabase.from("menu").select("*").order("id");
 
@@ -61,7 +61,7 @@ router.get("/menu", async (req, res) => {
   }
 });
 
-router.get("/get-menu/:id", async (req, res) => {
+router.get("/get-menu/:id", verifyToken, async (req, res) => {
   try {
     const menuId = req.params.id;
 
@@ -80,7 +80,7 @@ router.get("/get-menu/:id", async (req, res) => {
   }
 });
 
-router.put("/delete-menu/:id", async (req, res) => {
+router.put("/delete-menu/:id", verifyToken, async (req, res) => {
   try {
     const menuId = req.params.id;
 

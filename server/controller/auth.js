@@ -3,6 +3,7 @@ import supabase from "../config/supabase.js";
 import bcrypt from "bcrypt";
 import configureMiddleware from "../config/middleware.js";
 import jwt from "jsonwebtoken";
+import { verifyToken } from "../config/verifyToken.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -82,7 +83,9 @@ router.post("/login", async (req, res) => {
 
         if (response) {
           const user = data[0];
-          const getToken = process.env.JWT_TOKEN || "gf0tzbRgE0kRy1e8Ye643dEEATVYIGFzBYx8oGGK79a6PQmcEPqSKaP06BJHMu6SwTKxE1pOTVGTvjUwKqFMc8WCmuofxX51zacleZ5utjU6TLYojmlqvQbBxDu0JtR845lmDEVlIcK6vIhmfUTlGe9ZJ0irhhEwxPlu8SWrzXk3Z1tpsadzYSlikXVQE3IHMrp0Q4ioCfuT4pouoYGIb1tgy7Dl7aoLAMPShBvyABhIB3Geedvy9dgVlHKAvk1a";
+          const getToken =
+            process.env.JWT_TOKEN ||
+            "gf0tzbRgE0kRy1e8Ye643dEEATVYIGFzBYx8oGGK79a6PQmcEPqSKaP06BJHMu6SwTKxE1pOTVGTvjUwKqFMc8WCmuofxX51zacleZ5utjU6TLYojmlqvQbBxDu0JtR845lmDEVlIcK6vIhmfUTlGe9ZJ0irhhEwxPlu8SWrzXk3Z1tpsadzYSlikXVQE3IHMrp0Q4ioCfuT4pouoYGIb1tgy7Dl7aoLAMPShBvyABhIB3Geedvy9dgVlHKAvk1a";
           const token = jwt.sign(
             { id: user.id, roles: user.roles.roles },
             getToken,

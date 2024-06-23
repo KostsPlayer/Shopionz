@@ -1,12 +1,13 @@
 import express from "express";
 import configureMiddleware from "../config/middleware.js";
 import supabase from "../config/supabase.js";
+import { verifyToken } from "../config/verifyToken.js";
 
 const app = express();
 configureMiddleware(app);
 const router = express.Router();
 
-router.get("/count-cart/:id", async (req, res) => {
+router.get("/count-cart/:id", verifyToken, async (req, res) => {
   try {
     const userId = req.params.id;
 
@@ -25,7 +26,7 @@ router.get("/count-cart/:id", async (req, res) => {
   }
 });
 
-router.get("/cart/:id", async (req, res) => {
+router.get("/cart/:id", verifyToken, async (req, res) => {
   try {
     const userId = req.params.id;
 
@@ -45,7 +46,7 @@ router.get("/cart/:id", async (req, res) => {
   }
 });
 
-router.post("/insert-cart", async (req, res) => {
+router.post("/insert-cart", verifyToken, async (req, res) => {
   try {
     const { product_id, amount, userId } = req.body;
     const active = 1;
@@ -70,7 +71,7 @@ router.post("/insert-cart", async (req, res) => {
   }
 });
 
-router.put("/update-cart-amount/:id", async (req, res) => {
+router.put("/update-cart-amount/:id", verifyToken, async (req, res) => {
   try {
     const { amount } = req.body;
     const cartId = req.params.id;
@@ -93,7 +94,7 @@ router.put("/update-cart-amount/:id", async (req, res) => {
   }
 });
 
-router.put("/update-cart-status/:id", async (req, res) => {
+router.put("/update-cart-status/:id", verifyToken, async (req, res) => {
   try {
     const { status } = req.body;
     const cartId = req.params.id;
@@ -116,7 +117,7 @@ router.put("/update-cart-status/:id", async (req, res) => {
   }
 });
 
-router.put("/delete-cart/:id", async (req, res) => {
+router.put("/delete-cart/:id", verifyToken, async (req, res) => {
   try {
     const cartId = req.params.id;
 

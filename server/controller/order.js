@@ -2,6 +2,7 @@ import express from "express";
 import configureMiddleware from "../config/middleware.js";
 import midtransClient from "midtrans-client";
 import supabase from "../config/supabase.js";
+import { verifyToken } from "../config/verifyToken.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -9,7 +10,7 @@ const app = express();
 configureMiddleware(app);
 const router = express.Router();
 
-router.get("/get-payment", async (req, res) => {
+router.get("/get-payment", verifyToken, async (req, res) => {
   try {
     const { data, error } = await supabase.from("payment_method").select("*");
 
@@ -23,7 +24,7 @@ router.get("/get-payment", async (req, res) => {
   }
 });
 
-router.get("/get-shipping", async (req, res) => {
+router.get("/get-shipping", verifyToken, async (req, res) => {
   try {
     const { data, error } = await supabase.from("shipping_method").select("*");
 
@@ -37,7 +38,7 @@ router.get("/get-shipping", async (req, res) => {
   }
 });
 
-router.post("/insert-order", async (req, res) => {
+router.post("/insert-order", verifyToken, async (req, res) => {
   try {
     const {
       shippingMethod,
@@ -135,7 +136,7 @@ router.post("/insert-order", async (req, res) => {
   }
 });
 
-router.get("/history/:id", async (req, res) => {
+router.get("/history/:id", verifyToken, async (req, res) => {
   try {
     const userId = req.params.id;
 
@@ -155,7 +156,7 @@ router.get("/history/:id", async (req, res) => {
   }
 });
 
-router.get("/sales/:id", async (req, res) => {
+router.get("/sales/:id", verifyToken, async (req, res) => {
   try {
     const userId = req.params.id;
 
