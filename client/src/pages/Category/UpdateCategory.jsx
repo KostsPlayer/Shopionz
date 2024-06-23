@@ -39,12 +39,12 @@ export default function UpdateCategory({ onOpen, onClose, categoryId, title }) {
         axios
           .put(
             `https://project-ii-server.vercel.app/update-category/${categoryId}`,
+            getCategory,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
-            },
-            getCategory
+            }
           )
           .then((res) => {
             toastMessage("success", res.data.message);

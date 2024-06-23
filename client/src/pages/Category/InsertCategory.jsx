@@ -30,12 +30,12 @@ export default function InsertCategory({ onOpen, onClose, title }) {
         axios
           .post(
             "https://project-ii-server.vercel.app/insert-category",
+            values,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
-            },
-            values
+            }
           )
           .then((res) => {
             toastMessage("success", res.data.message);
