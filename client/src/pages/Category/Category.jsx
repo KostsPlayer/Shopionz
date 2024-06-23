@@ -18,9 +18,16 @@ export default function Category() {
 
   const { toastMessage, message } = allMessage();
 
+  const getToken = localStorage.getItem("token");
+  const token = JSON.parse(getToken);
+
   const handleCategory = (categoryId) => {
     axios
-      .get(`https://project-ii-server.vercel.app/get-category/${categoryId}`)
+      .get(`https://project-ii-server.vercel.app/get-category/${categoryId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         setGetId(res.data[0].id);
       })
@@ -31,7 +38,11 @@ export default function Category() {
 
   const handleDelete = (id) => {
     axios
-      .put(`https://project-ii-server.vercel.app/delete-category/${id}`)
+      .delete(`https://project-ii-server.vercel.app/delete-category/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         toastMessage("success", res.data.message);
       })

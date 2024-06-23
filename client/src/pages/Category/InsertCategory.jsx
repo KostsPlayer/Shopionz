@@ -14,6 +14,9 @@ export default function InsertCategory({ onOpen, onClose, title }) {
     name: "",
   });
 
+  const getToken = localStorage.getItem("token");
+  const token = JSON.parse(getToken);
+
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
@@ -25,7 +28,15 @@ export default function InsertCategory({ onOpen, onClose, title }) {
       .validate(values, { abortEarly: false })
       .then(() => {
         axios
-          .post("https://project-ii-server.vercel.app/insert-category", values)
+          .post(
+            "https://project-ii-server.vercel.app/insert-category",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            },
+            values
+          )
           .then((res) => {
             toastMessage("success", res.data.message);
             console.log(res.data);

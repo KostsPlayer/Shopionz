@@ -12,6 +12,9 @@ export default function UpdateCategory({ onOpen, onClose, categoryId, title }) {
   const { toastMessage, message } = allMessage();
   const [getCategory, setGetCategory] = useState({});
 
+  const getToken = localStorage.getItem("token");
+  const token = JSON.parse(getToken);
+
   useEffect(() => {
     axios
       .get(`https://project-ii-server.vercel.app/get-category/${categoryId}`)
@@ -36,6 +39,11 @@ export default function UpdateCategory({ onOpen, onClose, categoryId, title }) {
         axios
           .put(
             `https://project-ii-server.vercel.app/update-category/${categoryId}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            },
             getCategory
           )
           .then((res) => {

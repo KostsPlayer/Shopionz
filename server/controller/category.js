@@ -43,6 +43,25 @@ router.get("/get-category/:id", async (req, res) => {
   }
 });
 
+router.post("/insert-category", verifyToken, async (req, res) => {
+  try {
+    const { name } = req.body;
+
+    const { data, error } = await supabase
+      .from("category")
+      .insert({ name: name })
+      .select("*");
+
+    if (error) {
+      return res.json(error.message);
+    }
+
+    return res.json({ data, message: "Insert category successfully!" });
+  } catch (error) {
+    return res.json(error);
+  }
+});
+
 router.put("/update-category/:id", verifyToken, async (req, res) => {
   try {
     const categoryId = req.params.id;
@@ -64,26 +83,7 @@ router.put("/update-category/:id", verifyToken, async (req, res) => {
   }
 });
 
-router.post("/insert-category", verifyToken, async (req, res) => {
-  try {
-    const { name } = req.body;
-
-    const { data, error } = await supabase
-      .from("category")
-      .insert({ name: name })
-      .select("*");
-
-    if (error) {
-      return res.json(error.message);
-    }
-
-    return res.json({ data, message: "Insert category successfully!" });
-  } catch (error) {
-    return res.json(error);
-  }
-});
-
-router.put("/delete-category/:id", verifyToken, async (req, res) => {
+router.delete("/delete-category/:id", verifyToken, async (req, res) => {
   try {
     const categoryId = req.params.id;
 
