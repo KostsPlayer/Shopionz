@@ -1,0 +1,456 @@
+openapi: 3.0.0
+info:
+  title: Shopionz
+  version: 1.0.0
+servers:
+  - url: https://project-ii-server.vercel.app
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    noauthAuth:
+      type: http
+      scheme: noauth
+tags:
+  - name: Auth
+  - name: Menu
+  - name: Categories
+  - name: Product
+  - name: Users
+  - name: Shipping Method
+  - name: Payment Method
+  - name: Addresses
+paths:
+  /login:
+    post:
+      tags:
+        - Auth
+      summary: Login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                usernameEmail: KostsPlayer
+                password: 1qazxsw2
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /assign-role:
+    post:
+      tags:
+        - Auth
+      summary: Assign-Role
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                userId: 45
+                role: Seller
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /registration:
+    post:
+      tags:
+        - Auth
+      summary: Registration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                username: test1
+                email: test2@gmail.com
+                password: 1qazxsw2
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /menu:
+    get:
+      tags:
+        - Menu
+      summary: Get-Menu
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /get-menu/17:
+    get:
+      tags:
+        - Menu
+      summary: Get-Menu:ID
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /insert-menu:
+    post:
+      tags:
+        - Menu
+      summary: Create-Menu
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: test
+                icon: test
+                url: test
+                is_active: 1
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /update-menu/17:
+    put:
+      tags:
+        - Menu
+      summary: Update-Menu
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: test1
+                icon: test2
+                url: test3
+                is_active: 0
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /delete-menu/30:
+    delete:
+      tags:
+        - Menu
+      summary: Delete-Menu
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /category:
+    get:
+      tags:
+        - Categories
+      summary: Get-Categories
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /get-category/1:
+    get:
+      tags:
+        - Categories
+      summary: Get-Category:ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /insert-category:
+    post:
+      tags:
+        - Categories
+      summary: Insert-Category
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Idk
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /update-category/8:
+    put:
+      tags:
+        - Categories
+      summary: Update-Category
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Idk1234
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /delete-category/8:
+    delete:
+      tags:
+        - Categories
+      summary: Delete-Category
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /product:
+    get:
+      tags:
+        - Product
+      summary: Get-Product
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /get-product/1:
+    get:
+      tags:
+        - Product
+      summary: Get-Product:ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /product-seller/2:
+    get:
+      tags:
+        - Product
+      summary: Get-Seller:ID (User)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /delete-product/12:
+    delete:
+      tags:
+        - Product
+      summary: Delete-Product
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /profiles:
+    get:
+      tags:
+        - Users
+      summary: Get-Users
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /profile/2:
+    get:
+      tags:
+        - Users
+      summary: Get-User:ID
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /update-profile/45:
+    put:
+      tags:
+        - Users
+      summary: Update-Profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: test2@gmail.com
+                name: test1
+                phone_number: '082133466199'
+                password: $2b$10$ggm824EVH18UTKXQiMBjM.yyW34tMi..fuUx0IBVzObsJo/uoPr02
+                image: 2.jpg
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /get-shipping:
+    get:
+      tags:
+        - Shipping Method
+      summary: Get-Shipping
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /get-payment:
+    get:
+      tags:
+        - Payment Method
+      summary: Get-Payment
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /provincies:
+    get:
+      tags:
+        - Addresses
+      summary: Provincies
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /regencies/35:
+    get:
+      tags:
+        - Addresses
+      summary: Regencies
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /districts/3508:
+    get:
+      tags:
+        - Addresses
+      summary: Districts
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /villages/3508130:
+    get:
+      tags:
+        - Addresses
+      summary: Villages
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /address/2:
+    get:
+      tags:
+        - Addresses
+      summary: Get-Address:ID (User)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /insert-address:
+    post:
+      tags:
+        - Addresses
+      summary: Insert-Address
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                provincies: 35
+                regencies: 3508
+                districts: 3508130
+                villages: 3508130003
+                address: Jalan Sarimanah 2
+                userId: 2
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /main-address/13:
+    put:
+      tags:
+        - Addresses
+      summary: Main-Address:ID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                status: true
+                userId: 2
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /delete-address/14:
+    delete:
+      tags:
+        - Addresses
+      summary: Delete-Address
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}

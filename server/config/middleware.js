@@ -6,7 +6,12 @@ const configureMiddleware = (app) => {
   app.use(express.json());
   app.use(
     cors({
-      origin: ["https://shopionz.vercel.app", "http://localhost:5173"],
+      origin: [
+        "https://shopionz.vercel.app",
+        "http://localhost:5173",
+        "http://localhost:5500",
+        "https://kostsplayer.github.io/restful-swagger-client/",
+      ],
       methods: ["GET", "POST", "PUT", "OPTIONS", "DELETE"],
       credentials: true,
       optionsSuccessStatus: 200,
