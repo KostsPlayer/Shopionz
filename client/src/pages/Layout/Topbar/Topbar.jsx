@@ -5,11 +5,11 @@ export default function Topbar() {
   axios.defaults.withCredentials = true;
   const [dataUser, setDataUser] = useState("");
 
-  const getImageUrl = JSON.parse(localStorage.getItem("imageUrl"));
-
   useEffect(() => {
+    const getImageUrl = JSON.parse(localStorage.getItem("imageUrl"));
+
     setDataUser(getImageUrl.imageUrl.publicUrl);
-  }, [getImageUrl]);
+  }, []);
 
   return (
     <>

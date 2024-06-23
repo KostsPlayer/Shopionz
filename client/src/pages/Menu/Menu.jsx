@@ -5,6 +5,7 @@ import Layout from "../Layout/Layout";
 import axios from "axios";
 import { allMessage } from "../../component/Helper/LogicServer";
 import { ToastContainer } from "react-toastify";
+import { jwtDecode } from "jwt-decode";
 
 export default function Menu() {
   axios.defaults.withCredentials = true;
@@ -16,9 +17,16 @@ export default function Menu() {
 
   const { toastMessage, message } = allMessage();
 
+  const getToken = localStorage.getItem("token");
+  const token = JSON.parse(getToken);
+
   const handleMenu = (menuId) => {
     axios
-      .get(`https://project-ii-server.vercel.app/get-menu/${menuId}`)
+      .get(`https://project-ii-server.vercel.app/get-menu/${menuId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         setGetId(res.data[0].id);
       })
@@ -29,7 +37,11 @@ export default function Menu() {
 
   const handleDelete = (id) => {
     axios
-      .put(`https://project-ii-server.vercel.app/delete-menu/${id}`)
+      .delete(`https://project-ii-server.vercel.app/delete-menu/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         toastMessage("success", res.data.message);
       })
@@ -40,14 +52,18 @@ export default function Menu() {
 
   useEffect(() => {
     axios
-      .get("https://project-ii-server.vercel.app/menu")
+      .get("https://project-ii-server.vercel.app/menu", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         setDataMenu(res.data);
       })
       .catch((err) => {
         console.error(err);
       });
-  }, [getId, dataMenu]);
+  }, [token]);
 
   return (
     <>

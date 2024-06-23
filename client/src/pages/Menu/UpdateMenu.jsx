@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {
-  allMessage,
-  validationMenu,
-} from "../../component/Helper/LogicServer";
+import { allMessage, validationMenu } from "../../component/Helper/LogicServer";
 import { ToastContainer } from "react-toastify";
+import { jwtDecode } from "jwt-decode";
 
 export default function UpdateMenu({ onOpen, onClose, menuId, title }) {
   axios.defaults.withCredentials = true;
@@ -13,9 +11,16 @@ export default function UpdateMenu({ onOpen, onClose, menuId, title }) {
   const [isActice, setIsActive] = useState(false);
   const [getMenu, setGetMenu] = useState({});
 
+  const getToken = localStorage.getItem("token");
+  const token = JSON.parse(getToken);
+
   useEffect(() => {
     axios
-      .get(`https://project-ii-server.vercel.app/get-menu/${menuId}`)
+      .get(`https://project-ii-server.vercel.app/get-menu/${menuId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         setGetMenu(res.data[0]);
       })
@@ -40,6 +45,11 @@ export default function UpdateMenu({ onOpen, onClose, menuId, title }) {
         axios
           .put(
             `https://project-ii-server.vercel.app/update-menu/${menuId}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            },
             getMenu
           )
           .then((res) => {

@@ -17,7 +17,7 @@ export default function InsertMenu({ onOpen, onClose, title }) {
   });
 
   const getToken = localStorage.getItem("token");
-  const decodedToken = JSON.parse(getToken);
+  const token = JSON.parse(getToken);
 
   const handleChange = (e) => {
     setIsActive(!isActice);
@@ -26,11 +26,6 @@ export default function InsertMenu({ onOpen, onClose, title }) {
       e.target.type === "checkbox" ? e.target.checked : e.target.value;
     setValues({ ...values, [e.target.name]: newValue });
   };
-
-  useEffect(() => {
-    console.log(getToken);
-    console.log(decodedToken);
-  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,13 +36,11 @@ export default function InsertMenu({ onOpen, onClose, title }) {
         axios
           .post("https://project-ii-server.vercel.app/insert-menu", values, {
             headers: {
-              Authorization: `Bearer ${decodedToken}`,
+              Authorization: `Bearer ${token}`,
             },
           })
           .then((res) => {
             toastMessage("success", res.data.message);
-            console.log(res.data);
-            console.log(values);
           })
           .catch((err) => {
             console.log(err);

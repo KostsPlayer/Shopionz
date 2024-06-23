@@ -80,7 +80,7 @@ router.get("/get-menu/:id", verifyToken, async (req, res) => {
   }
 });
 
-router.put("/delete-menu/:id", verifyToken, async (req, res) => {
+router.delete("/delete-menu/:id", verifyToken, async (req, res) => {
   try {
     const menuId = req.params.id;
 

@@ -9,36 +9,39 @@ export default function Sidebar() {
   const [dataMenu, setDataMenu] = useState([]);
   const redirect = useNavigate();
 
+  const getToken = localStorage.getItem("token");
+  const token = JSON.parse(getToken);
+
   const handleItemClick = (index) => {
     setActive(index);
     console.log("Clicked index:", index);
   };
 
-  const fetchDataMenu = () => {
+  useEffect(() => {
     axios
-      .get("https://project-ii-server.vercel.app/menu")
+      .get("https://project-ii-server.vercel.app/menu", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         setDataMenu(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  };
+  }, [token]);
 
   useEffect(() => {
-    fetchDataMenu();
-  }, [dataMenu]);
-
   const getLocalStorage = JSON.parse(localStorage.getItem("dataUser"));
   const getImageUrl = JSON.parse(localStorage.getItem("imageUrl"));
 
-  useEffect(() => {
     setDataUser({
       name: getLocalStorage.dataUser.name,
       email: getLocalStorage.dataUser.email,
       images: getImageUrl.imageUrl.publicUrl,
     });
-  }, [getLocalStorage, getImageUrl]);
+  }, []);
 
   const logout = () => {
     localStorage.setItem("logoutMessage", "Logged out successfully!");
