@@ -150,7 +150,6 @@ export default function Address() {
       .post(
         "https://project-ii-server.vercel.app/insert-address",
         values,
-        values,
         {
           headers: {
             Authorization: `Bearer ${token}`,
