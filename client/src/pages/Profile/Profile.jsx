@@ -36,7 +36,7 @@ export default function Profile() {
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     const getDate = moment(getLocalStorage.dataUser.date_available);
@@ -47,7 +47,7 @@ export default function Profile() {
       date: customDate,
       image: getImageUrl.imageUrl.publicUrl,
     });
-  }, [getLocalStorage, getImageUrl]);
+  }, []);
 
   useEffect(() => {
     const fecthDataProfile = () => {
@@ -69,7 +69,7 @@ export default function Profile() {
     };
 
     fecthDataProfile();
-  }, [dataAddress]);
+  }, [token]);
 
   const handleChange = (e) => {
     if (e.target.type === "file") {
