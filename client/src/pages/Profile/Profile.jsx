@@ -125,7 +125,6 @@ export default function Profile() {
     axios
       .delete(
         `https://project-ii-server.vercel.app/delete-address/${id}`,
-        values,
         {
           headers: {
             Authorization: `Bearer ${token}`,
