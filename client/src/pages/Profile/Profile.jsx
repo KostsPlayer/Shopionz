@@ -11,7 +11,11 @@ export default function Profile() {
   axios.defaults.withCredentials = true;
   const [dataUser, setDataUser] = useState([]);
   const [dataAddress, setDataAddress] = useState([]);
-  const [values, setValues] = useState({});
+  const [{
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }, setValues] = useState({});
 
   const getToken = localStorage.getItem("token");
   const token = JSON.parse(getToken);
@@ -73,7 +77,11 @@ export default function Profile() {
 
   const handleChange = (e) => {
     if (e.target.type === "file") {
-      setValues({ ...values, [e.target.name]: e.target.files });
+      setValues({ ...{
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }, [e.target.name]: e.target.files });
     } else {
       setValues({
         ...values,
@@ -148,7 +156,6 @@ export default function Profile() {
           status: true,
           userId: getLocalStorage.dataUser.id,
         },
-        values,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -191,7 +198,11 @@ export default function Profile() {
                   type="text"
                   name="name"
                   id="name"
-                  value={values?.name || ""}
+                  value={{
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }?.name || ""}
                   onChange={handleChange}
                 />
               </div>
@@ -201,7 +212,11 @@ export default function Profile() {
                   type="text"
                   name="email"
                   id="email"
-                  value={values?.email || ""}
+                  value={{
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }?.email || ""}
                   onChange={handleChange}
                 />
               </div>
@@ -211,7 +226,11 @@ export default function Profile() {
                   type="text"
                   name="phone_number"
                   id="phone_number"
-                  value={values?.phone_number || ""}
+                  value={{
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }?.phone_number || ""}
                   onChange={handleChange}
                 />
               </div>
