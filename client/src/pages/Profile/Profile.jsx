@@ -23,7 +23,12 @@ export default function Profile() {
   useEffect(() => {
     axios
       .get(
-        `https://project-ii-server.vercel.app/address/${getLocalStorage.dataUser.id}`
+        `https://project-ii-server.vercel.app/address/${getLocalStorage.dataUser.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       )
       .then((res) => {
         setDataAddress(res.data);
@@ -31,7 +36,7 @@ export default function Profile() {
       .catch((err) => {
         console.error(err);
       });
-  }, [dataAddress]);
+  }, []);
 
   useEffect(() => {
     const getDate = moment(getLocalStorage.dataUser.date_available);
